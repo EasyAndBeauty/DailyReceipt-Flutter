@@ -13,24 +13,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+          useMaterial3: true,
+          colorScheme: const ColorScheme(
+            brightness: Brightness.dark,
+            primary: Color(0xFF191919),
+            onPrimary: Color(0xFFefefef),
+            secondary: Color(0xFFaaaaaa),
+            onSecondary: Color(0xFF191919),
+            tertiary: Color(0xFF81C944),
+            onTertiary: Color(0xFFefefef),
+            error: Color(0xFFA65C5C),
+            onError: Color(0xFFefefef),
+            background: Color(0xFF191919),
+            onBackground: Color(0xFFefefef),
+            surface: Color(0xFFefefef),
+            onSurface: Color(0xFF191919),
+          )),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
