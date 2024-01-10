@@ -19,6 +19,7 @@ class AppTheme {
       surface: AppColors.white,
       onSurface: AppColors.black,
     ),
+    dialogBackgroundColor: AppColors.blackSemiTransparent,
     textTheme: textTheme,
   );
 
@@ -57,4 +58,5 @@ class AppColors {
   static const grey = Color(0xFFaaaaaa);
   static const green = Color(0xFF81C944);
   static const red = Color(0xFFA65C5C);
+  static const blackSemiTransparent = Color(0x99000000);
 }
