@@ -6,18 +6,18 @@ class AppTheme {
     useMaterial3: true,
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,
-      primary: Color(0xFF191919),
-      onPrimary: Color(0xFFefefef),
-      secondary: Color(0xFFaaaaaa),
-      onSecondary: Color(0xFF191919),
-      tertiary: Color(0xFF81C944),
-      onTertiary: Color(0xFFefefef),
-      error: Color(0xFFA65C5C),
-      onError: Color(0xFFefefef),
-      background: Color(0xFF191919),
-      onBackground: Color(0xFFefefef),
-      surface: Color(0xFFefefef),
-      onSurface: Color(0xFF191919),
+      primary: AppColors.black,
+      onPrimary: AppColors.white,
+      secondary: AppColors.grey,
+      onSecondary: AppColors.black,
+      tertiary: AppColors.green,
+      onTertiary: AppColors.white,
+      error: AppColors.red,
+      onError: AppColors.white,
+      background: AppColors.black,
+      onBackground: AppColors.white,
+      surface: AppColors.white,
+      onSurface: AppColors.black,
     ),
     textTheme: textTheme,
   );
@@ -49,4 +49,12 @@ class AppTheme {
       fontSize: 14,
     ),
   );
+}
+
+class AppColors {
+  static const black = Color(0xFF191919);
+  static const white = Color(0xFFefefef);
+  static const grey = Color(0xFFaaaaaa);
+  static const green = Color(0xFF81C944);
+  static const red = Color(0xFFA65C5C);
 }
