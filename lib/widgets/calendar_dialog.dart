@@ -53,7 +53,7 @@ class CalendarDialog extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
               todayDecoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.secondary,
                 shape: BoxShape.circle,
               ),
               selectedTextStyle: TextStyle(
