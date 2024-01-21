@@ -28,7 +28,7 @@ class CalendarDialog extends StatelessWidget {
               calendarProvider.selectDate(selectedDay);
             },
             selectedDayPredicate: (day) {
-              return isSameDay(calendarProvider.selectedDate, day);
+              return isSameDay(calendarProvider.selectedDate, day.toLocal());
             },
             headerStyle: HeaderStyle(
               formatButtonVisible: false,

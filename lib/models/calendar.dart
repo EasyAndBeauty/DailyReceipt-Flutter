@@ -4,7 +4,7 @@ class Calendar extends ChangeNotifier {
   DateTime now = DateTime.now().toUtc();
   late DateTime _selectedDate = DateTime.utc(now.year, now.month, now.day);
 
-  DateTime get selectedDate => _selectedDate;
+  DateTime get selectedDate => _selectedDate.toLocal();
 
   void selectDate(DateTime date) {
     _selectedDate = date;
