@@ -10,6 +10,7 @@ void main() {
         id: todosProvider.todos.length,
         content: 'test',
         createdAt: DateTime.now().toUtc(),
+        scheduledDate: DateTime(2024, 1, 1),
       );
 
       todosProvider.add(newTodo);

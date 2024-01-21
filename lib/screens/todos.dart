@@ -1,3 +1,4 @@
+import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class TodosScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController();
     final Todos todosProvider = Provider.of<Todos>(context, listen: false);
+    final calendarProvider = Provider.of<Calendar>(context, listen: false);
 
     void addTodo() {
       if (controller.text.isEmpty) return;
@@ -18,6 +20,7 @@ class TodosScreen extends StatelessWidget {
         id: todosProvider.todos.length,
         content: controller.text,
         createdAt: DateTime.now().toUtc(),
+        scheduledDate: calendarProvider.selectedDate,
       );
 
       todosProvider.add(newTodo);

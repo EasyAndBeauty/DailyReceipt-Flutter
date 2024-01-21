@@ -18,6 +18,7 @@ class Todo {
 
   final DateTime createdAt;
   DateTime? completedAt;
+  DateTime scheduledDate;
 
   Todo({
     required this.id,
@@ -25,5 +26,6 @@ class Todo {
     this.isDone = false,
     required this.createdAt,
     this.completedAt,
+    required this.scheduledDate,
   });
 }
