@@ -26,6 +26,7 @@ class CalendarDialog extends StatelessWidget {
             calendarFormat: CalendarFormat.month,
             onDaySelected: (selectedDay, focusedDay) {
               calendarProvider.selectDate(selectedDay);
+              Navigator.pop(context);
             },
             selectedDayPredicate: (day) {
               return isSameDay(calendarProvider.selectedDate, day.toLocal());
