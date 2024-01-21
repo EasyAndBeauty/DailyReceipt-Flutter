@@ -1,4 +1,5 @@
 import 'package:daily_receipt/models/todos.dart';
+import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +29,13 @@ class TodosScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
+            IconButton(
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => const CalendarDialog()),
+              icon: const Icon(Icons.calendar_month_rounded),
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             TextField(
               controller: controller,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
