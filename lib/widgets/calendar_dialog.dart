@@ -1,5 +1,7 @@
+import 'package:daily_receipt/models/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarDialog extends StatelessWidget {
@@ -7,6 +9,8 @@ class CalendarDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final calendarProvider = Provider.of<Calendar>(context, listen: false);
+
     return Dialog(
       backgroundColor: Theme.of(context).colorScheme.surface,
       surfaceTintColor: Theme.of(context).colorScheme.surface,
@@ -18,8 +22,14 @@ class CalendarDialog extends StatelessWidget {
           child: TableCalendar(
             firstDay: DateTime.utc(2023, 1, 1),
             lastDay: DateTime.utc(2034, 12, 31),
-            focusedDay: DateTime.now(),
+            focusedDay: calendarProvider.selectedDate,
             calendarFormat: CalendarFormat.month,
+            onDaySelected: (selectedDay, focusedDay) {
+              calendarProvider.selectDate(selectedDay);
+            },
+            selectedDayPredicate: (day) {
+              return isSameDay(calendarProvider.selectedDate, day);
+            },
             headerStyle: HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
@@ -43,6 +53,13 @@ class CalendarDialog extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
               todayDecoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                shape: BoxShape.circle,
+              ),
+              selectedTextStyle: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              selectedDecoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
                 shape: BoxShape.circle,
               ),
