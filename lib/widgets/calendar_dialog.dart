@@ -22,20 +22,20 @@ class CalendarDialog extends StatelessWidget {
           child: TableCalendar(
             firstDay: DateTime.utc(2023, 1, 1),
             lastDay: DateTime.utc(2034, 12, 31),
-            focusedDay: calendarProvider.selectedDate,
+            focusedDay: calendarProvider.selectedDate.toLocal(),
             calendarFormat: CalendarFormat.month,
             onDaySelected: (selectedDay, focusedDay) {
               calendarProvider.selectDate(selectedDay);
               Navigator.pop(context);
             },
             selectedDayPredicate: (day) {
-              return isSameDay(calendarProvider.selectedDate, day.toLocal());
+              return isSameDay(calendarProvider.selectedDate, day);
             },
             headerStyle: HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
               titleTextFormatter: (date, locale) {
-                return DateFormat('yyyy.MM.').format(date.toLocal()).toString();
+                return DateFormat('yyyy.MM.').format(date).toString();
               },
               titleTextStyle: Theme.of(context).textTheme.titleLarge!,
               headerPadding: const EdgeInsets.only(top: 6, bottom: 6),
