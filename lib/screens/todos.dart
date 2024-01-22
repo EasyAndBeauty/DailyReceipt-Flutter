@@ -2,6 +2,7 @@ import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class TodosScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class TodosScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController();
     final Todos todosProvider = Provider.of<Todos>(context, listen: false);
-    final calendarProvider = Provider.of<Calendar>(context, listen: false);
+    final calendarProvider = Provider.of<Calendar>(context, listen: true);
 
     void addTodo() {
       if (controller.text.isEmpty) return;
@@ -32,12 +33,27 @@ class TodosScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
-            IconButton(
-              onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => const CalendarDialog()),
-              icon: const Icon(Icons.calendar_month_rounded),
-              color: Theme.of(context).colorScheme.secondary,
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat('MMMM')
+                      .format(calendarProvider.selectedDate)
+                      .toString(),
+                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                ),
+                IconButton(
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => const CalendarDialog()),
+                  icon: const Icon(Icons.calendar_month_rounded),
+                  iconSize: 28,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ],
             ),
             TextField(
               controller: controller,
