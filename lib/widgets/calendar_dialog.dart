@@ -1,4 +1,5 @@
 import 'package:daily_receipt/models/calendar.dart';
+import 'package:daily_receipt/models/todos.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ class CalendarDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final calendarProvider = Provider.of<Calendar>(context, listen: false);
+    final todosProvider = Provider.of<Todos>(context, listen: false);
 
     return Dialog(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -30,6 +32,11 @@ class CalendarDialog extends StatelessWidget {
             },
             selectedDayPredicate: (day) {
               return isSameDay(calendarProvider.selectedDate, day);
+            },
+            eventLoader: (day) {
+              return todosProvider.groupedTodosByDate[day] != null
+                  ? [true]
+                  : [];
             },
             headerStyle: HeaderStyle(
               formatButtonVisible: false,
@@ -62,6 +69,14 @@ class CalendarDialog extends StatelessWidget {
               ),
               selectedDecoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
+                shape: BoxShape.circle,
+              ),
+              markersAnchor: 4,
+              markersAlignment: Alignment.topRight,
+              markerMargin: const EdgeInsets.only(right: 5),
+              markerSize: 8,
+              markerDecoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.tertiary,
                 shape: BoxShape.circle,
               ),
             ),
