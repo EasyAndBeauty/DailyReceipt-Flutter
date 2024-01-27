@@ -1,3 +1,4 @@
+import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/screens/todos.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +7,13 @@ import 'package:provider/provider.dart';
 import './theme.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => Todos(),
-      child: const MyApp(),
-    ),
-  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => Todos()),
+      ChangeNotifierProvider(create: (context) => Calendar()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

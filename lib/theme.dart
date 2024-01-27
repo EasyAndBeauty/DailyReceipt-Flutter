@@ -24,9 +24,10 @@ class AppTheme {
   );
 
   static TextTheme textTheme = TextTheme(
-    headlineLarge: GoogleFonts.gothicA1(
-      fontSize: 28,
+    headlineLarge: GoogleFonts.courierPrime(
+      fontSize: 32,
       fontWeight: FontWeight.bold,
+      letterSpacing: -1,
     ),
     titleLarge: GoogleFonts.courierPrime(
       fontSize: 24,

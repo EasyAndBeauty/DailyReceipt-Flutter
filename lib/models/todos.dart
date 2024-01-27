@@ -5,9 +5,27 @@ class Todos extends ChangeNotifier {
 
   List<Todo> get todos => _todos;
 
+  Map<DateTime, List<Todo>> get groupedTodosByDate {
+    return groupTodosByDate(_todos);
+  }
+
   void add(Todo todo) {
     _todos.add(todo);
     notifyListeners();
+  }
+
+  Map<DateTime, List<Todo>> groupTodosByDate(List<Todo> todos) {
+    Map<DateTime, List<Todo>> grouped = {};
+
+    for (Todo todo in todos) {
+      DateTime date = todo.scheduledDate;
+      if (!grouped.containsKey(date)) {
+        grouped[date] = [];
+      }
+      grouped[date]!.add(todo);
+    }
+
+    return grouped;
   }
 }
 
@@ -18,6 +36,7 @@ class Todo {
 
   final DateTime createdAt;
   DateTime? completedAt;
+  DateTime scheduledDate;
 
   Todo({
     required this.id,
@@ -25,5 +44,6 @@ class Todo {
     this.isDone = false,
     required this.createdAt,
     this.completedAt,
+    required this.scheduledDate,
   });
 }
