@@ -17,7 +17,7 @@ class Todos extends ChangeNotifier {
   Map<DateTime, List<Todo>> groupTodosByDate(List<Todo> todos) {
     Map<DateTime, List<Todo>> grouped = {};
 
-    for (var todo in todos) {
+    for (Todo todo in todos) {
       DateTime date = todo.scheduledDate;
       if (!grouped.containsKey(date)) {
         grouped[date] = [];
