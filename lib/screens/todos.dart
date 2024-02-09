@@ -92,32 +92,26 @@ class TodosScreen extends StatelessWidget {
               ),
               onSubmitted: (_) => addTodo(),
             ),
-            todos.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                        // calendarProvider.selectedDate
-                        itemCount: todos.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(
-                              todos[index].content,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                  ),
-                            ),
-                          );
-                        }),
-                  )
-                : Center(
-                    child: Text('아직 작성된 항목이 없습니다.',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground)),
-                  ),
+            if (todos.isNotEmpty)
+              Expanded(
+                child: ListView.builder(
+                    // calendarProvider.selectedDate
+                    itemCount: todos.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                          todos[index].content,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                              ),
+                        ),
+                      );
+                    }),
+              )
           ],
         ),
       ),
