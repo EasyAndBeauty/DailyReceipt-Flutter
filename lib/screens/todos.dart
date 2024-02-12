@@ -11,8 +11,10 @@ class TodosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController();
-    final Todos todosProvider = Provider.of<Todos>(context, listen: false);
+    final Todos todosProvider = Provider.of<Todos>(context, listen: true);
     final calendarProvider = Provider.of<Calendar>(context, listen: true);
+    List<Todo> todos =
+        todosProvider.groupedTodosByDate[calendarProvider.selectedDate] ?? [];
 
     void addTodo() {
       if (controller.text.isEmpty) return;
@@ -90,6 +92,26 @@ class TodosScreen extends StatelessWidget {
               ),
               onSubmitted: (_) => addTodo(),
             ),
+            if (todos.isNotEmpty)
+              Expanded(
+                child: ListView.builder(
+                    // calendarProvider.selectedDate
+                    itemCount: todos.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                          todos[index].content,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                              ),
+                        ),
+                      );
+                    }),
+              )
           ],
         ),
       ),
