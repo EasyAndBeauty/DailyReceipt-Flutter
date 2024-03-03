@@ -4,6 +4,7 @@ import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class TodosScreen extends StatelessWidget {
   const TodosScreen({super.key});
@@ -56,6 +57,66 @@ class TodosScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ],
+            ),
+            TableCalendar(
+              firstDay: DateTime.utc(2023, 1, 1),
+              lastDay: DateTime.utc(2034, 12, 31),
+              focusedDay: calendarProvider.selectedDate.toLocal(),
+              calendarFormat: CalendarFormat.week,
+              onDaySelected: (selectedDay, focusedDay) {
+                calendarProvider.selectDate(selectedDay);
+              },
+              selectedDayPredicate: (day) {
+                return isSameDay(calendarProvider.selectedDate, day);
+              },
+              eventLoader: (day) {
+                return todosProvider.groupedTodosByDate[day] != null
+                    ? [true]
+                    : [];
+              },
+              headerStyle: const HeaderStyle(
+                titleTextStyle: TextStyle(fontSize: 0),
+                formatButtonVisible: false,
+                leftChevronVisible: false,
+                rightChevronVisible: false,
+                headerMargin: EdgeInsets.zero,
+              ),
+              daysOfWeekStyle: DaysOfWeekStyle(
+                weekdayStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                weekendStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
+              calendarStyle: CalendarStyle(
+                defaultTextStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                todayTextStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                selectedTextStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  shape: BoxShape.circle,
+                ),
+                selectedDecoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  shape: BoxShape.circle,
+                ),
+                markersAnchor: 4,
+                markersAlignment: Alignment.topRight,
+                markerMargin: const EdgeInsets.only(right: 5),
+                markerSize: 8,
+                markerDecoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              rowHeight: 60,
             ),
             TextField(
               controller: controller,
