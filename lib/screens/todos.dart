@@ -93,6 +93,9 @@ class TodosScreen extends StatelessWidget {
                 defaultTextStyle: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
+                weekendTextStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
                 todayTextStyle: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
