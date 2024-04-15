@@ -14,6 +14,11 @@ class Todos extends ChangeNotifier {
     notifyListeners();
   }
 
+  void remove(int index) {
+    _todos.removeAt(index);
+    notifyListeners();
+  }
+
   Map<DateTime, List<Todo>> groupTodosByDate(List<Todo> todos) {
     Map<DateTime, List<Todo>> grouped = {};
 
