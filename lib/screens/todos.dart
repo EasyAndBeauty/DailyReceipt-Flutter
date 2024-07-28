@@ -173,6 +173,13 @@ class TodosScreen extends StatelessWidget {
                                     Theme.of(context).colorScheme.onBackground,
                               ),
                         ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.close),
+                          color: Theme.of(context).colorScheme.error,
+                          onPressed: () {
+                            todosProvider.remove(todos[index].id);
+                          },
+                        ),
                       );
                     }),
               )
