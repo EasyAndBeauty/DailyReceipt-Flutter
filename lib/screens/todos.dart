@@ -162,25 +162,53 @@ class TodosScreen extends StatelessWidget {
                     // calendarProvider.selectedDate
                     itemCount: todos.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                          todos[index].content,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                      return Theme(
+                          data: Theme.of(context).copyWith(
+                            checkboxTheme: CheckboxThemeData(
+                              side: MaterialStateBorderSide.resolveWith(
+                                (states) => BorderSide(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  width: 2,
+                                ),
                               ),
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.close),
-                          color: Theme.of(context).colorScheme.error,
-                          onPressed: () {
-                            todosProvider.remove(todos[index].id);
-                          },
-                        ),
-                      );
+                            ),
+                          ),
+                          child: ListTile(
+                            leading: IconButton(
+                              icon: Icon(
+                                todos[index].isDone
+                                    ? Icons.check_circle
+                                    : Icons.circle_outlined,
+                                color: todos[index].isDone
+                                    ? Theme.of(context).colorScheme.tertiary
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                              ),
+                              onPressed: () {
+                                todosProvider.toggleDone(todos[index].id);
+                              },
+                            ),
+                            title: Text(
+                              todos[index].content,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                                  ),
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.close),
+                              color: Theme.of(context).colorScheme.error,
+                              onPressed: () {
+                                todosProvider.remove(todos[index].id);
+                              },
+                            ),
+                          ));
                     }),
               )
           ],

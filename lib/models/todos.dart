@@ -19,6 +19,14 @@ class Todos extends ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleDone(int id) {
+    int index = _todos.indexWhere((todo) => todo.id == id);
+    if (index != -1) {
+      _todos[index].isDone = !_todos[index].isDone;
+      notifyListeners();
+    }
+  }
+
   Map<DateTime, List<Todo>> groupTodosByDate(List<Todo> todos) {
     Map<DateTime, List<Todo>> grouped = {};
 
