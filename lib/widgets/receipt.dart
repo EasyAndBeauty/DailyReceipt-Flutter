@@ -18,40 +18,69 @@ class ReceiptComponent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Text(
-                'RECEIPT',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  'RECEIPT',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
               ),
             ),
-            const SizedBox(height: 8),
             const ReceiptText('September 6, 2022 11:12:16'),
             const Divider(),
-            const ReceiptItem('new Plus Icon', '0:01'),
-            const ReceiptItem('new Check Icon', '0:01'),
-            const ReceiptItem('Hey Test Someth...', '0:01'),
-            const Divider(),
-            const ReceiptItem('ITEM COUNT :', '3'),
-            const ReceiptItem('TOTAL :', '0:03'),
-            const Divider(),
-            const Center(
-              child: ReceiptText(
-                'No "brand" is your friend.',
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Column(
+                children: [
+                  ReceiptItem('new Plus Icon', '0:01'),
+                  ReceiptItem('new Check Icon', '0:01'),
+                  ReceiptItem('Hey Test Someth...', '0:01'),
+                ],
               ),
             ),
+            const Divider(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Column(
+                children: [
+                  ReceiptItem('ITEM COUNT :', '3'),
+                  ReceiptItem('TOTAL :', '0:03'),
+                ],
+              ),
+            ),
+            const Divider(),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Center(
+                child: ReceiptText(
+                  'No "brand" is your friend.',
+                ),
+              ),
+            ),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Column(
+                children: [
+                  const SizedBox(height: 8),
+                  Center(
+                    child: Container(
+                      width: 200,
+                      height: 50,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Center(
+                    child: ReceiptText('https://www.daily-receipt.com'),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(),
             const SizedBox(height: 16),
-            Center(
-              child: Container(
-                width: 200,
-                height: 50,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Center(
-              child: ReceiptText('https://www.daily-receipt.com'),
-            ),
           ],
         ),
       ),
@@ -67,15 +96,12 @@ class ReceiptItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ReceiptText(name),
-          ReceiptText(value),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ReceiptText(name),
+        ReceiptText(value),
+      ],
     );
   }
 }
