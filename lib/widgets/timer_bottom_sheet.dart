@@ -75,7 +75,7 @@ class TimerBottomSheet extends StatelessWidget {
 
   void _showStopConfirmationDialog(BuildContext context, TodoTimer todoTimer) {
     showDialog(
-      context: context,
+      context: Navigator.of(context, rootNavigator: true).context,
       builder: (BuildContext context) {
         return ConfirmationDialog(
           title: '타이머 중지',
