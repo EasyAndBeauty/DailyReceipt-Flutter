@@ -1,6 +1,8 @@
 import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
+import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
+import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +49,19 @@ class _TodosScreenState extends State<TodosScreen> {
         editingId = null;
       });
       editController.clear();
+    }
+
+    void showTimerBottomSheet(BuildContext context, String todoTitle) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return ChangeNotifierProvider(
+            create: (_) => TodoTimer(todoTitle: todoTitle),
+            child: TimerBottomSheet(),
+          );
+        },
+      );
     }
 
     return Scaffold(
@@ -219,22 +234,23 @@ class _TodosScreenState extends State<TodosScreen> {
                                       .colorScheme
                                       .onBackground,
                                   decoration: InputDecoration(
-                                      isDense: true,
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .tertiary,
-                                        ),
+                                    isDense: true,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                       ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .tertiary,
-                                        ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                       ),
-                                      contentPadding: EdgeInsets.all(0)),
+                                    ),
+                                    contentPadding: EdgeInsets.all(0),
+                                  ),
                                   onSubmitted: (_) => updateTodo(),
                                 )
                               : Text(
@@ -277,6 +293,14 @@ class _TodosScreenState extends State<TodosScreen> {
                                 color: Theme.of(context).colorScheme.error,
                                 onPressed: () {
                                   todosProvider.remove(todos[index].id);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.timer),
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                onPressed: () {
+                                  showTimerBottomSheet(
+                                      context, todos[index].content);
                                 },
                               ),
                             ],
