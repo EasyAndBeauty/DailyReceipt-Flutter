@@ -14,6 +14,27 @@ class Todos extends ChangeNotifier {
     notifyListeners();
   }
 
+  void remove(int index) {
+    _todos.removeAt(index);
+    notifyListeners();
+  }
+
+  void toggleDone(int id) {
+    int index = _todos.indexWhere((todo) => todo.id == id);
+    if (index != -1) {
+      _todos[index].isDone = !_todos[index].isDone;
+      notifyListeners();
+    }
+  }
+
+  void update(int id, String newContent) {
+    int index = _todos.indexWhere((todo) => todo.id == id);
+    if (index != -1) {
+      _todos[index].content = newContent;
+      notifyListeners();
+    }
+  }
+
   Map<DateTime, List<Todo>> groupTodosByDate(List<Todo> todos) {
     Map<DateTime, List<Todo>> grouped = {};
 
