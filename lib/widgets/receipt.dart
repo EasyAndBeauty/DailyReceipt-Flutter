@@ -5,10 +5,12 @@ import 'receipt_edge_clipper.dart';
 import 'receipt_item.dart';
 import 'receipt_text.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 class ReceiptComponent extends StatelessWidget {
   final List<Todo> todos;
-  const ReceiptComponent(this.todos, {super.key});
+  final DateTime date;
+  const ReceiptComponent(this.todos, this.date, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class ReceiptComponent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const ReceiptText('September 6, 2022 11:12:16'),
+                  ReceiptText(DateFormat('MMMM d, y').format(date.toLocal())),
                   DashedDivider(
                     color: Theme.of(context).colorScheme.primary,
                   ),
