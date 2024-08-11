@@ -15,90 +15,100 @@ class ReceiptComponent extends StatelessWidget {
       widthFactor: 0.9,
       child: ClipPath(
         clipper: ReceiptClipper(),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Text(
-                    'RECEIPT',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                  ),
-                ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/paper_texture.webp',
+                fit: BoxFit.cover,
               ),
-              const ReceiptText('September 6, 2022 11:12:16'),
-              DashedDivider(
-                color: Theme.of(context).colorScheme.primary,
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.05),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                child: Column(
-                    children: todos
-                        .map((todo) => ReceiptItem(todo.content, '0:01'))
-                        .toList()),
-              ),
-              DashedDivider(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                child: Column(
-                  children: [
-                    ReceiptItem('ITEM COUNT :', todos.length.toString()),
-                    const ReceiptItem('TOTAL :', '0:03'),
-                  ],
-                ),
-              ),
-              DashedDivider(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Center(
-                  child: ReceiptText(
-                    'No "brand" is your friend.',
-                  ),
-                ),
-              ),
-              DashedDivider(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 8),
-                    Center(
-                      child: Container(
-                        width: 200,
-                        height: 50,
-                        color: Colors.black,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Text(
+                        'RECEIPT',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    const Center(
-                      child: ReceiptText('https://www.daily-receipt.com'),
+                  ),
+                  const ReceiptText('September 6, 2022 11:12:16'),
+                  DashedDivider(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 16),
+                    child: Column(
+                        children: todos
+                            .map((todo) => ReceiptItem(todo.content, '0:01'))
+                            .toList()),
+                  ),
+                  DashedDivider(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 16),
+                    child: Column(
+                      children: [
+                        ReceiptItem('ITEM COUNT :', todos.length.toString()),
+                        const ReceiptItem('TOTAL :', '0:03'),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  DashedDivider(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Center(
+                      child: ReceiptText(
+                        'No "brand" is your friend.',
+                      ),
+                    ),
+                  ),
+                  DashedDivider(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 16),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Center(
+                          child: Container(
+                            width: 200,
+                            height: 50,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Center(
+                          child: ReceiptText('https://www.daily-receipt.com'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  DashedDivider(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
-              DashedDivider(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const SizedBox(height: 16),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
