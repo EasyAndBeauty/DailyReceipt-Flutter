@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:daily_receipt/models/todos.dart';
 
 class ReceiptComponent extends StatelessWidget {
-  const ReceiptComponent({super.key});
+  final List<Todo> todos;
+  const ReceiptComponent(this.todos, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +32,13 @@ class ReceiptComponent extends StatelessWidget {
               ),
               const ReceiptText('September 6, 2022 11:12:16'),
               const Divider(),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                 child: Column(
-                  children: [
-                    ReceiptItem('new Plus Icon', '0:01'),
-                    ReceiptItem('new Check Icon', '0:01'),
-                    ReceiptItem('Hey Test Someth...', '0:01'),
-                  ],
-                ),
+                    children: todos
+                        .map((todo) => ReceiptItem(todo.content, '0:01'))
+                        .toList()),
               ),
               const Divider(),
               const Padding(
