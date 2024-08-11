@@ -41,12 +41,13 @@ class ReceiptComponent extends StatelessWidget {
                         .toList()),
               ),
               const Divider(),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                 child: Column(
                   children: [
-                    ReceiptItem('ITEM COUNT :', '3'),
-                    ReceiptItem('TOTAL :', '0:03'),
+                    ReceiptItem('ITEM COUNT :', todos.length.toString()),
+                    const ReceiptItem('TOTAL :', '0:03'),
                   ],
                 ),
               ),
