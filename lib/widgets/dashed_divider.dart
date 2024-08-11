@@ -12,9 +12,12 @@ class DashedDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size.fromHeight(height),
-      painter: _DashedLinePainter(color: color),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: CustomPaint(
+        size: Size.fromHeight(height),
+        painter: _DashedLinePainter(color: color),
+      ),
     );
   }
 }
