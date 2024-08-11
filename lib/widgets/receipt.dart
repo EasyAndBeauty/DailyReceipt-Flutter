@@ -76,8 +76,15 @@ class ReceiptComponent extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: Center(
-                      child: ReceiptText(
-                        'No "brand" is your friend.',
+                      child: Column(
+                        children: [
+                          ReceiptText(
+                            'Print Your Time',
+                          ),
+                          ReceiptText(
+                            'Daily Receipt',
+                          ),
+                        ],
                       ),
                     ),
                   ),
