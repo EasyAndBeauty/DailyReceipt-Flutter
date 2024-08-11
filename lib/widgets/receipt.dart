@@ -1,3 +1,4 @@
+import 'package:daily_receipt/widgets/dashed_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'receipt_edge_clipper.dart';
@@ -34,7 +35,9 @@ class ReceiptComponent extends StatelessWidget {
                 ),
               ),
               const ReceiptText('September 6, 2022 11:12:16'),
-              const Divider(),
+              DashedDivider(
+                color: Theme.of(context).colorScheme.primary,
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -43,7 +46,9 @@ class ReceiptComponent extends StatelessWidget {
                         .map((todo) => ReceiptItem(todo.content, '0:01'))
                         .toList()),
               ),
-              const Divider(),
+              DashedDivider(
+                color: Theme.of(context).colorScheme.primary,
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -54,7 +59,9 @@ class ReceiptComponent extends StatelessWidget {
                   ],
                 ),
               ),
-              const Divider(),
+              DashedDivider(
+                color: Theme.of(context).colorScheme.primary,
+              ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Center(
@@ -63,7 +70,9 @@ class ReceiptComponent extends StatelessWidget {
                   ),
                 ),
               ),
-              const Divider(),
+              DashedDivider(
+                color: Theme.of(context).colorScheme.primary,
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -84,7 +93,9 @@ class ReceiptComponent extends StatelessWidget {
                   ],
                 ),
               ),
-              const Divider(),
+              DashedDivider(
+                color: Theme.of(context).colorScheme.primary,
+              ),
               const SizedBox(height: 16),
             ],
           ),
