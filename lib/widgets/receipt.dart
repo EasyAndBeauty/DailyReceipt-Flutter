@@ -4,6 +4,7 @@ import 'package:daily_receipt/models/todos.dart';
 import 'receipt_edge_clipper.dart';
 import 'receipt_item.dart';
 import 'receipt_text.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ReceiptComponent extends StatelessWidget {
   final List<Todo> todos;
@@ -88,10 +89,13 @@ class ReceiptComponent extends StatelessWidget {
                       children: [
                         const SizedBox(height: 8),
                         Center(
-                          child: Container(
-                            width: 200,
-                            height: 50,
-                            color: Colors.black,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 16),
+                            child: SvgPicture.asset(
+                              'assets/barcode.svg',
+                              height: 50,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 8),
