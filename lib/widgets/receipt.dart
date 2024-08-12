@@ -1,11 +1,11 @@
+import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/dashed_divider.dart';
 import 'package:flutter/material.dart';
-import 'package:daily_receipt/models/todos.dart';
+import 'package:intl/intl.dart';
+
 import 'receipt_edge_clipper.dart';
 import 'receipt_item.dart';
 import 'receipt_text.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 
 class ReceiptComponent extends StatelessWidget {
   final List<Todo> todos;
@@ -100,10 +100,12 @@ class ReceiptComponent extends StatelessWidget {
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 16),
-                            child: SvgPicture.asset(
-                              'assets/barcode.svg',
-                              height: 50,
+                                horizontal: 12, vertical: 8),
+                            child: Image.asset(
+                              'assets/barcode.png',
+                              fit: BoxFit.cover,
+                              color: Theme.of(context).colorScheme.primary,
+                              height: 40,
                             ),
                           ),
                         ),
