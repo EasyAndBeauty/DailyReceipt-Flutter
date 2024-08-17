@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/widgets/confirmation_dialog.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TimerBottomSheet extends StatelessWidget {
   @override
@@ -9,66 +10,171 @@ class TimerBottomSheet extends StatelessWidget {
     final todoTimer = Provider.of<TodoTimer>(context);
     final theme = Theme.of(context);
 
+    String _getMessageByTimerState(TimerState state) {
+      switch (state) {
+        case TimerState.idle:
+          return 'Play 버튼을 눌러 타이머를 시작해보세요.';
+        case TimerState.running:
+          return '조금 더 집중한 이 시간이\n더 빛나는 내일을 만들어 줄 거예요.';
+        case TimerState.paused:
+          return '다시 집중하고 싶다면\nStart 버튼을 눌러주세요.';
+        case TimerState.completed:
+          return '훌륭해요! 오늘의 집중이\n내일의 성과로 이어질 거예요.';
+      }
+    }
+
+    Color _getColorByTimerState(TimerState state, bool isReversed) {
+      Color activeColor = isReversed
+          ? theme.colorScheme.onPrimary
+          : theme.colorScheme.secondary;
+      Color inactiveColor = isReversed
+          ? theme.colorScheme.secondary
+          : theme.colorScheme.onPrimary;
+
+      switch (state) {
+        case TimerState.idle:
+          return inactiveColor;
+        case TimerState.running:
+          return activeColor;
+        case TimerState.paused:
+          return inactiveColor;
+        case TimerState.completed:
+          return activeColor;
+      }
+    }
+
     return Container(
-      height: MediaQuery.of(context).size.height * 0.9,
-      color: theme.colorScheme.primary,
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'TODO: ${todoTimer.todoTitle}',
-            style: theme.textTheme.bodyLarge
-                ?.copyWith(color: theme.colorScheme.onPrimary),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.95,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.primary,
+        border: Border(
+          top: BorderSide(
+            color: theme.colorScheme.secondary,
+            width: 1,
           ),
-          const SizedBox(height: 20),
-          Text(
-            '집중 시간: ${(todoTimer.currentFocusedTime.inMinutes % 60).toString().padLeft(2, '0')}:${(todoTimer.currentFocusedTime.inSeconds % 60).toString().padLeft(2, '0')}',
-            style: theme.textTheme.bodyMedium
-                ?.copyWith(color: theme.colorScheme.onPrimary),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            '조금 더 집중한 이 시간이\n더 빛나는 내일을 만들어 줄 거예요.',
-            textAlign: TextAlign.center,
-            style: theme.textTheme.bodyMedium
-                ?.copyWith(color: theme.colorScheme.onPrimary),
-          ),
-          const SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: () {
-                  if (todoTimer.state == TimerState.running ||
-                      todoTimer.state == TimerState.paused) {
-                    _showStopConfirmationDialog(context, todoTimer);
-                  }
-                },
-                child: Text(
-                  'Stop',
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(color: theme.colorScheme.error),
+        ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      child: SafeArea(
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: SvgPicture.string(
+                  '''
+                  <svg width="28" height="16" viewBox="0 0 28 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 2L14 14L26 2" stroke="#AAAAAA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  ''',
+                  width: 28,
+                  height: 16,
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  if (todoTimer.state == TimerState.idle ||
-                      todoTimer.state == TimerState.paused) {
-                    todoTimer.onEvent(TimerEvent.start);
-                  } else if (todoTimer.state == TimerState.running) {
-                    todoTimer.onEvent(TimerEvent.pause);
-                  }
-                },
-                child: Text(
-                  todoTimer.state == TimerState.running ? 'Pause' : 'Start',
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(color: theme.colorScheme.onPrimary),
-                ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'TODO : ${todoTimer.todoTitle}',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      height: 18 / 14,
+                      letterSpacing: -0.005 * 14,
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8),
+                  todoTimer.state == TimerState.idle
+                      ? Text(
+                          '집중한 시간 : ${todoTimer.totalFocusedTime.inMinutes}분',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            height: 18 / 14,
+                            letterSpacing: -0.005 * 14,
+                            color:
+                                _getColorByTimerState(todoTimer.state, false),
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                      : const SizedBox(),
+                  const SizedBox(height: 32),
+                  Text(
+                    '${(todoTimer.currentFocusedTime.inMinutes % 60).toString().padLeft(2, '0')}:${(todoTimer.currentFocusedTime.inSeconds % 60).toString().padLeft(2, '0')}',
+                    style: theme.textTheme.headlineLarge?.copyWith(
+                      fontFamily: 'Courier Prime',
+                      fontSize: 92,
+                      fontWeight: FontWeight.w400,
+                      height: 103 / 92,
+                      letterSpacing: -0.005 * 92,
+                      color: _getColorByTimerState(todoTimer.state, true),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: 184,
+                    child: Text(
+                      _getMessageByTimerState(todoTimer.state),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        height: 20 / 16,
+                        letterSpacing: -0.005 * 16,
+                        color: _getColorByTimerState(todoTimer.state, false),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      if (todoTimer.state == TimerState.running ||
+                          todoTimer.state == TimerState.paused) {
+                        _showStopConfirmationDialog(context, todoTimer);
+                      }
+                    },
+                    child: Text(
+                      'Stop',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.error,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      if (todoTimer.state == TimerState.idle ||
+                          todoTimer.state == TimerState.paused) {
+                        todoTimer.onEvent(TimerEvent.start);
+                      } else if (todoTimer.state == TimerState.running) {
+                        todoTimer.onEvent(TimerEvent.pause);
+                      }
+                    },
+                    child: Text(
+                      todoTimer.state == TimerState.running ? 'Pause' : 'Start',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onPrimary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -78,11 +184,11 @@ class TimerBottomSheet extends StatelessWidget {
       context: Navigator.of(context, rootNavigator: true).context,
       builder: (BuildContext context) {
         return ConfirmationDialog(
-          title: '타이머 중지',
-          content: '정말로 타이머를 중지하시겠습니까?',
+          title: 'TODO: ${todoTimer.todoTitle}',
+          content: '타이머를 중지할까요?',
           onConfirm: () {
             todoTimer.onEvent(TimerEvent.complete);
-            Navigator.of(context).pop(); // 바텀시트 닫기
+            Navigator.of(context).pop();
           },
         );
       },
