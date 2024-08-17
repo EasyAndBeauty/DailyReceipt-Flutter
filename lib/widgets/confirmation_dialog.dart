@@ -6,33 +6,44 @@ class ConfirmationDialog extends StatelessWidget {
   final VoidCallback onConfirm;
 
   const ConfirmationDialog({
+    Key? key,
     required this.title,
     required this.content,
     required this.onConfirm,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return AlertDialog(
-      backgroundColor: theme.colorScheme.surface,
-      title: Text(title, style: theme.textTheme.titleMedium),
-      content: Text(content, style: theme.textTheme.bodyMedium),
-      actions: <Widget>[
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      title: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            content,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ],
+      ),
+      actions: [
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pop(); // 모달만 닫기
-          },
-          child: Text('취소', style: theme.textTheme.bodySmall),
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('취소'),
         ),
         TextButton(
           onPressed: () {
             onConfirm();
-            Navigator.of(context).pop(); // 모달 닫기
+            Navigator.of(context).pop();
           },
-          child: Text('확인',
-              style: theme.textTheme.bodySmall
-                  ?.copyWith(color: theme.colorScheme.error)),
+          child: Text('확인'),
         ),
       ],
     );
