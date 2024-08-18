@@ -8,220 +8,55 @@ import 'package:daily_receipt/widgets/buttons.dart';
 import 'package:daily_receipt/widgets/dashed_line_painter.dart';
 
 class TimerBottomSheet extends StatelessWidget {
+  static const double _bottomSheetHeight = 0.95;
+  static const double _borderRadius = 30;
+  static const double _borderWidth = 1;
+  static const double _svgWidth = 28;
+  static const double _svgHeight = 16;
+  static const double _verticalPadding = 32.0;
+  static const double _horizontalPadding = 16.0;
+  static const double _spaceBetweenElements = 8.0;
+  static const double _timerFontSize = 92;
+
   final Todo todo;
   final Function(Duration focusedTime) onCompleted;
 
-  TimerBottomSheet({
+  const TimerBottomSheet({
+    Key? key,
     required this.todo,
     required this.onCompleted,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final todoTimer = Provider.of<TodoTimer>(context);
     final theme = Theme.of(context);
 
-    String _getMessageByTimerState(TimerState state) {
-      switch (state) {
-        case TimerState.idle:
-          return 'Play 버튼을 눌러 타이머를 시작해보세요.';
-        case TimerState.running:
-          return '조금 더 집중한 이 시간이\n더 빛나는 내일을 만들어 줄 거예요.';
-        case TimerState.paused:
-          return '다시 집중하고 싶다면\nStart 버튼을 눌러주세요.';
-        case TimerState.completed:
-          return '훌륭해요! 오늘의 집중이\n내일의 성과로 이어질 거예요.';
-      }
-    }
-
-    Color _getColorByTimerState(TimerState state, bool isReversed) {
-      Color activeColor = isReversed
-          ? theme.colorScheme.onPrimary
-          : theme.colorScheme.secondary;
-      Color inactiveColor = isReversed
-          ? theme.colorScheme.secondary
-          : theme.colorScheme.onPrimary;
-
-      switch (state) {
-        case TimerState.idle:
-          return inactiveColor;
-        case TimerState.running:
-          return activeColor;
-        case TimerState.paused:
-          return inactiveColor;
-        case TimerState.completed:
-          return activeColor;
-      }
-    }
-
-    Widget _buildControlButtons(TimerState state) {
-      switch (state) {
-        case TimerState.idle:
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CancelButton(
-                onPressed: () => Navigator.of(context).pop(),
-                color: theme.colorScheme.error,
-              ),
-              PlayButton(
-                onPressed: () => todoTimer.onEvent(TimerEvent.start),
-              ),
-            ],
-          );
-        case TimerState.running:
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              StopButton(
-                onPressed: () =>
-                    _showStopConfirmationDialog(context, todoTimer),
-              ),
-              PauseButton(
-                onPressed: () => todoTimer.onEvent(TimerEvent.pause),
-              ),
-            ],
-          );
-        case TimerState.paused:
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              StopButton(
-                onPressed: () =>
-                    _showStopConfirmationDialog(context, todoTimer),
-              ),
-              PlayButton(
-                onPressed: () => todoTimer.onEvent(TimerEvent.start),
-              ),
-            ],
-          );
-        case TimerState.completed:
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              StopButton(
-                onPressed: () =>
-                    _showStopConfirmationDialog(context, todoTimer),
-              ),
-              PlayButton(
-                onPressed: () => todoTimer.onEvent(TimerEvent.reset),
-              ),
-            ],
-          );
-      }
-    }
-
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.95,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.primary,
-        border: Border(
-          top: BorderSide(
-            color: theme.colorScheme.secondary,
-            width: 1,
-          ),
-        ),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
+      height: MediaQuery.of(context).size.height * _bottomSheetHeight,
+      padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+      decoration: _buildBottomSheetDecoration(theme),
       child: SafeArea(
         child: Column(
           children: [
-            GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0),
-                child: SvgPicture.string(
-                  '''
-                  <svg width="28" height="16" viewBox="0 0 28 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 2L14 14L26 2" stroke="#AAAAAA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  ''',
-                  width: 28,
-                  height: 16,
-                ),
-              ),
-            ),
+            _buildCloseButton(context),
             Expanded(
               child: Column(
                 children: [
-                  const Spacer(flex: 1), // 부모의 높이의 1/4만큼의 공간을 차지
+                  const Spacer(flex: 1),
                   Flexible(
                     flex: 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'TODO : ${todo.content}', // todo의 content 사용
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            height: 18 / 14,
-                            letterSpacing: -0.005 * 14,
-                            color: theme.colorScheme.onPrimary,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 8),
-                        todoTimer.state == TimerState.idle
-                            ? Text(
-                                '집중한 시간 : ${todo.accumulatedTime.inMinutes}분',
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  height: 18 / 14,
-                                  letterSpacing: -0.005 * 14,
-                                  color: _getColorByTimerState(
-                                      todoTimer.state, false),
-                                ),
-                                textAlign: TextAlign.center,
-                              )
-                            : const SizedBox(),
-                        const SizedBox(height: 32),
-                        Text(
-                          '${(todoTimer.focusedTime.inMinutes % 60).toString().padLeft(2, '0')}:${(todoTimer.focusedTime.inSeconds % 60).toString().padLeft(2, '0')}',
-                          style: theme.textTheme.headlineLarge?.copyWith(
-                            fontFamily: 'Courier Prime',
-                            fontSize: 92,
-                            fontWeight: FontWeight.w400,
-                            height: 103 / 92,
-                            letterSpacing: -0.005 * 92,
-                            color: _getColorByTimerState(todoTimer.state, true),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                        SizedBox(
-                          width: 184,
-                          child: Text(
-                            _getMessageByTimerState(todoTimer.state),
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              height: 20 / 16,
-                              letterSpacing: -0.005 * 16,
-                              color:
-                                  _getColorByTimerState(todoTimer.state, false),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _buildTimerContent(context, todoTimer, theme),
                   ),
-                  const Spacer(flex: 1), // 나머지 공간 채우기
+                  const Spacer(flex: 1),
                 ],
               ),
             ),
-            CustomPaint(
-              size: const Size(double.infinity, 1),
-              painter: DashedLinePainter(color: theme.colorScheme.onPrimary),
-            ),
+            _buildDashedLine(theme),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: _buildControlButtons(todoTimer.state),
+              padding: const EdgeInsets.all(_horizontalPadding),
+              child: _buildControlButtons(todoTimer.state, context, todoTimer),
             ),
           ],
         ),
@@ -229,16 +64,219 @@ class TimerBottomSheet extends StatelessWidget {
     );
   }
 
+  BoxDecoration _buildBottomSheetDecoration(ThemeData theme) {
+    return BoxDecoration(
+      color: theme.colorScheme.primary,
+      border: Border(
+        top: BorderSide(
+          color: theme.colorScheme.secondary,
+          width: _borderWidth,
+        ),
+      ),
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(_borderRadius),
+        topRight: Radius.circular(_borderRadius),
+      ),
+    );
+  }
+
+  Widget _buildCloseButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pop(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: _verticalPadding),
+        child: SvgPicture.asset(
+          'icons/arrow_down.svg',
+          width: _svgWidth,
+          height: _svgHeight,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTimerContent(
+      BuildContext context, TodoTimer todoTimer, ThemeData theme) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          'TODO: ${todo.content}',
+          style: _getBodyTextStyle(theme, todoTimer.state, false),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: _spaceBetweenElements),
+        if (todoTimer.state == TimerState.idle)
+          Text(
+            '집중한 시간: ${todo.accumulatedTime.inMinutes}분',
+            style: _getBodyTextStyle(theme, todoTimer.state, false),
+            textAlign: TextAlign.center,
+          ),
+        const SizedBox(height: _verticalPadding),
+        Text(
+          _formatTime(todoTimer.focusedTime),
+          style: _getTimerTextStyle(theme, todoTimer.state),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: _spaceBetweenElements * 2),
+        SizedBox(
+          width: 184,
+          child: Text(
+            _getMessageByTimerState(todoTimer.state),
+            style: _getBodyTextStyle(theme, todoTimer.state, false),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDashedLine(ThemeData theme) {
+    return CustomPaint(
+      size: const Size(double.infinity, 1),
+      painter: DashedLinePainter(color: theme.colorScheme.onPrimary),
+    );
+  }
+
+  Widget _buildControlButtons(
+      TimerState state, BuildContext context, TodoTimer todoTimer) {
+    switch (state) {
+      case TimerState.idle:
+        return _buildIdleButtons(context, todoTimer);
+      case TimerState.running:
+        return _buildRunningButtons(context, todoTimer);
+      case TimerState.paused:
+        return _buildPausedButtons(context, todoTimer);
+      case TimerState.completed:
+        return _buildCompletedButtons(context, todoTimer);
+    }
+  }
+
+  Widget _buildIdleButtons(BuildContext context, TodoTimer todoTimer) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        CancelButton(
+          onPressed: () => Navigator.of(context).pop(),
+          color: Theme.of(context).colorScheme.error,
+        ),
+        PlayButton(
+          onPressed: () => todoTimer.onEvent(TimerEvent.start),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRunningButtons(BuildContext context, TodoTimer todoTimer) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        StopButton(
+          onPressed: () => _showStopConfirmationDialog(context, todoTimer),
+        ),
+        PauseButton(
+          onPressed: () => todoTimer.onEvent(TimerEvent.pause),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPausedButtons(BuildContext context, TodoTimer todoTimer) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        StopButton(
+          onPressed: () => _showStopConfirmationDialog(context, todoTimer),
+        ),
+        PlayButton(
+          onPressed: () => todoTimer.onEvent(TimerEvent.start),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCompletedButtons(BuildContext context, TodoTimer todoTimer) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        StopButton(
+          onPressed: () => _showStopConfirmationDialog(context, todoTimer),
+        ),
+        PlayButton(
+          onPressed: () => todoTimer.onEvent(TimerEvent.reset),
+        ),
+      ],
+    );
+  }
+
+  String _getMessageByTimerState(TimerState state) {
+    switch (state) {
+      case TimerState.idle:
+        return 'Play 버튼을 눌러 타이머를 시작해보세요.';
+      case TimerState.running:
+        return '조금 더 집중한 이 시간이\n더 빛나는 내일을 만들어 줄 거예요.';
+      case TimerState.paused:
+        return '다시 집중하고 싶다면\nStart 버튼을 눌러주세요.';
+      case TimerState.completed:
+        return '훌륭해요! 오늘의 집중이\n내일의 성과로 이어질 거예요.';
+    }
+  }
+
+  Color _getColorByTimerState(
+      ThemeData theme, TimerState state, bool isReversed) {
+    Color activeColor =
+        isReversed ? theme.colorScheme.onPrimary : theme.colorScheme.secondary;
+    Color inactiveColor =
+        isReversed ? theme.colorScheme.secondary : theme.colorScheme.onPrimary;
+
+    switch (state) {
+      case TimerState.idle:
+      case TimerState.paused:
+        return inactiveColor;
+      case TimerState.running:
+      case TimerState.completed:
+        return activeColor;
+    }
+  }
+
+  TextStyle? _getBodyTextStyle(
+      ThemeData theme, TimerState state, bool isReversed) {
+    return theme.textTheme.bodySmall?.copyWith(
+      fontWeight: FontWeight.w700,
+      height: 18 / 14,
+      letterSpacing: -0.005 * 14,
+      color: _getColorByTimerState(theme, state, isReversed),
+    );
+  }
+
+  TextStyle? _getTimerTextStyle(ThemeData theme, TimerState state) {
+    return theme.textTheme.headlineLarge?.copyWith(
+      fontFamily: 'Courier Prime',
+      fontSize: _timerFontSize,
+      fontWeight: FontWeight.w400,
+      height: 103 / 92,
+      letterSpacing: -0.005 * 92,
+      color: _getColorByTimerState(theme, state, true),
+    );
+  }
+
+  String _formatTime(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$minutes:$seconds';
+  }
+
   void _showStopConfirmationDialog(BuildContext context, TodoTimer todoTimer) {
     showDialog(
       context: Navigator.of(context, rootNavigator: true).context,
       builder: (BuildContext context) {
         return ConfirmationDialog(
-          title: 'TODO: ${todo.content}', // todo의 content 사용
+          title: 'TODO: ${todo.content}',
           content: '타이머를 중지할까요?',
           onConfirm: () {
             todoTimer.onEvent(TimerEvent.complete);
-            onCompleted(todoTimer.focusedTime); // 콜백 함수 호출 및 focusedTime 전달
+            onCompleted(todoTimer.focusedTime);
           },
         );
       },
