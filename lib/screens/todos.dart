@@ -216,6 +216,7 @@ class _TodosScreenState extends State<TodosScreen> {
                           ),
                         ),
                         child: ListTile(
+                          contentPadding: EdgeInsets.zero,
                           leading: IconButton(
                             icon: Icon(
                               todos[index].isDone
