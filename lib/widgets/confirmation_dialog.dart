@@ -3,6 +3,11 @@ import 'package:daily_receipt/widgets/dashed_line_painter.dart';
 import 'package:daily_receipt/widgets/buttons.dart';
 
 class ConfirmationDialog extends StatelessWidget {
+  static const double _dialogWidth = 400;
+  static const double _dialogPadding = 24.0;
+  static const double _contentSpacing = 16.0;
+  static const double _dashedLineHeight = 1;
+
   final String title;
   final String content;
   final VoidCallback onConfirm;
@@ -16,60 +21,72 @@ class ConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Dialog(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      child: SizedBox(
-        width: 400, // 고정 너비
+      backgroundColor: theme.colorScheme.surface,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: _dialogWidth),
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(_dialogPadding),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center, // 세로 중앙 정렬
-                children: [
-                  Text(
-                    content,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              CustomPaint(
-                size: const Size(double.infinity, 1),
-                painter: DashedLinePainter(
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
-              const SizedBox(height: 16),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CancelButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  StopButton(
-                    onPressed: () {
-                      onConfirm();
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
+              _buildTitle(theme),
+              const SizedBox(height: _contentSpacing),
+              _buildContent(theme),
+              const SizedBox(height: _contentSpacing),
+              _buildDashedLine(theme),
+              const SizedBox(height: _contentSpacing),
+              _buildActionButtons(context),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTitle(ThemeData theme) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        title,
+        style: theme.textTheme.titleSmall,
+      ),
+    );
+  }
+
+  Widget _buildContent(ThemeData theme) {
+    return Text(
+      content,
+      textAlign: TextAlign.center,
+      style: theme.textTheme.bodyLarge,
+    );
+  }
+
+  Widget _buildDashedLine(ThemeData theme) {
+    return CustomPaint(
+      size: const Size(double.infinity, _dashedLineHeight),
+      painter: DashedLinePainter(
+        color: theme.colorScheme.onSurface,
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        CancelButton(
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        StopButton(
+          onPressed: () {
+            onConfirm();
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }

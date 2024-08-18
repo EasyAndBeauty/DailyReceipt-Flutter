@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-// Define the states
 enum TimerState { idle, running, paused, completed }
 
-// Define the events
 enum TimerEvent { start, pause, complete, reset }
 
 class TodoTimer extends ChangeNotifier {
+  static const Duration _timerInterval = Duration(seconds: 1);
+
   Duration focusedTime = Duration.zero;
   TimerState _state = TimerState.idle;
   Timer? _timer;
@@ -16,6 +16,13 @@ class TodoTimer extends ChangeNotifier {
   TodoTimer();
 
   TimerState get state => _state;
+
+  void onEvent(TimerEvent event) {
+    _transitionState(event);
+    if (!_isDisposed) {
+      notifyListeners();
+    }
+  }
 
   void _transitionState(TimerEvent event) {
     if (_isDisposed) return;
@@ -48,46 +55,35 @@ class TodoTimer extends ChangeNotifier {
     }
   }
 
-  void onEvent(TimerEvent event) {
-    _transitionState(event);
+  void _startTimer() {
+    _state = TimerState.running;
+    _timer = Timer.periodic(_timerInterval, _updateTimer);
+  }
+
+  void _updateTimer(Timer timer) {
+    focusedTime += _timerInterval;
     if (!_isDisposed) {
       notifyListeners();
     }
   }
 
-  void _startTimer() {
-    _state = TimerState.running;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      focusedTime += const Duration(seconds: 1);
-      if (!_isDisposed) {
-        notifyListeners();
-      }
-    });
-    print('Timer started.');
-  }
-
   void _pauseTimer() {
     _state = TimerState.paused;
     _timer?.cancel();
-    print('Timer paused.');
   }
 
   void _completeTimer() {
     _state = TimerState.completed;
     _timer?.cancel();
-    print('Timer completed.');
   }
 
   void _resetTimer() {
     _state = TimerState.idle;
     focusedTime = Duration.zero;
     _timer?.cancel();
-    print('Timer reset.');
   }
 
-  Duration getFocusedTime() {
-    return focusedTime;
-  }
+  Duration getFocusedTime() => focusedTime;
 
   @override
   void dispose() {

@@ -32,33 +32,36 @@ class TimerBottomSheet extends StatelessWidget {
     final todoTimer = Provider.of<TodoTimer>(context);
     final theme = Theme.of(context);
 
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * _bottomSheetHeight,
-      padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
-      decoration: _buildBottomSheetDecoration(theme),
-      child: SafeArea(
-        child: Column(
-          children: [
-            _buildCloseButton(context),
-            Expanded(
-              child: Column(
-                children: [
-                  const Spacer(flex: 1),
-                  Flexible(
-                    flex: 3,
-                    child: _buildTimerContent(context, todoTimer, theme),
-                  ),
-                  const Spacer(flex: 1),
-                ],
+    return PopScope(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * _bottomSheetHeight,
+        padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+        decoration: _buildBottomSheetDecoration(theme),
+        child: SafeArea(
+          child: Column(
+            children: [
+              _buildCloseButton(context, todoTimer),
+              Expanded(
+                child: Column(
+                  children: [
+                    const Spacer(flex: 1),
+                    Flexible(
+                      flex: 3,
+                      child: _buildTimerContent(context, todoTimer, theme),
+                    ),
+                    const Spacer(flex: 1),
+                  ],
+                ),
               ),
-            ),
-            _buildDashedLine(theme),
-            Padding(
-              padding: const EdgeInsets.all(_horizontalPadding),
-              child: _buildControlButtons(todoTimer.state, context, todoTimer),
-            ),
-          ],
+              _buildDashedLine(theme),
+              Padding(
+                padding: const EdgeInsets.all(_horizontalPadding),
+                child:
+                    _buildControlButtons(todoTimer.state, context, todoTimer),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -80,9 +83,9 @@ class TimerBottomSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildCloseButton(BuildContext context) {
+  Widget _buildCloseButton(BuildContext context, TodoTimer todoTimer) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pop(),
+      onTap: () => _handleCloseButtonTap(context, todoTimer),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: _verticalPadding),
         child: SvgPicture.asset(
@@ -92,6 +95,14 @@ class TimerBottomSheet extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _handleCloseButtonTap(BuildContext context, TodoTimer todoTimer) {
+    if (todoTimer.state == TimerState.idle) {
+      Navigator.of(context).pop();
+    } else {
+      _showStopConfirmationDialog(context, todoTimer);
+    }
   }
 
   Widget _buildTimerContent(

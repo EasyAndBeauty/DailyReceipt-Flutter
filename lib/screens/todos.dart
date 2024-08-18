@@ -56,6 +56,8 @@ class _TodosScreenState extends State<TodosScreen> {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
+        isDismissible: false,
+        enableDrag: false,
         builder: (context) {
           return ChangeNotifierProvider(
             create: (_) => TodoTimer(),
