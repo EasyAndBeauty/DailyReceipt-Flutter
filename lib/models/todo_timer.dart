@@ -8,18 +8,12 @@ enum TimerState { idle, running, paused, completed }
 enum TimerEvent { start, pause, complete, reset }
 
 class TodoTimer extends ChangeNotifier {
-  final String todoTitle;
-  Duration totalFocusedTime;
-  Duration currentFocusedTime;
-  TimerState _state;
+  Duration focusedTime = Duration.zero;
+  TimerState _state = TimerState.idle;
   Timer? _timer;
   bool _isDisposed = false;
 
-  TodoTimer({
-    required this.todoTitle,
-    this.totalFocusedTime = Duration.zero,
-  })  : currentFocusedTime = Duration.zero,
-        _state = TimerState.idle;
+  TodoTimer();
 
   TimerState get state => _state;
 
@@ -64,7 +58,7 @@ class TodoTimer extends ChangeNotifier {
   void _startTimer() {
     _state = TimerState.running;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      currentFocusedTime += const Duration(seconds: 1);
+      focusedTime += const Duration(seconds: 1);
       if (!_isDisposed) {
         notifyListeners();
       }
@@ -81,22 +75,18 @@ class TodoTimer extends ChangeNotifier {
   void _completeTimer() {
     _state = TimerState.completed;
     _timer?.cancel();
-    totalFocusedTime += currentFocusedTime;
-    currentFocusedTime = Duration.zero;
     print('Timer completed.');
   }
 
   void _resetTimer() {
     _state = TimerState.idle;
-    totalFocusedTime = Duration.zero;
-    currentFocusedTime = Duration.zero;
+    focusedTime = Duration.zero;
     _timer?.cancel();
     print('Timer reset.');
   }
 
-  Duration getTotalFocusedTime() {
-    return totalFocusedTime +
-        (state == TimerState.running ? currentFocusedTime : Duration.zero);
+  Duration getFocusedTime() {
+    return focusedTime;
   }
 
   @override

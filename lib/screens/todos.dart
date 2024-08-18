@@ -51,14 +51,22 @@ class _TodosScreenState extends State<TodosScreen> {
       editController.clear();
     }
 
-    void showTimerBottomSheet(BuildContext context, String todoTitle) {
+    // showTimerBottomSheet 함수 수정
+    void showTimerBottomSheet(BuildContext context, Todo todo) {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         builder: (context) {
           return ChangeNotifierProvider(
-            create: (_) => TodoTimer(todoTitle: todoTitle),
-            child: TimerBottomSheet(),
+            create: (_) => TodoTimer(),
+            child: TimerBottomSheet(
+              todo: todo,
+              onCompleted: (focusedTime) {
+                todosProvider.addAccumulatedTime(
+                    todo.id, focusedTime); // 누적 시간 추가
+                Navigator.of(context).pop();
+              },
+            ),
           );
         },
       );
@@ -300,7 +308,7 @@ class _TodosScreenState extends State<TodosScreen> {
                                 color: Theme.of(context).colorScheme.onPrimary,
                                 onPressed: () {
                                   showTimerBottomSheet(
-                                      context, todos[index].content);
+                                      context, todos[index]); // Todo 객체 전달
                                 },
                               ),
                             ],

@@ -35,6 +35,14 @@ class Todos extends ChangeNotifier {
     }
   }
 
+  void addAccumulatedTime(int id, Duration additionalTime) {
+    int index = _todos.indexWhere((todo) => todo.id == id);
+    if (index != -1) {
+      _todos[index].accumulatedTime += additionalTime;
+      notifyListeners();
+    }
+  }
+
   Map<DateTime, List<Todo>> groupTodosByDate(List<Todo> todos) {
     Map<DateTime, List<Todo>> grouped = {};
 
@@ -54,10 +62,10 @@ class Todo {
   final int id;
   String content;
   bool isDone;
-
   final DateTime createdAt;
   DateTime? completedAt;
   DateTime scheduledDate;
+  Duration accumulatedTime; // New field to track accumulated time
 
   Todo({
     required this.id,
@@ -66,5 +74,6 @@ class Todo {
     required this.createdAt,
     this.completedAt,
     required this.scheduledDate,
+    this.accumulatedTime = Duration.zero, // Initialize with zero duration
   });
 }

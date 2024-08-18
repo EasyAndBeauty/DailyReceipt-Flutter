@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/widgets/confirmation_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +8,14 @@ import 'package:daily_receipt/widgets/buttons.dart';
 import 'package:daily_receipt/widgets/dashed_line_painter.dart';
 
 class TimerBottomSheet extends StatelessWidget {
+  final Todo todo;
+  final Function(Duration focusedTime) onCompleted;
+
+  TimerBottomSheet({
+    required this.todo,
+    required this.onCompleted,
+  });
+
   @override
   Widget build(BuildContext context) {
     final todoTimer = Provider.of<TodoTimer>(context);
@@ -42,6 +51,63 @@ class TimerBottomSheet extends StatelessWidget {
           return inactiveColor;
         case TimerState.completed:
           return activeColor;
+      }
+    }
+
+    Widget _buildControlButtons(TimerState state) {
+      switch (state) {
+        case TimerState.idle:
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CancelButton(
+                onPressed: () => Navigator.of(context).pop(),
+                color: theme.colorScheme.error,
+              ),
+              PlayButton(
+                onPressed: () => todoTimer.onEvent(TimerEvent.start),
+              ),
+            ],
+          );
+        case TimerState.running:
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StopButton(
+                onPressed: () =>
+                    _showStopConfirmationDialog(context, todoTimer),
+              ),
+              PauseButton(
+                onPressed: () => todoTimer.onEvent(TimerEvent.pause),
+              ),
+            ],
+          );
+        case TimerState.paused:
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StopButton(
+                onPressed: () =>
+                    _showStopConfirmationDialog(context, todoTimer),
+              ),
+              PlayButton(
+                onPressed: () => todoTimer.onEvent(TimerEvent.start),
+              ),
+            ],
+          );
+        case TimerState.completed:
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StopButton(
+                onPressed: () =>
+                    _showStopConfirmationDialog(context, todoTimer),
+              ),
+              PlayButton(
+                onPressed: () => todoTimer.onEvent(TimerEvent.reset),
+              ),
+            ],
+          );
       }
     }
 
@@ -91,7 +157,7 @@ class TimerBottomSheet extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'TODO : ${todoTimer.todoTitle}',
+                          'TODO : ${todo.content}', // todo의 content 사용
                           style: theme.textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             height: 18 / 14,
@@ -103,7 +169,7 @@ class TimerBottomSheet extends StatelessWidget {
                         const SizedBox(height: 8),
                         todoTimer.state == TimerState.idle
                             ? Text(
-                                '집중한 시간 : ${todoTimer.totalFocusedTime.inMinutes}분',
+                                '집중한 시간 : ${todo.accumulatedTime.inMinutes}분',
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   fontWeight: FontWeight.w700,
                                   height: 18 / 14,
@@ -116,7 +182,7 @@ class TimerBottomSheet extends StatelessWidget {
                             : const SizedBox(),
                         const SizedBox(height: 32),
                         Text(
-                          '${(todoTimer.currentFocusedTime.inMinutes % 60).toString().padLeft(2, '0')}:${(todoTimer.currentFocusedTime.inSeconds % 60).toString().padLeft(2, '0')}',
+                          '${(todoTimer.focusedTime.inMinutes % 60).toString().padLeft(2, '0')}:${(todoTimer.focusedTime.inSeconds % 60).toString().padLeft(2, '0')}',
                           style: theme.textTheme.headlineLarge?.copyWith(
                             fontFamily: 'Courier Prime',
                             fontSize: 92,
@@ -155,29 +221,7 @@ class TimerBottomSheet extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  StopButton(
-                    onPressed: () {
-                      if (todoTimer.state == TimerState.running ||
-                          todoTimer.state == TimerState.paused) {
-                        _showStopConfirmationDialog(context, todoTimer);
-                      }
-                    },
-                  ),
-                  PlayButton(
-                    onPressed: () {
-                      if (todoTimer.state == TimerState.idle ||
-                          todoTimer.state == TimerState.paused) {
-                        todoTimer.onEvent(TimerEvent.start);
-                      } else if (todoTimer.state == TimerState.running) {
-                        todoTimer.onEvent(TimerEvent.pause);
-                      }
-                    },
-                  ),
-                ],
-              ),
+              child: _buildControlButtons(todoTimer.state),
             ),
           ],
         ),
@@ -190,11 +234,11 @@ class TimerBottomSheet extends StatelessWidget {
       context: Navigator.of(context, rootNavigator: true).context,
       builder: (BuildContext context) {
         return ConfirmationDialog(
-          title: 'TODO: ${todoTimer.todoTitle}',
+          title: 'TODO: ${todo.content}', // todo의 content 사용
           content: '타이머를 중지할까요?',
           onConfirm: () {
             todoTimer.onEvent(TimerEvent.complete);
-            Navigator.of(context).pop();
+            onCompleted(todoTimer.focusedTime); // 콜백 함수 호출 및 focusedTime 전달
           },
         );
       },
