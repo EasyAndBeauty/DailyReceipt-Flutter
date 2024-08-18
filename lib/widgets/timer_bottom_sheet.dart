@@ -4,6 +4,7 @@ import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/widgets/confirmation_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:daily_receipt/widgets/buttons.dart';
+import 'package:daily_receipt/widgets/dashed_line_painter.dart';
 
 class TimerBottomSheet extends StatelessWidget {
   @override
@@ -198,35 +199,5 @@ class TimerBottomSheet extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class DashedLinePainter extends CustomPainter {
-  final Color color;
-
-  DashedLinePainter({required this.color});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    const dashWidth = 5.0;
-    const dashSpace = 3.0;
-    final paint = Paint()
-      ..color = color
-      ..strokeWidth = 1.0;
-
-    double startX = 0;
-    while (startX < size.width) {
-      canvas.drawLine(
-        Offset(startX, 0),
-        Offset(startX + dashWidth, 0),
-        paint,
-      );
-      startX += dashWidth + dashSpace;
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }

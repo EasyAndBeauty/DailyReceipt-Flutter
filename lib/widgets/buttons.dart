@@ -78,6 +78,24 @@ class TextButtonCustom extends StatelessWidget {
   }
 }
 
+class CancelButton extends StatelessWidget {
+  const CancelButton({super.key, required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButtonCustom(
+      text: 'Cancel',
+      iconPath: null,
+      type: ButtonType.basic,
+      textColor: Theme.of(context).colorScheme.secondary,
+      isBold: false,
+      onPressed: onPressed,
+    );
+  }
+}
+
 class StopButton extends StatelessWidget {
   const StopButton({super.key, required this.onPressed});
 
