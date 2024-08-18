@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/widgets/confirmation_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:daily_receipt/widgets/buttons.dart';
 
 class TimerBottomSheet extends StatelessWidget {
   @override
@@ -46,6 +47,7 @@ class TimerBottomSheet extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.95,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: theme.colorScheme.primary,
         border: Border(
@@ -65,7 +67,7 @@ class TimerBottomSheet extends StatelessWidget {
             GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 32.0),
                 child: SvgPicture.string(
                   '''
                   <svg width="28" height="16" viewBox="0 0 28 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,82 +81,91 @@ class TimerBottomSheet extends StatelessWidget {
             ),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'TODO : ${todoTimer.todoTitle}',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      height: 18 / 14,
-                      letterSpacing: -0.005 * 14,
-                      color: theme.colorScheme.onPrimary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  todoTimer.state == TimerState.idle
-                      ? Text(
-                          '집중한 시간 : ${todoTimer.totalFocusedTime.inMinutes}분',
+                  const Spacer(flex: 1), // 부모의 높이의 1/4만큼의 공간을 차지
+                  Flexible(
+                    flex: 3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'TODO : ${todoTimer.todoTitle}',
                           style: theme.textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             height: 18 / 14,
                             letterSpacing: -0.005 * 14,
-                            color:
-                                _getColorByTimerState(todoTimer.state, false),
+                            color: theme.colorScheme.onPrimary,
                           ),
                           textAlign: TextAlign.center,
-                        )
-                      : const SizedBox(),
-                  const SizedBox(height: 32),
-                  Text(
-                    '${(todoTimer.currentFocusedTime.inMinutes % 60).toString().padLeft(2, '0')}:${(todoTimer.currentFocusedTime.inSeconds % 60).toString().padLeft(2, '0')}',
-                    style: theme.textTheme.headlineLarge?.copyWith(
-                      fontFamily: 'Courier Prime',
-                      fontSize: 92,
-                      fontWeight: FontWeight.w400,
-                      height: 103 / 92,
-                      letterSpacing: -0.005 * 92,
-                      color: _getColorByTimerState(todoTimer.state, true),
+                        ),
+                        const SizedBox(height: 8),
+                        todoTimer.state == TimerState.idle
+                            ? Text(
+                                '집중한 시간 : ${todoTimer.totalFocusedTime.inMinutes}분',
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  height: 18 / 14,
+                                  letterSpacing: -0.005 * 14,
+                                  color: _getColorByTimerState(
+                                      todoTimer.state, false),
+                                ),
+                                textAlign: TextAlign.center,
+                              )
+                            : const SizedBox(),
+                        const SizedBox(height: 32),
+                        Text(
+                          '${(todoTimer.currentFocusedTime.inMinutes % 60).toString().padLeft(2, '0')}:${(todoTimer.currentFocusedTime.inSeconds % 60).toString().padLeft(2, '0')}',
+                          style: theme.textTheme.headlineLarge?.copyWith(
+                            fontFamily: 'Courier Prime',
+                            fontSize: 92,
+                            fontWeight: FontWeight.w400,
+                            height: 103 / 92,
+                            letterSpacing: -0.005 * 92,
+                            color: _getColorByTimerState(todoTimer.state, true),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: 184,
+                          child: Text(
+                            _getMessageByTimerState(todoTimer.state),
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              height: 20 / 16,
+                              letterSpacing: -0.005 * 16,
+                              color:
+                                  _getColorByTimerState(todoTimer.state, false),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: 184,
-                    child: Text(
-                      _getMessageByTimerState(todoTimer.state),
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        height: 20 / 16,
-                        letterSpacing: -0.005 * 16,
-                        color: _getColorByTimerState(todoTimer.state, false),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                  const Spacer(flex: 1), // 나머지 공간 채우기
                 ],
               ),
+            ),
+            CustomPaint(
+              size: const Size(double.infinity, 1),
+              painter: DashedLinePainter(color: theme.colorScheme.onPrimary),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
+                  StopButton(
                     onPressed: () {
                       if (todoTimer.state == TimerState.running ||
                           todoTimer.state == TimerState.paused) {
                         _showStopConfirmationDialog(context, todoTimer);
                       }
                     },
-                    child: Text(
-                      'Stop',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.error,
-                      ),
-                    ),
                   ),
-                  TextButton(
+                  PlayButton(
                     onPressed: () {
                       if (todoTimer.state == TimerState.idle ||
                           todoTimer.state == TimerState.paused) {
@@ -163,12 +174,6 @@ class TimerBottomSheet extends StatelessWidget {
                         todoTimer.onEvent(TimerEvent.pause);
                       }
                     },
-                    child: Text(
-                      todoTimer.state == TimerState.running ? 'Pause' : 'Start',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onPrimary,
-                      ),
-                    ),
                   ),
                 ],
               ),
@@ -193,5 +198,35 @@ class TimerBottomSheet extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class DashedLinePainter extends CustomPainter {
+  final Color color;
+
+  DashedLinePainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const dashWidth = 5.0;
+    const dashSpace = 3.0;
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 1.0;
+
+    double startX = 0;
+    while (startX < size.width) {
+      canvas.drawLine(
+        Offset(startX, 0),
+        Offset(startX + dashWidth, 0),
+        paint,
+      );
+      startX += dashWidth + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
