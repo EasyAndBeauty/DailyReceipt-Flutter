@@ -78,6 +78,26 @@ class TextButtonCustom extends StatelessWidget {
   }
 }
 
+class CancelButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Color? color;
+
+  const CancelButton({Key? key, required this.onPressed, this.color})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButtonCustom(
+      text: 'Cancel',
+      iconPath: null,
+      type: ButtonType.basic,
+      textColor: color ?? Theme.of(context).colorScheme.secondary, // color 사용
+      isBold: false,
+      onPressed: onPressed,
+    );
+  }
+}
+
 class StopButton extends StatelessWidget {
   const StopButton({super.key, required this.onPressed});
 
@@ -90,6 +110,24 @@ class StopButton extends StatelessWidget {
       iconPath: null,
       type: ButtonType.danger,
       textColor: Theme.of(context).colorScheme.error,
+      isBold: false,
+      onPressed: onPressed,
+    );
+  }
+}
+
+class PauseButton extends StatelessWidget {
+  const PauseButton({super.key, required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButtonCustom(
+      text: 'Pause',
+      iconPath: null,
+      type: ButtonType.basic,
+      textColor: Theme.of(context).colorScheme.secondary,
       isBold: false,
       onPressed: onPressed,
     );
