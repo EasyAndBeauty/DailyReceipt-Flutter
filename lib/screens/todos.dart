@@ -3,6 +3,7 @@ import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:daily_receipt/widgets/receipt.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -176,6 +177,17 @@ class _TodosScreenState extends State<TodosScreen> {
               ),
               onSubmitted: (_) => addTodo(),
             ),
+            if (!todos.isNotEmpty)
+              Expanded(
+                child: Center(
+                  child: Text(
+                    'No todos for this day',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                  ),
+                ),
+              ),
             if (todos.isNotEmpty)
               Expanded(
                 child: ListView.builder(
@@ -286,7 +298,18 @@ class _TodosScreenState extends State<TodosScreen> {
                         ),
                       );
                     }),
-              )
+              ),
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(bottom: 24),
+              child: ElevatedButton(
+                onPressed: () {
+                  GoRouter.of(context).go('/details');
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                child: const Text('Print The Receipt'),
+              ),
+            ),
           ],
         ),
       ),
