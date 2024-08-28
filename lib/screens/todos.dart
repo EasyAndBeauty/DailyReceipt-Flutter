@@ -1,7 +1,9 @@
 import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
+import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:daily_receipt/widgets/receipt.dart';
+import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -49,6 +51,29 @@ class _TodosScreenState extends State<TodosScreen> {
         editingId = null;
       });
       editController.clear();
+    }
+
+    // showTimerBottomSheet 함수 수정
+    void showTimerBottomSheet(BuildContext context, Todo todo) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        isDismissible: false,
+        enableDrag: false,
+        builder: (context) {
+          return ChangeNotifierProvider(
+            create: (_) => TodoTimer(),
+            child: TimerBottomSheet(
+              todo: todo,
+              onCompleted: (focusedTime) {
+                todosProvider.addAccumulatedTime(
+                    todo.id, focusedTime); // 누적 시간 추가
+                Navigator.of(context).pop();
+              },
+            ),
+          );
+        },
+      );
     }
 
     return Scaffold(
@@ -205,6 +230,7 @@ class _TodosScreenState extends State<TodosScreen> {
                           ),
                         ),
                         child: ListTile(
+                          contentPadding: EdgeInsets.zero,
                           leading: IconButton(
                             icon: Icon(
                               todos[index].isDone
@@ -233,22 +259,23 @@ class _TodosScreenState extends State<TodosScreen> {
                                       .colorScheme
                                       .onBackground,
                                   decoration: InputDecoration(
-                                      isDense: true,
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .tertiary,
-                                        ),
+                                    isDense: true,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                       ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .tertiary,
-                                        ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                       ),
-                                      contentPadding: EdgeInsets.all(0)),
+                                    ),
+                                    contentPadding: EdgeInsets.all(0),
+                                  ),
                                   onSubmitted: (_) => updateTodo(),
                                 )
                               : Text(
@@ -291,6 +318,14 @@ class _TodosScreenState extends State<TodosScreen> {
                                 color: Theme.of(context).colorScheme.error,
                                 onPressed: () {
                                   todosProvider.remove(todos[index].id);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.timer),
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                onPressed: () {
+                                  showTimerBottomSheet(
+                                      context, todos[index]); // Todo 객체 전달
                                 },
                               ),
                             ],

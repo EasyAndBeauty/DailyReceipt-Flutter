@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: ^1.0.3
   cupertino_icons: ^1.0.2
   google_fonts: 6.1.0
   provider: ^6.1.1
@@ -39,7 +38,6 @@ dependencies:
   table_calendar: ^3.0.9
   go_router: ^14.2.3
   flutter_svg: ^2.0.10+1
-
 
 dev_dependencies:
   flutter_test:
@@ -67,13 +65,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  assets:
-    - assets/icons/
-
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/paper_texture.webp
     - assets/barcode.png
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
