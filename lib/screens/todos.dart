@@ -1,6 +1,7 @@
 import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
+import 'package:daily_receipt/widgets/receipt.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -56,6 +57,7 @@ class _TodosScreenState extends State<TodosScreen> {
         child: Column(
           children: [
             const SizedBox(height: 20),
+            ReceiptComponent(todos, calendarProvider.selectedDate),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
