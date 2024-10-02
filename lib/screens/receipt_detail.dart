@@ -1,8 +1,18 @@
+import 'package:daily_receipt/models/todos.dart';
+import 'package:daily_receipt/widgets/receipt.dart';
 import 'package:daily_receipt/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ReceiptDetailScreen extends StatelessWidget {
+  final DateTime selectedDate;
+
+  final List<Todo> todos;
+
+  const ReceiptDetailScreen(
+      {Key? key, required this.selectedDate, required this.todos})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +37,10 @@ class ReceiptDetailScreen extends StatelessWidget {
             ),
             // 여기에 나머지 컨텐츠를 추가하세요
             Expanded(
-              child: Container(
-                child: const Center(
-                  child: Text('TODO: Receipt Detail Screen Content Goes Here'),
+              child: Center(
+                child: ReceiptComponent(
+                  todos,
+                  selectedDate,
                 ),
               ),
             ),

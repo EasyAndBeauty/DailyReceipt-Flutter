@@ -2,7 +2,6 @@ import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
-import 'package:daily_receipt/widgets/receipt.dart';
 import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -82,7 +81,6 @@ class _TodosScreenState extends State<TodosScreen> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            ReceiptComponent(todos, calendarProvider.selectedDate),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -339,7 +337,10 @@ class _TodosScreenState extends State<TodosScreen> {
               margin: const EdgeInsets.only(bottom: 24),
               child: ElevatedButton(
                 onPressed: () {
-                  GoRouter.of(context).go('/details');
+                  GoRouter.of(context).go('/details', extra: {
+                    'todos': todos,
+                    'selectedDate': calendarProvider.selectedDate,
+                  });
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                 child: const Text('Print The Receipt'),
