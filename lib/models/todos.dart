@@ -35,13 +35,22 @@ class Todos extends ChangeNotifier {
     }
   }
 
+  Future<void> _updateLocalStorage() async {
+    List<Map<String, dynamic>> todosList =
+        _todos.map((todo) => todo.toJson()).toList();
+    String todosJson = jsonEncode(todosList);
+    await _localStorage.setString('todos', todosJson);
+  }
+
   void add(Todo todo) {
     _todos.add(todo);
+    _updateLocalStorage();
     notifyListeners();
   }
 
   void remove(int index) {
     _todos.removeAt(index);
+    _updateLocalStorage();
     notifyListeners();
   }
 
@@ -49,6 +58,7 @@ class Todos extends ChangeNotifier {
     int index = _todos.indexWhere((todo) => todo.id == id);
     if (index != -1) {
       _todos[index].isDone = !_todos[index].isDone;
+      _updateLocalStorage();
       notifyListeners();
     }
   }
@@ -57,6 +67,7 @@ class Todos extends ChangeNotifier {
     int index = _todos.indexWhere((todo) => todo.id == id);
     if (index != -1) {
       _todos[index].content = newContent;
+      _updateLocalStorage();
       notifyListeners();
     }
   }
@@ -65,6 +76,7 @@ class Todos extends ChangeNotifier {
     int index = _todos.indexWhere((todo) => todo.id == id);
     if (index != -1) {
       _todos[index].accumulatedTime += additionalTime;
+      _updateLocalStorage();
       notifyListeners();
     }
   }
