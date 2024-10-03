@@ -1,12 +1,38 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Todos extends ChangeNotifier {
   final List<Todo> _todos = [];
+  late SharedPreferences _localStorage;
+
+  Todos() {
+    // Todos 클래스 기본 생성자. 새 인스턴스 생성될 때 자동으로 호출됨
+    _loadFromLocalStorage();
+  }
 
   List<Todo> get todos => _todos;
 
   Map<DateTime, List<Todo>> get groupedTodosByDate {
     return groupTodosByDate(_todos);
+  }
+
+  Future<void> _loadFromLocalStorage() async {
+    _localStorage = await SharedPreferences.getInstance();
+    String? todosJson = _localStorage.getString('todos');
+
+    if (todosJson != null) {
+      // 앱이 시작될 때 마다 로컬 저장소 데이터로 투두를 채우기 위해서 메모리에 남은 데이터 초기화
+      _todos.clear();
+
+      List<dynamic> todosList = jsonDecode(todosJson);
+      for (var todoMap in todosList) {
+        _todos.add(Todo.fromJson(todoMap));
+      }
+
+      notifyListeners();
+    }
   }
 
   void add(Todo todo) {
@@ -76,4 +102,30 @@ class Todo {
     required this.scheduledDate,
     this.accumulatedTime = Duration.zero, // Initialize with zero duration
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'content': content,
+      'isDone': isDone,
+      'createdAt': createdAt.toIso8601String(),
+      'completedAt': completedAt?.toIso8601String(),
+      'scheduledDate': scheduledDate.toIso8601String(),
+      'accumulatedTime': accumulatedTime.inSeconds,
+    };
+  }
+
+  factory Todo.fromJson(Map<String, dynamic> json) {
+    return Todo(
+      id: json['id'],
+      content: json['content'],
+      isDone: json['isDone'],
+      createdAt: DateTime.parse(json['createdAt']),
+      completedAt: json['completedAt'] != null
+          ? DateTime.parse(json['completedAt'])
+          : null,
+      scheduledDate: DateTime.parse(json['scheduledDate']),
+      accumulatedTime: Duration(seconds: json['accumulatedTime']),
+    );
+  }
 }
