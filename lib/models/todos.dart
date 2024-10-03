@@ -42,10 +42,13 @@ class Todos extends ChangeNotifier {
   }
 
   Future<void> _updateLocalStorage() async {
-    List<Map<String, dynamic>> todosList =
-        _todos.map((todo) => todo.toJson()).toList();
-    String todosJson = jsonEncode(todosList);
-    await _localStorage.setString('todos', todosJson);
+    try {
+      final String todosJson =
+          jsonEncode(_todos.map((todo) => todo.toJson()).toList());
+      await _localStorage.setString('todos', todosJson);
+    } catch (e) {
+      print('Error saving todos: $e');
+    }
   }
 
   void add(Todo todo) {
