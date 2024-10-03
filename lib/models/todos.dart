@@ -51,41 +51,46 @@ class Todos extends ChangeNotifier {
     }
   }
 
-  void add(Todo todo) {
+  Future<void> add(Todo todo) async {
+    await _initializeLocalStorage();
     _todos.add(todo);
-    _updateLocalStorage();
+    await _updateLocalStorage();
     notifyListeners();
   }
 
-  void remove(int index) {
+  Future<void> remove(int index) async {
+    await _initializeLocalStorage();
     _todos.removeAt(index);
-    _updateLocalStorage();
+    await _updateLocalStorage();
     notifyListeners();
   }
 
-  void toggleDone(int id) {
-    int index = _todos.indexWhere((todo) => todo.id == id);
+  Future<void> toggleDone(int id) async {
+    await _initializeLocalStorage();
+    final int index = _todos.indexWhere((todo) => todo.id == id);
     if (index != -1) {
       _todos[index].isDone = !_todos[index].isDone;
-      _updateLocalStorage();
+      await _updateLocalStorage();
       notifyListeners();
     }
   }
 
-  void update(int id, String newContent) {
-    int index = _todos.indexWhere((todo) => todo.id == id);
+  Future<void> update(int id, String newContent) async {
+    await _initializeLocalStorage();
+    final int index = _todos.indexWhere((todo) => todo.id == id);
     if (index != -1) {
       _todos[index].content = newContent;
-      _updateLocalStorage();
+      await _updateLocalStorage();
       notifyListeners();
     }
   }
 
-  void addAccumulatedTime(int id, Duration additionalTime) {
-    int index = _todos.indexWhere((todo) => todo.id == id);
+  Future<void> addAccumulatedTime(int id, Duration additionalTime) async {
+    await _initializeLocalStorage();
+    final int index = _todos.indexWhere((todo) => todo.id == id);
     if (index != -1) {
       _todos[index].accumulatedTime += additionalTime;
-      _updateLocalStorage();
+      await _updateLocalStorage();
       notifyListeners();
     }
   }
