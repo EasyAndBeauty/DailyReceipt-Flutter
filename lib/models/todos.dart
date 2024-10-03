@@ -4,19 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Todos extends ChangeNotifier {
-  final List<Todo> _todos = [];
+  final Map<int, Todo> _todos = {};
   late SharedPreferences _localStorage;
   bool _isInitialized = false;
 
   Todos() {
-    // Todos 클래스 기본 생성자. 새 인스턴스 생성될 때 자동으로 호출됨
     _initializeLocalStorage();
   }
 
-  List<Todo> get todos => List.unmodifiable(_todos);
+  List<Todo> get todos => List.unmodifiable(_todos.values);
 
   Map<DateTime, List<Todo>> get groupedTodosByDate {
-    return groupTodosByDate(_todos);
+    return groupTodosByDate(_todos.values.toList());
   }
 
   Future<void> _initializeLocalStorage() async {
@@ -27,70 +26,71 @@ class Todos extends ChangeNotifier {
   }
 
   Future<void> _loadFromLocalStorage() async {
-    String? todosJson = _localStorage.getString('todos');
-    if (todosJson == null) return;
+    final keys = _localStorage.getKeys();
 
-    try {
-      List<dynamic> todosList = jsonDecode(todosJson);
-      // todosList를 에러없이 가져왔다면 메모리에 남은 데이터 초기화하고 로컬 데이터를 todos에 추가
-      _todos.clear();
-      _todos.addAll(todosList.map((json) => Todo.fromJson(json)));
-      notifyListeners();
-    } catch (e) {
-      print('Error loading todos: $e');
+    for (final key in keys) {
+      if (key.startsWith('todo_')) {
+        final todoJson = _localStorage.getString(key);
+        if (todoJson != null) {
+          try {
+            final todo = Todo.fromJson(jsonDecode(todoJson));
+            _todos[todo.id] = todo;
+          } catch (e) {
+            print('Error loading todo $key: $e');
+          }
+        }
+      }
     }
+    notifyListeners();
   }
 
-  Future<void> _updateLocalStorage() async {
-    try {
-      final String todosJson =
-          jsonEncode(_todos.map((todo) => todo.toJson()).toList());
-      await _localStorage.setString('todos', todosJson);
-    } catch (e) {
-      print('Error saving todos: $e');
-    }
+  Future<void> _saveTodo(Todo todo) async {
+    final key = 'todo_${todo.id}';
+    await _localStorage.setString(key, jsonEncode(todo.toJson()));
+  }
+
+  Future<void> _removeTodoFromStorage(int id) async {
+    final key = 'todo_$id';
+    await _localStorage.remove(key);
   }
 
   Future<void> add(Todo todo) async {
     await _initializeLocalStorage();
-    _todos.add(todo);
-    await _updateLocalStorage();
+    _todos[todo.id] = todo;
+    await _saveTodo(todo);
     notifyListeners();
   }
 
-  Future<void> remove(int index) async {
+  Future<void> remove(int id) async {
     await _initializeLocalStorage();
-    _todos.removeAt(index);
-    await _updateLocalStorage();
+    _todos.remove(id);
+    await _removeTodoFromStorage(id);
     notifyListeners();
   }
 
   Future<void> toggleDone(int id) async {
     await _initializeLocalStorage();
-    final int index = _todos.indexWhere((todo) => todo.id == id);
-    if (index != -1) {
-      _todos[index].isDone = !_todos[index].isDone;
-      await _updateLocalStorage();
+    if (_todos.containsKey(id)) {
+      _todos[id]!.isDone = !_todos[id]!.isDone;
+      await _saveTodo(_todos[id]!);
       notifyListeners();
     }
   }
 
   Future<void> update(int id, String newContent) async {
     await _initializeLocalStorage();
-    final int index = _todos.indexWhere((todo) => todo.id == id);
-    if (index != -1) {
-      _todos[index].content = newContent;
-      await _updateLocalStorage();
+    if (_todos.containsKey(id)) {
+      _todos[id]!.content = newContent;
+      await _saveTodo(_todos[id]!);
       notifyListeners();
     }
   }
 
   Future<void> addAccumulatedTime(int id, Duration additionalTime) async {
     await _initializeLocalStorage();
-    final int index = _todos.indexWhere((todo) => todo.id == id);
-    if (index != -1) {
-      _todos[index].accumulatedTime += additionalTime;
-      await _updateLocalStorage();
+    if (_todos.containsKey(id)) {
+      _todos[id]!.accumulatedTime += additionalTime;
+      await _saveTodo(_todos[id]!);
       notifyListeners();
     }
   }
