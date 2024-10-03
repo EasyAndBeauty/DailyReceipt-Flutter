@@ -1,6 +1,7 @@
 import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/screens/receipt_detail.dart';
+import 'package:daily_receipt/screens/splash.dart';
 import 'package:daily_receipt/screens/todos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,21 +9,27 @@ import './theme.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
-  var goRoute = GoRoute(
-    path: 'details',
-    builder: (BuildContext context, GoRouterState state) {
-      return ReceiptDetailScreen();
-    },
-  );
   final GoRouter router = GoRouter(
+    initialLocation: '/splash',
     routes: <RouteBase>[
+      GoRoute(
+        path: '/splash',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SplashScreen(); // const 키워드 추가
+        },
+      ),
       GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
           return const TodosScreen();
         },
         routes: <RouteBase>[
-          goRoute,
+          GoRoute(
+            path: 'details',
+            builder: (BuildContext context, GoRouterState state) {
+              return ReceiptDetailScreen();
+            },
+          ),
         ],
       ),
     ],
