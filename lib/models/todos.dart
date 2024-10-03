@@ -13,7 +13,7 @@ class Todos extends ChangeNotifier {
     _initializeLocalStorage();
   }
 
-  List<Todo> get todos => _todos;
+  List<Todo> get todos => List.unmodifiable(_todos);
 
   Map<DateTime, List<Todo>> get groupedTodosByDate {
     return groupTodosByDate(_todos);
