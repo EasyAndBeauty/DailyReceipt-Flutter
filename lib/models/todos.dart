@@ -28,17 +28,16 @@ class Todos extends ChangeNotifier {
 
   Future<void> _loadFromLocalStorage() async {
     String? todosJson = _localStorage.getString('todos');
+    if (todosJson == null) return;
 
-    if (todosJson != null) {
-      // 앱이 시작될 때 마다 로컬 저장소 데이터로 투두를 채우기 위해서 메모리에 남은 데이터 초기화
-      _todos.clear();
-
+    try {
       List<dynamic> todosList = jsonDecode(todosJson);
-      for (var todoMap in todosList) {
-        _todos.add(Todo.fromJson(todoMap));
-      }
-
+      // todosList를 에러없이 가져왔다면 메모리에 남은 데이터 초기화하고 로컬 데이터를 todos에 추가
+      _todos.clear();
+      _todos.addAll(todosList.map((json) => Todo.fromJson(json)));
       notifyListeners();
+    } catch (e) {
+      print('Error loading todos: $e');
     }
   }
 
