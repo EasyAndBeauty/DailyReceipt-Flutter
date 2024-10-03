@@ -6,10 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Todos extends ChangeNotifier {
   final List<Todo> _todos = [];
   late SharedPreferences _localStorage;
+  bool _isInitialized = false;
 
   Todos() {
     // Todos 클래스 기본 생성자. 새 인스턴스 생성될 때 자동으로 호출됨
-    _loadFromLocalStorage();
+    _initializeLocalStorage();
   }
 
   List<Todo> get todos => _todos;
@@ -18,8 +19,14 @@ class Todos extends ChangeNotifier {
     return groupTodosByDate(_todos);
   }
 
-  Future<void> _loadFromLocalStorage() async {
+  Future<void> _initializeLocalStorage() async {
+    if (_isInitialized) return;
     _localStorage = await SharedPreferences.getInstance();
+    await _loadFromLocalStorage();
+    _isInitialized = true;
+  }
+
+  Future<void> _loadFromLocalStorage() async {
     String? todosJson = _localStorage.getString('todos');
 
     if (todosJson != null) {
