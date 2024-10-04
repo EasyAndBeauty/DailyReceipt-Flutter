@@ -154,52 +154,54 @@ class ReceiptDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
+            // 아래의 Expanded 위젯으로 RepaintBoundary를 감싸 화면 크기에 맞도록 조정
             Expanded(
-              child: Center(
-                child: RepaintBoundary(
-                  key: receiptKey,
-                  child: ReceiptComponent(
-                    todos,
-                    selectedDate,
+              child: SingleChildScrollView(
+                // 스크롤 가능하게 설정
+                child: Center(
+                  child: RepaintBoundary(
+                    key: receiptKey,
+                    child: ReceiptComponent(
+                      todos,
+                      selectedDate,
+                    ),
                   ),
                 ),
               ),
             ),
+            // 하단 버튼 영역
             Container(
               padding: const EdgeInsets.all(22),
-              height: 100,
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextButtonCustom(
-                      text: 'Copy',
-                      iconPath: 'assets/icons/copy.svg',
-                      type: ButtonType.basic,
-                      textColor: const Color(0xFF757575),
-                      isBold: false,
-                      onPressed: () => _copyReceiptToClipboard(context),
-                    ),
-                    TextButtonCustom(
-                      text: 'Share',
-                      iconPath: 'assets/icons/save.svg',
-                      type: ButtonType.basic,
-                      textColor: const Color(0xFF757575),
-                      isBold: false,
-                      onPressed: () => _shareReceipt(context),
-                    ),
-                    TextButtonCustom(
-                      text: 'Pin',
-                      iconPath: isPinned
-                          ? 'assets/icons/pin_active.svg'
-                          : 'assets/icons/pin.svg',
-                      type: ButtonType.basic,
-                      textColor: const Color(0xFF757575),
-                      isBold: false,
-                      onPressed: () => _pinReceipt(context),
-                    ),
-                  ],
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButtonCustom(
+                    text: 'Copy',
+                    iconPath: 'assets/icons/copy.svg',
+                    type: ButtonType.basic,
+                    textColor: const Color(0xFF757575),
+                    isBold: false,
+                    onPressed: () => _copyReceiptToClipboard(context),
+                  ),
+                  TextButtonCustom(
+                    text: 'Share',
+                    iconPath: 'assets/icons/save.svg',
+                    type: ButtonType.basic,
+                    textColor: const Color(0xFF757575),
+                    isBold: false,
+                    onPressed: () => _shareReceipt(context),
+                  ),
+                  TextButtonCustom(
+                    text: 'Pin',
+                    iconPath: isPinned
+                        ? 'assets/icons/pin_active.svg'
+                        : 'assets/icons/pin.svg',
+                    type: ButtonType.basic,
+                    textColor: const Color(0xFF757575),
+                    isBold: false,
+                    onPressed: () => _pinReceipt(context),
+                  ),
+                ],
               ),
             ),
           ],
