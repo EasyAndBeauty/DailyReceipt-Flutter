@@ -12,12 +12,6 @@ class ReceiptComponent extends StatelessWidget {
   final DateTime date;
   const ReceiptComponent(this.todos, this.date, {super.key});
 
-  // Format the accumulated duration as hh:mm:ss
-  /// @param duration Duration - Duration to format
-  /// @return String - Formatted duration
-  /// @example
-  /// formatDuration(Duration(hours: 1, minutes: 2, seconds: 3)) => '01:02:03'
-  /// formatDuration(Duration(hours: 0, minutes: 2, seconds: 3)) => '00:02:03'
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
@@ -25,13 +19,6 @@ class ReceiptComponent extends StatelessWidget {
     return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
-  /// Calculate the total accumulated time of the todos
-  /// @param todos List<Todo> - List of todos
-  /// @return Duration - Total accumulated time
-  /// @example
-  /// getTotalAccumulatedTime([Todo, Todo]) => Duration
-  /// getTotalAccumulatedTime([]) => Duration
-  /// getTotalAccumulatedTime([Todo]) => Duration
   Duration getTotalAccumulatedTime(List<Todo> todos) =>
       todos.fold(Duration.zero, (total, todo) => total + todo.accumulatedTime);
 
@@ -75,11 +62,16 @@ class ReceiptComponent extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 16),
-                    child: Column(
-                        children: todos
-                            .map((todo) => ReceiptItem(todo.content,
-                                formatDuration(todo.accumulatedTime)))
-                            .toList()),
+                    child: todos.isNotEmpty
+                        ? Column(
+                            children: todos
+                                .map((todo) => ReceiptItem(todo.content,
+                                    formatDuration(todo.accumulatedTime)))
+                                .toList(),
+                          )
+                        : const Center(
+                            child: ReceiptText('No todos for this day'),
+                          ),
                   ),
                   DashedDivider(
                     color: Theme.of(context).colorScheme.primary,

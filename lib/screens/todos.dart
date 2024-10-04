@@ -350,12 +350,11 @@ class _TodosScreenState extends State<TodosScreen> {
                                 'No todos for this day',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyMedium
+                                    .titleMedium
                                     ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onBackground,
-                                    ),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
                               ),
                             ),
                     ),

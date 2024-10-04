@@ -132,7 +132,10 @@ class ReceiptDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final todosProvider = Provider.of<Todos>(context);
     bool isPinned = todosProvider.isPinned(selectedDate);
-    List<Todo> todos = todosProvider.getTodosForDate(selectedDate);
+    List<Todo> doneTodos = todosProvider
+        .getTodosForDate(selectedDate)
+        .where((todo) => todo.isDone)
+        .toList();
 
     return Scaffold(
       body: SafeArea(
@@ -162,7 +165,7 @@ class ReceiptDetailScreen extends StatelessWidget {
                   child: RepaintBoundary(
                     key: receiptKey,
                     child: ReceiptComponent(
-                      todos,
+                      doneTodos,
                       selectedDate,
                     ),
                   ),
