@@ -45,7 +45,7 @@ class CustomSnackBar extends StatelessWidget {
       children: [
         Text(
           title,
-          style: theme.textTheme.bodySmall?.copyWith(
+          style: theme.textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.bold,
           ),
           maxLines: 1,
@@ -54,7 +54,7 @@ class CustomSnackBar extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           message,
-          style: theme.textTheme.bodySmall?.copyWith(),
+          style: theme.textTheme.titleSmall?.copyWith(),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),

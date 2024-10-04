@@ -15,42 +15,48 @@ class ReceiptButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 100, // 버튼의 전체 높이
+      height: MediaQuery.of(context).size.height * 0.1, // 화면 높이에 비례한 크기
       child: ClipPath(
         clipper: ReceiptTopClipper(),
         child: Stack(
           children: [
-            Positioned.fill(
-              child: Image.asset(
-                'assets/paper_texture.webp',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.05),
-                ),
-                child: Center(
-                    child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 15), // 텍스트를 10픽셀 아래로 이동
-                        child: Text(
-                          text,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        )))),
-            Positioned.fill(
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: onPressed,
-                ),
-              ),
-            ),
+            _buildBackgroundImage(),
+            _buildTextOverlay(context),
+            _buildInkWellOverlay(),
           ],
+        ),
+      ),
+    );
+  }
+
+  // Helper method to build the background image
+  Widget _buildBackgroundImage() {
+    return Positioned.fill(
+      child: Image.asset(
+        'assets/paper_texture.webp',
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  // Helper method to build the text overlay
+  Widget _buildTextOverlay(BuildContext context) {
+    final theme = Theme.of(context);
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15), // 텍스트를 15픽셀 아래로 이동
+        child: Text(text, style: theme.textTheme.titleMedium),
+      ),
+    );
+  }
+
+  // Helper method to build the InkWell overlay for tap detection
+  Widget _buildInkWellOverlay() {
+    return Positioned.fill(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
         ),
       ),
     );
