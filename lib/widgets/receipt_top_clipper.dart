@@ -9,7 +9,7 @@ class ReceiptTopClipper extends CustomClipper<Path> {
     // 상단 톱니 모양 생성
     double x = 0;
     double y = 10;
-    double increment = size.width / 40;
+    double increment = size.width / 80;
 
     while (x < size.width) {
       x += increment;
