@@ -1,6 +1,7 @@
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/receipt.dart';
 import 'package:daily_receipt/widgets/buttons.dart';
+import 'package:daily_receipt/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
@@ -41,9 +42,11 @@ class ReceiptDetailScreen extends StatelessWidget {
       Uint8List imageBytes = await _captureReceiptImage();
       await Pasteboard.writeImage(imageBytes);
 
-      _showCustomDialog(context, '성공', '영수증 이미지가 클립보드에 복사되었습니다.');
+      CustomSnackBar.show(context, "복사 완료", "영수증 이미지가 클립보드에 복사되었습니다.",
+          buttonText: "확인");
     } catch (e) {
-      _showCustomDialog(context, '오류', '영수증 복사 중 오류가 발생했습니다: $e');
+      CustomSnackBar.show(context, "오류", "영수증 복사 중 오류가 발생했습니다: $e",
+          buttonText: "확인");
     }
   }
 
@@ -58,9 +61,12 @@ class ReceiptDetailScreen extends StatelessWidget {
         ], text: '내 일일 영수증');
 
         if (result.status == ShareResultStatus.dismissed) {
-          _showCustomDialog(context, '알림', '영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?');
+          CustomSnackBar.show(
+              context, "공유 취소", "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
+              buttonText: "재시도");
         } else {
-          _showCustomDialog(context, '성공', '영수증 이미지가 성공적으로 공유되었습니다.');
+          CustomSnackBar.show(context, "공유 성공", "영수증 이미지가 성공적으로 공유되었습니다.",
+              buttonText: "확인");
         }
       } else {
         // 모바일 환경에서의 공유 로직
@@ -74,16 +80,20 @@ class ReceiptDetailScreen extends StatelessWidget {
             await Share.shareXFiles([XFile(imagePath)], text: '내 일일 영수증');
 
         if (result.status == ShareResultStatus.dismissed) {
-          _showCustomDialog(context, '알림', '영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?');
+          CustomSnackBar.show(
+              context, "공유 취소", "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
+              buttonText: "재시도");
         } else {
-          _showCustomDialog(context, '성공', '영수증 이미지가 성공적으로 공유되었습니다.');
+          CustomSnackBar.show(context, "공유 성공", "영수증 이미지가 성공적으로 공유되었습니다.",
+              buttonText: "확인");
         }
 
         // 임시 파일 삭제
         await imageFile.delete();
       }
     } catch (e) {
-      _showCustomDialog(context, '오류', '영수증 공유 중 오류가 발생했습니다: $e');
+      CustomSnackBar.show(context, "오류", "영수증 공유 중 오류가 발생했습니다: $e",
+          buttonText: "확인");
     }
   }
 
@@ -91,48 +101,12 @@ class ReceiptDetailScreen extends StatelessWidget {
     final todosProvider = Provider.of<Todos>(context, listen: false);
     todosProvider.togglePin(selectedDate);
 
+    String title = todosProvider.isPinned(selectedDate) ? "Pin 추가" : "Pin 제거";
     String message = todosProvider.isPinned(selectedDate)
         ? '영수증이 Pin되었습니다.'
         : 'Pin이 해제되었습니다.';
 
-    _showCustomDialog(context, '알림', message);
-  }
-
-  void _showCustomDialog(BuildContext context, String title, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          title: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
-            ),
-          ),
-          content: Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: const Text(
-                '확인',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-          backgroundColor: Colors.white,
-          elevation: 5,
-        );
-      },
-    );
+    CustomSnackBar.show(context, title, message, buttonText: "확인");
   }
 
   @override
