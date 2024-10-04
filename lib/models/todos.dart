@@ -7,10 +7,12 @@ class Todos extends ChangeNotifier {
   final Map<int, Todo> _todos = {};
   late SharedPreferences _localStorage;
   bool _isInitialized = false;
+  final List<DateTime> _pinStack = [];
 
   Todos() {
     _initializeLocalStorage();
   }
+  List<DateTime> get pinStack => _pinStack;
 
   List<Todo> get todos => List.unmodifiable(_todos.values);
 
@@ -41,6 +43,14 @@ class Todos extends ChangeNotifier {
         }
       }
     }
+  Map<DateTime, List<Todo>> get pinnedTodos {
+    return groupTodosByDate(_todos
+        .where((todo) => _pinStack.contains(todo.scheduledDate))
+        .toList());
+  }
+
+  void add(Todo todo) {
+    _todos.add(todo);
     notifyListeners();
   }
 
@@ -95,6 +105,28 @@ class Todos extends ChangeNotifier {
     }
   }
 
+  void togglePin(DateTime date) {
+    if (_pinStack.contains(date)) {
+      _pinStack.remove(date);
+    } else {
+      _pinStack.add(date);
+    }
+    notifyListeners();
+  }
+
+  bool isPinned(DateTime date) {
+    return _pinStack.contains(date);
+  }
+
+  void reorderPinStack(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final DateTime date = _pinStack.removeAt(oldIndex);
+    _pinStack.insert(newIndex, date);
+    notifyListeners();
+  }
+
   Map<DateTime, List<Todo>> groupTodosByDate(List<Todo> todos) {
     Map<DateTime, List<Todo>> grouped = {};
 
@@ -108,6 +140,10 @@ class Todos extends ChangeNotifier {
 
     return grouped;
   }
+
+  List<Todo> getTodosForDate(DateTime date) {
+    return _todos.where((todo) => todo.scheduledDate == date).toList();
+  }
 }
 
 class Todo {
@@ -117,7 +153,7 @@ class Todo {
   final DateTime createdAt;
   DateTime? completedAt;
   DateTime scheduledDate;
-  Duration accumulatedTime; // New field to track accumulated time
+  Duration accumulatedTime;
 
   Todo({
     required this.id,
@@ -126,7 +162,7 @@ class Todo {
     required this.createdAt,
     this.completedAt,
     required this.scheduledDate,
-    this.accumulatedTime = Duration.zero, // Initialize with zero duration
+    this.accumulatedTime = Duration.zero,
   });
 
   Map<String, dynamic> toJson() {

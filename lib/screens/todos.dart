@@ -357,7 +357,6 @@ class _TodosScreenState extends State<TodosScreen> {
           ReceiptButton(
             onPressed: () {
               GoRouter.of(context).go('/details', extra: {
-                'todos': todos,
                 'selectedDate': calendarProvider.selectedDate,
               });
             },

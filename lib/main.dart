@@ -15,7 +15,6 @@ void main() {
     builder: (BuildContext context, GoRouterState state) {
       final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
       return ReceiptDetailScreen(
-        todos: extra['todos'],
         selectedDate: extra['selectedDate'],
       );
     },

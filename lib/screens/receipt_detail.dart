@@ -11,16 +11,15 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:provider/provider.dart';
 
 class ReceiptDetailScreen extends StatelessWidget {
   final DateTime selectedDate;
-  final List<Todo> todos;
   final GlobalKey receiptKey = GlobalKey();
 
   ReceiptDetailScreen({
     Key? key,
     required this.selectedDate,
-    required this.todos,
   }) : super(key: key);
 
   Future<Uint8List> _captureReceiptImage() async {
@@ -40,7 +39,6 @@ class ReceiptDetailScreen extends StatelessWidget {
   Future<void> _copyReceiptToClipboard(BuildContext context) async {
     try {
       Uint8List imageBytes = await _captureReceiptImage();
-
       await Pasteboard.writeImage(imageBytes);
 
       _showCustomDialog(context, '성공', '영수증 이미지가 클립보드에 복사되었습니다.');
@@ -89,6 +87,17 @@ class ReceiptDetailScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _pinReceipt(BuildContext context) async {
+    final todosProvider = Provider.of<Todos>(context, listen: false);
+    todosProvider.togglePin(selectedDate);
+
+    String message = todosProvider.isPinned(selectedDate)
+        ? '영수증이 Pin되었습니다.'
+        : 'Pin이 해제되었습니다.';
+
+    _showCustomDialog(context, '알림', message);
+  }
+
   void _showCustomDialog(BuildContext context, String title, String message) {
     showDialog(
       context: context,
@@ -128,6 +137,10 @@ class ReceiptDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final todosProvider = Provider.of<Todos>(context);
+    bool isPinned = todosProvider.isPinned(selectedDate);
+    List<Todo> todos = todosProvider.getTodosForDate(selectedDate);
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -183,15 +196,14 @@ class ReceiptDetailScreen extends StatelessWidget {
                       onPressed: () => _shareReceipt(context),
                     ),
                     TextButtonCustom(
-                      text: 'Save',
-                      iconPath: 'assets/icons/save.svg',
+                      text: isPinned ? 'Unpin' : 'Pin',
+                      iconPath: isPinned
+                          ? 'assets/icons/pin_active.svg'
+                          : 'assets/icons/pin.svg',
                       type: ButtonType.basic,
                       textColor: const Color(0xFF757575),
                       isBold: false,
-                      onPressed: () {
-                        _showCustomDialog(
-                            context, '알림', '저장 기능은 아직 구현되지 않았습니다.');
-                      },
+                      onPressed: () => _pinReceipt(context),
                     ),
                   ],
                 ),
