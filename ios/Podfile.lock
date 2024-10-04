@@ -1,0 +1,47 @@
+PODS:
+  - Flutter (1.0.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - pasteboard (0.0.1):
+    - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - permission_handler_apple (9.1.1):
+    - Flutter
+  - share_plus (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - pasteboard (from `.symlinks/plugins/pasteboard/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  pasteboard:
+    :path: ".symlinks/plugins/pasteboard/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  integration_test: ce0a3ffa1de96d1a89ca0ac26fca7ea18a749ef4
+  pasteboard: 982969ebaa7c78af3e6cc7761e8f5e77565d9ce0
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  share_plus: 8875f4f2500512ea181eef553c3e27dba5135aad
+
+PODFILE CHECKSUM: 7be2f5f74864d463a8ad433546ed1de7e0f29aef
+
+COCOAPODS: 1.15.2
