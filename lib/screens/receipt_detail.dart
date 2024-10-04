@@ -42,11 +42,17 @@ class ReceiptDetailScreen extends StatelessWidget {
       Uint8List imageBytes = await _captureReceiptImage();
       await Pasteboard.writeImage(imageBytes);
 
-      CustomSnackBar.show(context, "복사 완료", "영수증 이미지가 클립보드에 복사되었습니다.",
-          buttonText: "확인");
+      CustomSnackBar.show(
+        context,
+        "복사 완료",
+        "영수증 이미지가 클립보드에 복사되었습니다.",
+      );
     } catch (e) {
-      CustomSnackBar.show(context, "오류", "영수증 복사 중 오류가 발생했습니다: $e",
-          buttonText: "확인");
+      CustomSnackBar.show(
+        context,
+        "오류",
+        "영수증 복사 중 오류가 발생했습니다: $e",
+      );
     }
   }
 
@@ -62,11 +68,16 @@ class ReceiptDetailScreen extends StatelessWidget {
 
         if (result.status == ShareResultStatus.dismissed) {
           CustomSnackBar.show(
-              context, "공유 취소", "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
-              buttonText: "재시도");
+            context,
+            "공유 취소",
+            "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
+          );
         } else {
-          CustomSnackBar.show(context, "공유 성공", "영수증 이미지가 성공적으로 공유되었습니다.",
-              buttonText: "확인");
+          CustomSnackBar.show(
+            context,
+            "공유 성공",
+            "영수증 이미지가 성공적으로 공유되었습니다.",
+          );
         }
       } else {
         // 모바일 환경에서의 공유 로직
@@ -81,19 +92,27 @@ class ReceiptDetailScreen extends StatelessWidget {
 
         if (result.status == ShareResultStatus.dismissed) {
           CustomSnackBar.show(
-              context, "공유 취소", "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
-              buttonText: "재시도");
+            context,
+            "공유 취소",
+            "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
+          );
         } else {
-          CustomSnackBar.show(context, "공유 성공", "영수증 이미지가 성공적으로 공유되었습니다.",
-              buttonText: "확인");
+          CustomSnackBar.show(
+            context,
+            "공유 성공",
+            "영수증 이미지가 성공적으로 공유되었습니다.",
+          );
         }
 
         // 임시 파일 삭제
         await imageFile.delete();
       }
     } catch (e) {
-      CustomSnackBar.show(context, "오류", "영수증 공유 중 오류가 발생했습니다: $e",
-          buttonText: "확인");
+      CustomSnackBar.show(
+        context,
+        "오류",
+        "영수증 공유 중 오류가 발생했습니다: $e",
+      );
     }
   }
 
@@ -106,7 +125,7 @@ class ReceiptDetailScreen extends StatelessWidget {
         ? '영수증이 Pin되었습니다.'
         : 'Pin이 해제되었습니다.';
 
-    CustomSnackBar.show(context, title, message, buttonText: "확인");
+    CustomSnackBar.show(context, title, message);
   }
 
   @override
@@ -170,7 +189,7 @@ class ReceiptDetailScreen extends StatelessWidget {
                       onPressed: () => _shareReceipt(context),
                     ),
                     TextButtonCustom(
-                      text: isPinned ? 'Unpin' : 'Pin',
+                      text: 'Pin',
                       iconPath: isPinned
                           ? 'assets/icons/pin_active.svg'
                           : 'assets/icons/pin.svg',
