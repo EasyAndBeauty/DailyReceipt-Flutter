@@ -1,14 +1,16 @@
 import 'package:daily_receipt/models/calendar.dart';
-import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:daily_receipt/widgets/receipt_button.dart';
+import 'package:daily_receipt/models/todo_timer.dart';
+import 'package:daily_receipt/widgets/todo_action_bottom_sheet.dart';
 import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class TodosScreen extends StatefulWidget {
   const TodosScreen({super.key});
@@ -30,6 +32,16 @@ class _TodosScreenState extends State<TodosScreen> {
     List<Todo> todos =
         todosProvider.groupedTodosByDate[calendarProvider.selectedDate] ?? [];
 
+    void updateTodo() {
+      if (editController.text.isEmpty || editingId == null) return;
+
+      todosProvider.update(editingId!, editController.text);
+      setState(() {
+        editingId = null;
+      });
+      editController.clear();
+    }
+
     void addTodo() {
       if (addController.text.isEmpty) return;
 
@@ -44,14 +56,21 @@ class _TodosScreenState extends State<TodosScreen> {
       addController.clear();
     }
 
-    void updateTodo() {
-      if (editController.text.isEmpty || editingId == null) return;
-
-      todosProvider.update(editingId!, editController.text);
-      setState(() {
-        editingId = null;
-      });
-      editController.clear();
+    void showTodoActionBottomSheet(BuildContext context, Todo todo) {
+      showCupertinoModalBottomSheet(
+        expand: false,
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (context) => TodoActionBottomSheet(
+          todo: todo,
+          onEdit: () {
+            setState(() {
+              editingId = todo.id; // 수정할 Todo의 ID 저장
+              editController.text = todo.content; // 수정할 내용을 텍스트 필드에 표시
+            });
+          },
+        ),
+      );
     }
 
     void showTimerBottomSheet(BuildContext context, Todo todo) {
@@ -210,112 +229,84 @@ class _TodosScreenState extends State<TodosScreen> {
                           ? ListView.builder(
                               itemCount: todos.length,
                               itemBuilder: (context, index) {
-                                return Theme(
-                                  data: theme.copyWith(
-                                    checkboxTheme: CheckboxThemeData(
-                                      side: MaterialStateBorderSide.resolveWith(
-                                        (states) => BorderSide(
-                                          color: theme.colorScheme.onPrimary,
-                                          width: 2,
-                                        ),
-                                      ),
+                                return ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: IconButton(
+                                    icon: Icon(
+                                      todos[index].isDone
+                                          ? Icons.check_circle
+                                          : Icons.circle_outlined,
+                                      color: todos[index].isDone
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .tertiary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .onBackground,
                                     ),
+                                    onPressed: () {
+                                      todosProvider.toggleDone(todos[index].id);
+                                    },
                                   ),
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    leading: IconButton(
-                                      icon: Icon(
-                                        todos[index].isDone
-                                            ? Icons.check_circle
-                                            : Icons.circle_outlined,
-                                        color: todos[index].isDone
-                                            ? theme.colorScheme.tertiary
-                                            : theme.colorScheme.onSurface,
-                                      ),
-                                      onPressed: () {
-                                        todosProvider
-                                            .toggleDone(todos[index].id);
-                                      },
-                                    ),
-                                    title: editingId == todos[index].id
-                                        ? TextField(
-                                            controller: editController,
-                                            style: theme.textTheme.bodyMedium
-                                                ?.copyWith(
-                                              color:
-                                                  theme.colorScheme.onSurface,
-                                            ),
-                                            cursorColor:
-                                                theme.colorScheme.onSurface,
-                                            decoration: InputDecoration(
-                                              isDense: true,
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: theme
-                                                      .colorScheme.tertiary,
-                                                ),
+                                  title: editingId == todos[index].id
+                                      ? TextField(
+                                          controller: editController,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onBackground,
                                               ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: theme
-                                                      .colorScheme.tertiary,
-                                                ),
+                                          cursorColor: Theme.of(context)
+                                              .colorScheme
+                                              .onBackground,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .tertiary,
                                               ),
-                                              contentPadding:
-                                                  const EdgeInsets.all(0),
                                             ),
-                                            onSubmitted: (_) => updateTodo(),
-                                          )
-                                        : Text(
-                                            todos[index].content,
-                                            style: theme.textTheme.bodyMedium
-                                                ?.copyWith(
-                                              color:
-                                                  theme.colorScheme.onSurface,
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .tertiary,
+                                              ),
                                             ),
+                                            contentPadding: EdgeInsets.all(0),
                                           ),
-                                    trailing: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        editingId == todos[index].id
-                                            ? IconButton(
-                                                icon: const Icon(Icons.check),
-                                                color:
-                                                    theme.colorScheme.tertiary,
-                                                onPressed: updateTodo,
-                                              )
-                                            : IconButton(
-                                                icon: const Icon(Icons.edit),
-                                                color:
-                                                    theme.colorScheme.onPrimary,
-                                                onPressed: () {
-                                                  setState(() {
-                                                    editingId = todos[index].id;
-                                                    editController.text =
-                                                        todos[index].content;
-                                                  });
-                                                },
+                                          onSubmitted: (_) => updateTodo(),
+                                        )
+                                      : Text(
+                                          todos[index].content,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onBackground,
                                               ),
-                                        IconButton(
-                                          icon: const Icon(Icons.close),
-                                          color: theme.colorScheme.error,
-                                          onPressed: () {
-                                            todosProvider
-                                                .remove(todos[index].id);
-                                          },
                                         ),
-                                        IconButton(
-                                          icon: const Icon(Icons.timer),
-                                          color: theme.colorScheme.onPrimary,
-                                          onPressed: () {
-                                            showTimerBottomSheet(
-                                                context, todos[index]);
-                                          },
-                                        ),
-                                      ],
+                                  onTap: () {
+                                    showTimerBottomSheet(context, todos[index]);
+                                  },
+                                  trailing: IconButton(
+                                    icon: Icon(
+                                      Icons.more_vert,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
                                     ),
+                                    onPressed: () {
+                                      showTodoActionBottomSheet(
+                                          context, todos[index]);
+                                    },
                                   ),
                                 );
                               })
@@ -331,7 +322,6 @@ class _TodosScreenState extends State<TodosScreen> {
                 ),
               ),
             ),
-            // 수정된 버튼 영역
             ReceiptButton(
               onPressed: () {
                 GoRouter.of(context).go('/details', extra: {
