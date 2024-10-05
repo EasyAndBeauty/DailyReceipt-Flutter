@@ -89,7 +89,7 @@ class TimerBottomSheet extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: _verticalPadding),
         child: SvgPicture.asset(
-          'icons/arrow_down.svg',
+          'assets/icons/arrow_down.svg',
           width: _svgWidth,
           height: _svgHeight,
         ),
