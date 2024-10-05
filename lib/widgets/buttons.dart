@@ -255,3 +255,45 @@ class LogoutButton extends StatelessWidget {
     );
   }
 }
+
+// Path: lib/widgets/todo_action_bottom_sheet.dart
+
+class EditButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Color? color;
+
+  const EditButton({Key? key, required this.onPressed, this.color})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButtonCustom(
+      text: 'Edit',
+      iconPath: null, // 아이콘 경로 추가
+      type: ButtonType.basic,
+      textColor: color ?? Theme.of(context).colorScheme.primary,
+      isBold: true, // Edit 버튼을 강조
+      onPressed: onPressed,
+    );
+  }
+}
+
+class DeleteButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Color? color;
+
+  const DeleteButton({Key? key, required this.onPressed, this.color})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButtonCustom(
+      text: 'Delete',
+      iconPath: null,
+      type: ButtonType.danger, // Delete 버튼의 타입을 위험 표시로 변경
+      textColor: color ?? Theme.of(context).colorScheme.error, // 기본 색상은 error
+      isBold: true,
+      onPressed: onPressed,
+    );
+  }
+}
