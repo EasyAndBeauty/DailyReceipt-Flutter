@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class CustomSnackBar extends StatelessWidget {
   final String title;
@@ -28,7 +29,6 @@ class CustomSnackBar extends StatelessWidget {
           ),
         ),
         Positioned(
-          // 우상단에 X 버튼을 배치
           top: 0,
           right: 0,
           child: _buildCloseButton(context),
@@ -37,7 +37,6 @@ class CustomSnackBar extends StatelessWidget {
     );
   }
 
-  // Helper method to build the title and message using theme
   Column _buildTextContent(ThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,112 +61,146 @@ class CustomSnackBar extends StatelessWidget {
     );
   }
 
-  // Helper method to build the close (X) button, 작게 만들기
   Widget _buildCloseButton(BuildContext context) {
     return IconButton(
-      iconSize: 18, // X 버튼 크기를 작게 설정
+      iconSize: 18,
       icon: const Icon(Icons.close, color: Colors.white),
       onPressed: () {
-        Navigator.of(context).pop(); // X 버튼을 누르면 항상 닫힘
+        SnackBarManager.instance.hideSnackBar();
       },
     );
   }
 
-  // Helper method to build box decoration using theme
   BoxDecoration _buildBoxDecoration(ThemeData theme) {
     return BoxDecoration(
-      color: theme.colorScheme.surface, // Background color from theme
+      color: theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(8),
     );
   }
 
-  // Static method to show snackbar with animation
   static void show(
     BuildContext context,
     String title,
-    String message,
-  ) {
-    showAnimatedOverlay(
-      context: context,
-      builder: (BuildContext context, Animation<double> animation) {
-        final curvedAnimation = CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeOutCubic,
-        );
-
-        return AnimatedBuilder(
-          animation: curvedAnimation,
-          builder: (context, child) {
-            return _buildPositionedSnackBar(context, curvedAnimation, child!);
-          },
-          child: CustomSnackBar(
-            title: title,
-            message: message,
-          ),
-        );
-      },
-      duration: const Duration(seconds: 4),
-    );
-  }
-
-  // Helper method to build positioned snackbar
-  static Positioned _buildPositionedSnackBar(
-      BuildContext context, Animation<double> curvedAnimation, Widget child) {
-    return Positioned(
-      bottom:
-          (MediaQuery.of(context).size.height * 0.05) * curvedAnimation.value,
-      left: MediaQuery.of(context).size.width * 0.05,
-      right: MediaQuery.of(context).size.width * 0.05,
-      child: child,
+    String message, {
+    Duration duration = const Duration(seconds: 2),
+  }) {
+    SnackBarManager.instance.showSnackBar(
+      context,
+      CustomSnackBar(title: title, message: message),
+      duration: duration,
     );
   }
 }
 
-// Method to show overlay with animation
-void showAnimatedOverlay({
-  required BuildContext context,
-  required Widget Function(BuildContext, Animation<double>) builder,
-  required Duration duration,
-}) {
-  Navigator.of(context).push(
-    PageRouteBuilder(
-      opaque: false,
-      pageBuilder: (BuildContext context, Animation<double> animation,
-          Animation<double> secondaryAnimation) {
-        return _AnimatedOverlay(
-          builder: builder,
-          duration: duration,
-          animation: animation,
-        );
-      },
-    ),
-  );
+class SnackBarManager {
+  SnackBarManager._();
+  static final SnackBarManager instance = SnackBarManager._();
+
+  OverlayEntry? _currentEntry;
+  Timer? _timer;
+
+  void showSnackBar(
+    BuildContext context,
+    Widget snackBar, {
+    Duration duration = const Duration(seconds: 4),
+  }) {
+    hideSnackBar(); // Hide any existing snackbar
+
+    _currentEntry = OverlayEntry(
+      builder: (BuildContext context) => _AnimatedSnackBar(
+        duration: duration,
+        onDismiss: hideSnackBar,
+        child: snackBar,
+      ),
+    );
+
+    Overlay.of(context).insert(_currentEntry!);
+
+    _timer = Timer(duration, () {
+      hideSnackBar();
+    });
+  }
+
+  void hideSnackBar() {
+    _timer?.cancel();
+    _currentEntry?.remove();
+    _currentEntry = null;
+  }
 }
 
-// Animated overlay widget
-class _AnimatedOverlay extends StatefulWidget {
-  final Widget Function(BuildContext, Animation<double>) builder;
+class _AnimatedSnackBar extends StatefulWidget {
+  final Widget child;
   final Duration duration;
-  final Animation<double> animation;
+  final VoidCallback onDismiss;
 
-  const _AnimatedOverlay({
+  const _AnimatedSnackBar({
     Key? key,
-    required this.builder,
+    required this.child,
     required this.duration,
-    required this.animation,
+    required this.onDismiss,
   }) : super(key: key);
 
   @override
-  _AnimatedOverlayState createState() => _AnimatedOverlayState();
+  _AnimatedSnackBarState createState() => _AnimatedSnackBarState();
 }
 
-class _AnimatedOverlayState extends State<_AnimatedOverlay> {
+class _AnimatedSnackBarState extends State<_AnimatedSnackBar>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  bool _isDisposed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOutCubic,
+    );
+    _controller.forward();
+
+    Future.delayed(widget.duration - const Duration(milliseconds: 300), () {
+      if (!_isDisposed) {
+        _startHideAnimation();
+      }
+    });
+  }
+
+  void _startHideAnimation() {
+    _controller.reverse().then((_) {
+      if (!_isDisposed) {
+        widget.onDismiss();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        widget.builder(context, widget.animation),
-      ],
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Positioned(
+          bottom: MediaQuery.of(context).size.height * 0.05 * _animation.value,
+          left: MediaQuery.of(context).size.width * 0.05,
+          right: MediaQuery.of(context).size.width * 0.05,
+          child: Opacity(
+            opacity: _animation.value,
+            child: child,
+          ),
+        );
+      },
+      child: widget.child,
     );
   }
 }

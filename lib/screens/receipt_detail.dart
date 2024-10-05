@@ -13,15 +13,29 @@ import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
-class ReceiptDetailScreen extends StatelessWidget {
+class ReceiptDetailScreen extends StatefulWidget {
   final DateTime selectedDate;
-  final GlobalKey receiptKey = GlobalKey();
 
-  ReceiptDetailScreen({
+  const ReceiptDetailScreen({
     Key? key,
     required this.selectedDate,
   }) : super(key: key);
+
+  @override
+  _ReceiptDetailScreenState createState() => _ReceiptDetailScreenState();
+}
+
+class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
+  final GlobalKey receiptKey = GlobalKey();
+  bool isCopyLoading = false;
+  bool isShareLoading = false;
+
+  String _getFormattedShareText() {
+    // 공유할 텍스트를 포맷팅합니다.
+    return '';
+  }
 
   Future<Uint8List> _captureReceiptImage() async {
     try {
@@ -37,8 +51,15 @@ class ReceiptDetailScreen extends StatelessWidget {
     }
   }
 
-  Future<void> _copyReceiptToClipboard(BuildContext context) async {
+  Future<void> _copyReceiptToClipboard() async {
+    if (isCopyLoading) return;
+    setState(() => isCopyLoading = true);
     try {
+      CustomSnackBar.show(
+        context,
+        "복사 중",
+        "영수증 이미지를 클립보드에 복사 중입니다. 잠시만 기다려주세요.",
+      );
       Uint8List imageBytes = await _captureReceiptImage();
       await Pasteboard.writeImage(imageBytes);
 
@@ -53,18 +74,28 @@ class ReceiptDetailScreen extends StatelessWidget {
         "오류",
         "영수증 복사 중 오류가 발생했습니다: $e",
       );
+    } finally {
+      setState(() => isCopyLoading = false);
     }
   }
 
-  Future<void> _shareReceipt(BuildContext context) async {
+  Future<void> _shareReceipt() async {
+    if (isShareLoading) return;
+    setState(() => isShareLoading = true);
     try {
+      CustomSnackBar.show(
+        context,
+        "공유 중",
+        "영수증 이미지를 공유 중입니다. 잠시만 기다려주세요.",
+      );
       Uint8List imageBytes = await _captureReceiptImage();
+      final String shareText = _getFormattedShareText();
 
       if (kIsWeb) {
         // Web 환경에서의 공유 로직
         final result = await Share.shareXFiles([
           XFile.fromData(imageBytes, mimeType: 'image/png', name: 'receipt.png')
-        ], text: '내 일일 영수증');
+        ]);
 
         if (result.status == ShareResultStatus.dismissed) {
           CustomSnackBar.show(
@@ -87,8 +118,7 @@ class ReceiptDetailScreen extends StatelessWidget {
         final imageFile = File(imagePath);
         await imageFile.writeAsBytes(imageBytes);
 
-        final result =
-            await Share.shareXFiles([XFile(imagePath)], text: '내 일일 영수증');
+        final result = await Share.shareXFiles([XFile(imagePath)]);
 
         if (result.status == ShareResultStatus.dismissed) {
           CustomSnackBar.show(
@@ -113,15 +143,18 @@ class ReceiptDetailScreen extends StatelessWidget {
         "오류",
         "영수증 공유 중 오류가 발생했습니다: $e",
       );
+    } finally {
+      setState(() => isShareLoading = false);
     }
   }
 
-  Future<void> _pinReceipt(BuildContext context) async {
+  void _pinReceipt() {
     final todosProvider = Provider.of<Todos>(context, listen: false);
-    todosProvider.togglePin(selectedDate);
+    todosProvider.togglePin(widget.selectedDate);
 
-    String title = todosProvider.isPinned(selectedDate) ? "Pin 추가" : "Pin 제거";
-    String message = todosProvider.isPinned(selectedDate)
+    String title =
+        todosProvider.isPinned(widget.selectedDate) ? "Pin 추가" : "Pin 제거";
+    String message = todosProvider.isPinned(widget.selectedDate)
         ? '영수증이 Pin되었습니다.'
         : 'Pin이 해제되었습니다.';
 
@@ -131,9 +164,9 @@ class ReceiptDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final todosProvider = Provider.of<Todos>(context);
-    bool isPinned = todosProvider.isPinned(selectedDate);
+    bool isPinned = todosProvider.isPinned(widget.selectedDate);
     List<Todo> doneTodos = todosProvider
-        .getTodosForDate(selectedDate)
+        .getTodosForDate(widget.selectedDate)
         .where((todo) => todo.isDone)
         .toList();
 
@@ -157,22 +190,19 @@ class ReceiptDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // 아래의 Expanded 위젯으로 RepaintBoundary를 감싸 화면 크기에 맞도록 조정
             Expanded(
               child: SingleChildScrollView(
-                // 스크롤 가능하게 설정
                 child: Center(
                   child: RepaintBoundary(
                     key: receiptKey,
                     child: ReceiptComponent(
                       doneTodos,
-                      selectedDate,
+                      widget.selectedDate,
                     ),
                   ),
                 ),
               ),
             ),
-            // 하단 버튼 영역
             Container(
               padding: const EdgeInsets.all(22),
               child: Row(
@@ -184,7 +214,8 @@ class ReceiptDetailScreen extends StatelessWidget {
                     type: ButtonType.basic,
                     textColor: const Color(0xFF757575),
                     isBold: false,
-                    onPressed: () => _copyReceiptToClipboard(context),
+                    onPressed: () =>
+                        isCopyLoading ? null : _copyReceiptToClipboard(),
                   ),
                   TextButtonCustom(
                     text: 'Share',
@@ -192,18 +223,17 @@ class ReceiptDetailScreen extends StatelessWidget {
                     type: ButtonType.basic,
                     textColor: const Color(0xFF757575),
                     isBold: false,
-                    onPressed: () => _shareReceipt(context),
+                    onPressed: () => isShareLoading ? null : _shareReceipt(),
                   ),
                   TextButtonCustom(
-                    text: 'Pin',
-                    iconPath: isPinned
-                        ? 'assets/icons/pin_active.svg'
-                        : 'assets/icons/pin.svg',
-                    type: ButtonType.basic,
-                    textColor: const Color(0xFF757575),
-                    isBold: false,
-                    onPressed: () => _pinReceipt(context),
-                  ),
+                      text: 'Pin',
+                      iconPath: isPinned
+                          ? 'assets/icons/pin_active.svg'
+                          : 'assets/icons/pin.svg',
+                      type: ButtonType.basic,
+                      textColor: const Color(0xFF757575),
+                      isBold: false,
+                      onPressed: () => _pinReceipt()),
                 ],
               ),
             ),
