@@ -9,17 +9,6 @@ import './theme.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
-  var detailsRoute = GoRoute(
-    path: 'details',
-    name: 'details',
-    builder: (BuildContext context, GoRouterState state) {
-      final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
-      return ReceiptDetailScreen(
-        selectedDate: extra['selectedDate'],
-      );
-    },
-  );
-
   final GoRouter router = GoRouter(
     initialLocation: '/splash',
     routes: <RouteBase>[
@@ -38,7 +27,11 @@ void main() {
           GoRoute(
             path: 'details',
             builder: (BuildContext context, GoRouterState state) {
-              return ReceiptDetailScreen();
+              final Map<String, dynamic> extra =
+                  state.extra as Map<String, dynamic>;
+              return ReceiptDetailScreen(
+                selectedDate: extra['selectedDate'],
+              );
             },
           ),
         ],
