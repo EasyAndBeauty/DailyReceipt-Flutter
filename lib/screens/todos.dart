@@ -74,11 +74,13 @@ class _TodosScreenState extends State<TodosScreen> {
     }
 
     void showTimerBottomSheet(BuildContext context, Todo todo) {
-      showModalBottomSheet(
+      showCupertinoModalBottomSheet(
         context: context,
-        isScrollControlled: true,
-        isDismissible: false,
-        enableDrag: false,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(25.0),
+          ),
+        ),
         builder: (context) {
           return ChangeNotifierProvider(
             create: (_) => TodoTimer(),
