@@ -27,7 +27,11 @@ void main() {
           GoRoute(
             path: 'details',
             builder: (BuildContext context, GoRouterState state) {
-              return ReceiptDetailScreen();
+              final Map<String, dynamic> extra =
+                  state.extra as Map<String, dynamic>;
+              return ReceiptDetailScreen(
+                selectedDate: extra['selectedDate'],
+              );
             },
           ),
         ],

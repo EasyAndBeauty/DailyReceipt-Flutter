@@ -12,6 +12,16 @@ class ReceiptComponent extends StatelessWidget {
   final DateTime date;
   const ReceiptComponent(this.todos, this.date, {super.key});
 
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
+
+  Duration getTotalAccumulatedTime(List<Todo> todos) =>
+      todos.fold(Duration.zero, (total, todo) => total + todo.accumulatedTime);
+
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
@@ -52,10 +62,16 @@ class ReceiptComponent extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 16),
-                    child: Column(
-                        children: todos
-                            .map((todo) => ReceiptItem(todo.content, '0:01'))
-                            .toList()),
+                    child: todos.isNotEmpty
+                        ? Column(
+                            children: todos
+                                .map((todo) => ReceiptItem(todo.content,
+                                    formatDuration(todo.accumulatedTime)))
+                                .toList(),
+                          )
+                        : const Center(
+                            child: ReceiptText('No todos for this day'),
+                          ),
                   ),
                   DashedDivider(
                     color: Theme.of(context).colorScheme.primary,
@@ -66,7 +82,10 @@ class ReceiptComponent extends StatelessWidget {
                     child: Column(
                       children: [
                         ReceiptItem('ITEM COUNT :', todos.length.toString()),
-                        const ReceiptItem('TOTAL :', '0:03'),
+                        ReceiptItem(
+                          'TOTAL :',
+                          formatDuration(getTotalAccumulatedTime(todos)),
+                        )
                       ],
                     ),
                   ),

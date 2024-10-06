@@ -4,7 +4,7 @@ class ReceiptClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-    const wavelength = 14.0;
+    const wavelength = 10.0;
     const amplitude = 5.0;
 
     // 상단 톱니
