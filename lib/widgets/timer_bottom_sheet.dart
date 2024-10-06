@@ -131,7 +131,7 @@ class TimerBottomSheet extends StatelessWidget {
         ),
         const SizedBox(height: _spaceBetweenElements * 2),
         SizedBox(
-          width: 184,
+          width: double.infinity,
           child: Text(
             _getMessageByTimerState(todoTimer.state),
             style: _getBodyTextStyle(theme, todoTimer.state, false),
