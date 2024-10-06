@@ -1,5 +1,6 @@
-import 'receipt_top_clipper.dart';
 import 'package:flutter/material.dart';
+
+import 'receipt_top_clipper.dart';
 
 class ReceiptButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -45,7 +46,9 @@ class ReceiptButton extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(top: 15), // 텍스트를 15픽셀 아래로 이동
-        child: Text(text, style: theme.textTheme.titleMedium),
+        child: Text(text,
+            style: theme.textTheme.titleMedium
+                ?.copyWith(color: theme.colorScheme.primary)),
       ),
     );
   }
