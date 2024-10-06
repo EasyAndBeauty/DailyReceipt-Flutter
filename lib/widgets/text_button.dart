@@ -28,7 +28,7 @@ class TextButtonCustom extends StatelessWidget {
         break;
       case ButtonType.basic:
       default:
-        textColor = Theme.of(context).colorScheme.surface;
+        textColor = Theme.of(context).colorScheme.primary;
         break;
     }
 

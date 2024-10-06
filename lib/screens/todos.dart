@@ -1,9 +1,9 @@
 import 'package:daily_receipt/models/calendar.dart';
-import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/models/todo_timer.dart';
+import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
-import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
 import 'package:daily_receipt/widgets/receipt_button.dart';
+import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -96,8 +96,7 @@ class _TodosScreenState extends State<TodosScreen> {
                               .textTheme
                               .headlineLarge
                               ?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
                         ),
                         IconButton(
@@ -176,9 +175,9 @@ class _TodosScreenState extends State<TodosScreen> {
                     TextField(
                       controller: addController,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
-                      cursorColor: Theme.of(context).colorScheme.onBackground,
+                      cursorColor: Theme.of(context).colorScheme.onSurface,
                       decoration: InputDecoration(
                         hintText: 'Collect moments, print memories.',
                         hintStyle: Theme.of(context)
@@ -189,7 +188,7 @@ class _TodosScreenState extends State<TodosScreen> {
                             ),
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.onBackground,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                         focusedBorder: UnderlineInputBorder(
@@ -205,7 +204,7 @@ class _TodosScreenState extends State<TodosScreen> {
                             Icons.add_rounded,
                             size: 32,
                           ),
-                          color: Theme.of(context).colorScheme.onBackground,
+                          color: Theme.of(context).colorScheme.onSurface,
                           onPressed: addTodo,
                         ),
                       ),
@@ -242,7 +241,7 @@ class _TodosScreenState extends State<TodosScreen> {
                                                 .tertiary
                                             : Theme.of(context)
                                                 .colorScheme
-                                                .onBackground,
+                                                .onSurface,
                                       ),
                                       onPressed: () {
                                         todosProvider
@@ -258,11 +257,11 @@ class _TodosScreenState extends State<TodosScreen> {
                                                 ?.copyWith(
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .onBackground,
+                                                      .onSurface,
                                                 ),
                                             cursorColor: Theme.of(context)
                                                 .colorScheme
-                                                .onBackground,
+                                                .onSurface,
                                             decoration: InputDecoration(
                                               isDense: true,
                                               enabledBorder:
@@ -293,7 +292,7 @@ class _TodosScreenState extends State<TodosScreen> {
                                                 ?.copyWith(
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .onBackground,
+                                                      .onSurface,
                                                 ),
                                           ),
                                     trailing: Row(

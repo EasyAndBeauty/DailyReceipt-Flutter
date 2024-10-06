@@ -4,9 +4,10 @@ import 'package:daily_receipt/screens/receipt_detail.dart';
 import 'package:daily_receipt/screens/splash.dart';
 import 'package:daily_receipt/screens/todos.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import './theme.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import './theme.dart';
 
 void main() {
   final GoRouter router = GoRouter(
@@ -15,7 +16,7 @@ void main() {
       GoRoute(
         path: '/splash',
         builder: (BuildContext context, GoRouterState state) {
-          return const SplashScreen(); // const 키워드 추가
+          return const SplashScreen();
         },
       ),
       GoRoute(

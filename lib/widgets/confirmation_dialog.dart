@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:daily_receipt/widgets/dashed_line_painter.dart';
 import 'package:daily_receipt/widgets/buttons.dart';
+import 'package:daily_receipt/widgets/dashed_line_painter.dart';
+import 'package:flutter/material.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   static const double _dialogWidth = 400;
@@ -23,7 +23,7 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Dialog(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: theme.colorScheme.onSurface,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: _dialogWidth),
         child: Padding(
@@ -68,7 +68,7 @@ class ConfirmationDialog extends StatelessWidget {
     return CustomPaint(
       size: const Size(double.infinity, _dashedLineHeight),
       painter: DashedLinePainter(
-        color: theme.colorScheme.onSurface,
+        color: theme.colorScheme.primary,
       ),
     );
   }

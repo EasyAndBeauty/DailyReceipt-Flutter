@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
 
 class CustomSnackBar extends StatelessWidget {
   final String title;
@@ -73,7 +74,7 @@ class CustomSnackBar extends StatelessWidget {
 
   BoxDecoration _buildBoxDecoration(ThemeData theme) {
     return BoxDecoration(
-      color: theme.colorScheme.surface,
+      color: theme.colorScheme.onSurface,
       borderRadius: BorderRadius.circular(8),
     );
   }
