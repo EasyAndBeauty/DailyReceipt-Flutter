@@ -14,8 +14,8 @@ class CalendarDialog extends StatelessWidget {
     final todosProvider = Provider.of<Todos>(context, listen: false);
 
     return Dialog(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      surfaceTintColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: Theme.of(context).colorScheme.onSurface,
+      surfaceTintColor: Theme.of(context).colorScheme.onSurface,
       insetPadding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
