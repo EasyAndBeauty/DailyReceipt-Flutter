@@ -107,6 +107,26 @@ class TimerBottomSheet extends StatelessWidget {
 
   Widget _buildTimerContent(
       BuildContext context, TodoTimer todoTimer, ThemeData theme) {
+    String formatDuration(Duration duration) {
+      final hours = duration.inHours;
+      final minutes = duration.inMinutes.remainder(60);
+      final seconds = duration.inSeconds.remainder(60);
+
+      final List<String> parts = [];
+
+      if (hours > 0) {
+        parts.add('$hours시간');
+      }
+      if (minutes > 0) {
+        parts.add('$minutes분');
+      }
+      if (seconds > 0 || parts.isEmpty) {
+        parts.add('$seconds초');
+      }
+
+      return parts.join(' ');
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,12 +137,11 @@ class TimerBottomSheet extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: _spaceBetweenElements),
-        if (todoTimer.state == TimerState.idle)
-          Text(
-            '집중한 시간: ${todo.accumulatedTime.inMinutes}분',
-            style: _getBodyTextStyle(theme, todoTimer.state, false),
-            textAlign: TextAlign.center,
-          ),
+        Text(
+          '집중한 시간: ${formatDuration(todo.accumulatedTime)}',
+          style: _getBodyTextStyle(theme, todoTimer.state, false),
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: _verticalPadding),
         Text(
           _formatTime(todoTimer.focusedTime),
@@ -225,7 +244,7 @@ class TimerBottomSheet extends StatelessWidget {
       case TimerState.idle:
         return 'Play 버튼을 눌러\n타이머를 시작해보세요.';
       case TimerState.running:
-        return '집중한 이 시간이\n빛나는 내일을 만들어 줄 거예요.';
+        return '조금 더 집중한 이 시간이\n빛나는 내일을 만들어 줄 거예요.';
       case TimerState.paused:
         return '다시 집중하고 싶다면\nPlay 버튼을 눌러주세요.';
       case TimerState.completed:
