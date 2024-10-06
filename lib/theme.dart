@@ -33,7 +33,7 @@ class AppTheme {
     ),
     titleMedium: GoogleFonts.courierPrime(
       fontSize: 18,
-      letterSpacing: -1.5,
+      letterSpacing: -1,
     ),
     titleSmall: GoogleFonts.courierPrime(
       fontSize: 14,
