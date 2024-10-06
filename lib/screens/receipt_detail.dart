@@ -1,19 +1,19 @@
-import 'package:daily_receipt/models/todos.dart';
-import 'package:daily_receipt/widgets/receipt.dart';
-import 'package:daily_receipt/widgets/buttons.dart';
-import 'package:daily_receipt/widgets/custom_snackbar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/services.dart';
-import 'package:pasteboard/pasteboard.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:ui' as ui;
+
+import 'package:daily_receipt/models/todos.dart';
+import 'package:daily_receipt/widgets/buttons.dart';
+import 'package:daily_receipt/widgets/custom_snackbar.dart';
+import 'package:daily_receipt/widgets/receipt.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pasteboard/pasteboard.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ReceiptDetailScreen extends StatefulWidget {
   final DateTime selectedDate;
@@ -148,23 +148,23 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
     }
   }
 
-  void _pinReceipt() {
-    final todosProvider = Provider.of<Todos>(context, listen: false);
-    todosProvider.togglePin(widget.selectedDate);
-
-    String title =
-        todosProvider.isPinned(widget.selectedDate) ? "Pin 추가" : "Pin 제거";
-    String message = todosProvider.isPinned(widget.selectedDate)
-        ? '영수증이 Pin되었습니다.'
-        : 'Pin이 해제되었습니다.';
-
-    CustomSnackBar.show(context, title, message);
-  }
+  // void _pinReceipt() {
+  //   final todosProvider = Provider.of<Todos>(context, listen: false);
+  //   todosProvider.togglePin(widget.selectedDate);
+  //
+  //   String title =
+  //       todosProvider.isPinned(widget.selectedDate) ? "Pin 추가" : "Pin 제거";
+  //   String message = todosProvider.isPinned(widget.selectedDate)
+  //       ? '영수증이 Pin되었습니다.'
+  //       : 'Pin이 해제되었습니다.';
+  //
+  //   CustomSnackBar.show(context, title, message);
+  // }
 
   @override
   Widget build(BuildContext context) {
     final todosProvider = Provider.of<Todos>(context);
-    bool isPinned = todosProvider.isPinned(widget.selectedDate);
+    // bool isPinned = todosProvider.isPinned(widget.selectedDate);
     List<Todo> doneTodos = todosProvider
         .getTodosForDate(widget.selectedDate)
         .where((todo) => todo.isDone)
@@ -225,15 +225,15 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
                     isBold: false,
                     onPressed: () => isShareLoading ? null : _shareReceipt(),
                   ),
-                  TextButtonCustom(
-                      text: 'Pin',
-                      iconPath: isPinned
-                          ? 'assets/icons/pin_active.svg'
-                          : 'assets/icons/pin.svg',
-                      type: ButtonType.basic,
-                      textColor: const Color(0xFF757575),
-                      isBold: false,
-                      onPressed: () => _pinReceipt()),
+                  // TextButtonCustom(
+                  //     text: 'Pin',
+                  //     iconPath: isPinned
+                  //         ? 'assets/icons/pin_active.svg'
+                  //         : 'assets/icons/pin.svg',
+                  //     type: ButtonType.basic,
+                  //     textColor: const Color(0xFF757575),
+                  //     isBold: false,
+                  //     onPressed: () => _pinReceipt()),
                 ],
               ),
             ),
