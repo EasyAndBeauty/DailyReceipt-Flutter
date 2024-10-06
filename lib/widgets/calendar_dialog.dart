@@ -80,6 +80,9 @@ class CalendarDialog extends StatelessWidget {
                 color: theme.colorScheme.tertiary,
                 shape: BoxShape.circle,
               ),
+              defaultTextStyle: TextStyle(
+                color: theme.colorScheme.primary,
+              ),
             ),
             daysOfWeekHeight: 30,
           ),
