@@ -12,10 +12,11 @@ class CalendarDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final calendarProvider = Provider.of<Calendar>(context, listen: false);
     final todosProvider = Provider.of<Todos>(context, listen: false);
+    final theme = Theme.of(context);
 
     return Dialog(
-      backgroundColor: Theme.of(context).colorScheme.onSurface,
-      surfaceTintColor: Theme.of(context).colorScheme.onSurface,
+      backgroundColor: theme.colorScheme.onSurface,
+      surfaceTintColor: theme.colorScheme.onSurface,
       insetPadding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -44,31 +45,31 @@ class CalendarDialog extends StatelessWidget {
               titleTextFormatter: (date, locale) {
                 return DateFormat('yyyy.MM.').format(date).toString();
               },
-              titleTextStyle: Theme.of(context).textTheme.titleLarge!,
+              titleTextStyle: theme.textTheme.titleLarge!,
               headerPadding: const EdgeInsets.only(top: 6, bottom: 6),
               leftChevronIcon: Icon(
                 Icons.chevron_left,
-                color: Theme.of(context).colorScheme.secondary,
+                color: theme.colorScheme.secondary,
               ),
               rightChevronIcon: Icon(
                 Icons.chevron_right,
-                color: Theme.of(context).colorScheme.secondary,
+                color: theme.colorScheme.secondary,
               ),
             ),
             calendarStyle: CalendarStyle(
               tablePadding: const EdgeInsets.all(8),
               todayTextStyle: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: theme.colorScheme.onPrimary,
               ),
               todayDecoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
+                color: theme.colorScheme.secondary,
                 shape: BoxShape.circle,
               ),
               selectedTextStyle: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: theme.colorScheme.onPrimary,
               ),
               selectedDecoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: theme.colorScheme.primary,
                 shape: BoxShape.circle,
               ),
               markersAnchor: 4,
@@ -76,7 +77,7 @@ class CalendarDialog extends StatelessWidget {
               markerMargin: const EdgeInsets.only(right: 5),
               markerSize: 8,
               markerDecoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.tertiary,
+                color: theme.colorScheme.tertiary,
                 shape: BoxShape.circle,
               ),
             ),
