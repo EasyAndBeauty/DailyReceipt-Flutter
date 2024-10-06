@@ -179,7 +179,7 @@ class _TodosScreenState extends State<TodosScreen> {
                           ),
                       cursorColor: Theme.of(context).colorScheme.onSurface,
                       decoration: InputDecoration(
-                        hintText: 'Collect moments, print memories.',
+                        hintText: 'Collect moments',
                         hintStyle: Theme.of(context)
                             .textTheme
                             .titleMedium
