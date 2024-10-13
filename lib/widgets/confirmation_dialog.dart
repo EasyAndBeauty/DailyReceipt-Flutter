@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   static const double _dialogWidth = 400;
-  static const double _dialogPadding = 24.0;
-  static const double _contentSpacing = 16.0;
   static const double _dashedLineHeight = 1;
 
   final String title;
@@ -27,17 +25,18 @@ class ConfirmationDialog extends StatelessWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: _dialogWidth),
         child: Padding(
-          padding: const EdgeInsets.all(_dialogPadding),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 8),
               _buildTitle(theme),
-              const SizedBox(height: _contentSpacing),
+              const SizedBox(height: 20),
               _buildContent(theme),
-              const SizedBox(height: _contentSpacing),
+              const SizedBox(height: 36),
               _buildDashedLine(theme),
-              const SizedBox(height: _contentSpacing),
+              const SizedBox(height: 8),
               _buildActionButtons(context),
             ],
           ),
@@ -49,10 +48,10 @@ class ConfirmationDialog extends StatelessWidget {
   Widget _buildTitle(ThemeData theme) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: Text(
-        title,
-        style: theme.textTheme.titleSmall,
-      ),
+      child: Text(title,
+          style: theme.textTheme.titleSmall?.copyWith(
+            color: theme.colorScheme.primary,
+          )),
     );
   }
 
@@ -60,7 +59,10 @@ class ConfirmationDialog extends StatelessWidget {
     return Text(
       content,
       textAlign: TextAlign.center,
-      style: theme.textTheme.bodyLarge,
+      style: theme.textTheme.bodyMedium?.copyWith(
+        color: theme.colorScheme.primary,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
