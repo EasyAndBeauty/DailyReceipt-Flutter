@@ -1,21 +1,21 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 enum TimerState { idle, running, paused, completed }
 
 enum TimerEvent { start, pause, complete, reset }
 
 class TodoTimer extends ChangeNotifier {
-  static const Duration _timerInterval = Duration(seconds: 1);
-
-  Duration focusedTime = Duration.zero;
+  Duration _focusedTime = Duration.zero;
   TimerState _state = TimerState.idle;
-  Timer? _timer;
+  Ticker? _ticker;
+  Duration _lastTickerTime = Duration.zero;
   bool _isDisposed = false;
 
   TodoTimer();
 
   TimerState get state => _state;
+  Duration get focusedTime => _focusedTime;
 
   void onEvent(TimerEvent event) {
     _transitionState(event);
@@ -57,11 +57,15 @@ class TodoTimer extends ChangeNotifier {
 
   void _startTimer() {
     _state = TimerState.running;
-    _timer = Timer.periodic(_timerInterval, _updateTimer);
+    _ticker ??= Ticker(_onTick);
+    _lastTickerTime = Duration.zero;
+    _ticker!.start();
   }
 
-  void _updateTimer(Timer timer) {
-    focusedTime += _timerInterval;
+  void _onTick(Duration elapsed) {
+    final tickDuration = elapsed - _lastTickerTime;
+    _focusedTime += tickDuration;
+    _lastTickerTime = elapsed;
     if (!_isDisposed) {
       notifyListeners();
     }
@@ -69,26 +73,25 @@ class TodoTimer extends ChangeNotifier {
 
   void _pauseTimer() {
     _state = TimerState.paused;
-    _timer?.cancel();
+    _ticker?.stop();
   }
 
   void _completeTimer() {
     _state = TimerState.completed;
-    _timer?.cancel();
+    _ticker?.stop();
   }
 
   void _resetTimer() {
     _state = TimerState.idle;
-    focusedTime = Duration.zero;
-    _timer?.cancel();
+    _focusedTime = Duration.zero;
+    _ticker?.stop();
+    _lastTickerTime = Duration.zero;
   }
-
-  Duration getFocusedTime() => focusedTime;
 
   @override
   void dispose() {
     _isDisposed = true;
-    _timer?.cancel();
+    _ticker?.dispose();
     super.dispose();
   }
 }
