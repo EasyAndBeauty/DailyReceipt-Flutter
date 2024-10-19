@@ -19,6 +19,7 @@ class AppTheme {
     ),
     dialogBackgroundColor: AppColors.blackSemiTransparent,
     textTheme: textTheme,
+    scaffoldBackgroundColor: AppColors.black
   );
 
   static TextTheme textTheme = TextTheme(
