@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/models/todo_timer.dart';
-import 'package:daily_receipt/widgets/confirmation_dialog.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/buttons.dart';
+import 'package:daily_receipt/widgets/confirmation_dialog.dart';
 import 'package:daily_receipt/widgets/dashed_line_painter.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class TimerBottomSheet extends StatelessWidget {
   static const double _bottomSheetHeight = 0.95;
@@ -107,6 +107,26 @@ class TimerBottomSheet extends StatelessWidget {
 
   Widget _buildTimerContent(
       BuildContext context, TodoTimer todoTimer, ThemeData theme) {
+    String formatDuration(Duration duration) {
+      final hours = duration.inHours;
+      final minutes = duration.inMinutes.remainder(60);
+      final seconds = duration.inSeconds.remainder(60);
+
+      final List<String> parts = [];
+
+      if (hours > 0) {
+        parts.add('$hours시간');
+      }
+      if (minutes > 0) {
+        parts.add('$minutes분');
+      }
+      if (seconds > 0 || parts.isEmpty) {
+        parts.add('$seconds초');
+      }
+
+      return parts.join(' ');
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,12 +137,11 @@ class TimerBottomSheet extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: _spaceBetweenElements),
-        if (todoTimer.state == TimerState.idle)
-          Text(
-            '집중한 시간: ${todo.accumulatedTime.inMinutes}분',
-            style: _getBodyTextStyle(theme, todoTimer.state, false),
-            textAlign: TextAlign.center,
-          ),
+        Text(
+          '집중한 시간: ${formatDuration(todo.accumulatedTime)}',
+          style: _getBodyTextStyle(theme, todoTimer.state, false),
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: _verticalPadding),
         Text(
           _formatTime(todoTimer.focusedTime),
@@ -131,7 +150,7 @@ class TimerBottomSheet extends StatelessWidget {
         ),
         const SizedBox(height: _spaceBetweenElements * 2),
         SizedBox(
-          width: 184,
+          width: double.infinity,
           child: Text(
             _getMessageByTimerState(todoTimer.state),
             style: _getBodyTextStyle(theme, todoTimer.state, false),
@@ -223,11 +242,11 @@ class TimerBottomSheet extends StatelessWidget {
   String _getMessageByTimerState(TimerState state) {
     switch (state) {
       case TimerState.idle:
-        return 'Play 버튼을 눌러 타이머를 시작해보세요.';
+        return 'Play 버튼을 눌러\n타이머를 시작해보세요.';
       case TimerState.running:
-        return '조금 더 집중한 이 시간이\n더 빛나는 내일을 만들어 줄 거예요.';
+        return '조금 더 집중한 이 시간이\n빛나는 내일을 만들어 줄 거예요.';
       case TimerState.paused:
-        return '다시 집중하고 싶다면\nStart 버튼을 눌러주세요.';
+        return '다시 집중하고 싶다면\nPlay 버튼을 눌러주세요.';
       case TimerState.completed:
         return '훌륭해요! 오늘의 집중이\n내일의 성과로 이어질 거예요.';
     }
