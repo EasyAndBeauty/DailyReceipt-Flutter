@@ -45,7 +45,9 @@ class CalendarDialog extends StatelessWidget {
               titleTextFormatter: (date, locale) {
                 return DateFormat('yyyy.MM.').format(date).toString();
               },
-              titleTextStyle: theme.textTheme.titleLarge!,
+              titleTextStyle: theme.textTheme.titleLarge!.copyWith(
+                color: theme.colorScheme.primary,
+              ),
               headerPadding: const EdgeInsets.only(top: 6, bottom: 6),
               leftChevronIcon: Icon(
                 Icons.chevron_left,
