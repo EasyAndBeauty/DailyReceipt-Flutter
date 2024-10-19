@@ -1,14 +1,16 @@
 import 'package:daily_receipt/models/calendar.dart';
-import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:daily_receipt/widgets/receipt_button.dart';
+import 'package:daily_receipt/models/todo_timer.dart';
+import 'package:daily_receipt/widgets/todo_action_bottom_sheet.dart';
 import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class TodosScreen extends StatefulWidget {
   const TodosScreen({super.key});
@@ -24,10 +26,21 @@ class _TodosScreenState extends State<TodosScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Todos todosProvider = Provider.of<Todos>(context, listen: true);
     final calendarProvider = Provider.of<Calendar>(context, listen: true);
     List<Todo> todos =
         todosProvider.groupedTodosByDate[calendarProvider.selectedDate] ?? [];
+
+    void updateTodo() {
+      if (editController.text.isEmpty || editingId == null) return;
+
+      todosProvider.update(editingId!, editController.text);
+      setState(() {
+        editingId = null;
+      });
+      editController.clear();
+    }
 
     void addTodo() {
       if (addController.text.isEmpty) return;
@@ -43,22 +56,32 @@ class _TodosScreenState extends State<TodosScreen> {
       addController.clear();
     }
 
-    void updateTodo() {
-      if (editController.text.isEmpty || editingId == null) return;
-
-      todosProvider.update(editingId!, editController.text);
-      setState(() {
-        editingId = null;
-      });
-      editController.clear();
+    void showTodoActionBottomSheet(BuildContext context, Todo todo) {
+      showCupertinoModalBottomSheet(
+        expand: false,
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (context) => TodoActionBottomSheet(
+          todo: todo,
+          onEdit: () {
+            setState(() {
+              editingId = todo.id; // 수정할 Todo의 ID 저장
+              editController.text = todo.content; // 수정할 내용을 텍스트 필드에 표시
+            });
+          },
+        ),
+      );
     }
 
     void showTimerBottomSheet(BuildContext context, Todo todo) {
-      showModalBottomSheet(
+      showCupertinoModalBottomSheet(
         context: context,
-        isScrollControlled: true,
-        isDismissible: false,
         enableDrag: false,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(25.0),
+          ),
+        ),
         builder: (context) {
           return ChangeNotifierProvider(
             create: (_) => TodoTimer(),
@@ -92,12 +115,9 @@ class _TodosScreenState extends State<TodosScreen> {
                           DateFormat('MMMM')
                               .format(calendarProvider.selectedDate)
                               .toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
+                          style: theme.textTheme.headlineLarge?.copyWith(
+                            color: theme.colorScheme.onSurface,
+                          ),
                         ),
                         IconButton(
                           onPressed: () => showDialog(
@@ -105,7 +125,7 @@ class _TodosScreenState extends State<TodosScreen> {
                               builder: (context) => const CalendarDialog()),
                           icon: const Icon(Icons.calendar_month_rounded),
                           iconSize: 28,
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: theme.colorScheme.secondary,
                         ),
                       ],
                     ),
@@ -134,31 +154,31 @@ class _TodosScreenState extends State<TodosScreen> {
                       ),
                       daysOfWeekStyle: DaysOfWeekStyle(
                         weekdayStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: theme.colorScheme.onPrimary,
                         ),
                         weekendStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: theme.colorScheme.onPrimary,
                         ),
                       ),
                       calendarStyle: CalendarStyle(
                         defaultTextStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: theme.colorScheme.onPrimary,
                         ),
                         weekendTextStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: theme.colorScheme.onPrimary,
                         ),
                         todayTextStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: theme.colorScheme.onPrimary,
                         ),
                         selectedTextStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: theme.colorScheme.primary,
                         ),
                         todayDecoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: theme.colorScheme.secondary,
                           shape: BoxShape.circle,
                         ),
                         selectedDecoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: theme.colorScheme.onPrimary,
                           shape: BoxShape.circle,
                         ),
                         markersAnchor: 4,
@@ -166,7 +186,7 @@ class _TodosScreenState extends State<TodosScreen> {
                         markerMargin: const EdgeInsets.only(right: 5),
                         markerSize: 8,
                         markerDecoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: theme.colorScheme.tertiary,
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -174,26 +194,23 @@ class _TodosScreenState extends State<TodosScreen> {
                     ),
                     TextField(
                       controller: addController,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                      cursorColor: Theme.of(context).colorScheme.onSurface,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurface,
+                      ),
+                      cursorColor: theme.colorScheme.onSurface,
                       decoration: InputDecoration(
-                        hintText: 'Collect moments, print memories.',
-                        hintStyle: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
+                        hintText: 'Collect moments',
+                        hintStyle: theme.textTheme.titleMedium?.copyWith(
+                          color: theme.colorScheme.secondary,
+                        ),
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.onSurface,
+                            color: theme.colorScheme.onSurface,
                           ),
                         ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary,
+                            color: theme.colorScheme.tertiary,
                             width: 1.5,
                           ),
                         ),
@@ -204,7 +221,7 @@ class _TodosScreenState extends State<TodosScreen> {
                             Icons.add_rounded,
                             size: 32,
                           ),
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           onPressed: addTodo,
                         ),
                       ),
@@ -215,145 +232,75 @@ class _TodosScreenState extends State<TodosScreen> {
                           ? ListView.builder(
                               itemCount: todos.length,
                               itemBuilder: (context, index) {
-                                return Theme(
-                                  data: Theme.of(context).copyWith(
-                                    checkboxTheme: CheckboxThemeData(
-                                      side: MaterialStateBorderSide.resolveWith(
-                                        (states) => BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary,
-                                          width: 2,
-                                        ),
-                                      ),
+                                return ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: IconButton(
+                                    icon: Icon(
+                                      todos[index].isDone
+                                          ? Icons.check_circle
+                                          : Icons.circle_outlined,
+                                      color: todos[index].isDone
+                                          ? theme.colorScheme.tertiary
+                                          : theme.colorScheme.onSurface,
                                     ),
+                                    onPressed: () {
+                                      todosProvider.toggleDone(todos[index].id);
+                                    },
                                   ),
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    leading: IconButton(
-                                      icon: Icon(
-                                        todos[index].isDone
-                                            ? Icons.check_circle
-                                            : Icons.circle_outlined,
-                                        color: todos[index].isDone
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .tertiary
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                      ),
-                                      onPressed: () {
-                                        todosProvider
-                                            .toggleDone(todos[index].id);
-                                      },
-                                    ),
-                                    title: editingId == todos[index].id
-                                        ? TextField(
-                                            controller: editController,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurface,
-                                                ),
-                                            cursorColor: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                            decoration: InputDecoration(
-                                              isDense: true,
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .tertiary,
-                                                ),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .tertiary,
-                                                ),
-                                              ),
-                                              contentPadding: EdgeInsets.all(0),
-                                            ),
-                                            onSubmitted: (_) => updateTodo(),
-                                          )
-                                        : Text(
-                                            todos[index].content,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurface,
-                                                ),
+                                  title: editingId == todos[index].id
+                                      ? TextField(
+                                          controller: editController,
+                                          style: theme.textTheme.bodyMedium
+                                              ?.copyWith(
+                                            color: theme.colorScheme.onSurface,
                                           ),
-                                    trailing: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        editingId == todos[index].id
-                                            ? IconButton(
-                                                icon: const Icon(Icons.check),
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .tertiary,
-                                                onPressed: updateTodo,
-                                              )
-                                            : IconButton(
-                                                icon: const Icon(Icons.edit),
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onPrimary,
-                                                onPressed: () {
-                                                  setState(() {
-                                                    editingId = todos[index].id;
-                                                    editController.text =
-                                                        todos[index].content;
-                                                  });
-                                                },
+                                          cursorColor:
+                                              theme.colorScheme.onSurface,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    theme.colorScheme.tertiary,
                                               ),
-                                        IconButton(
-                                          icon: const Icon(Icons.close),
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .error,
-                                          onPressed: () {
-                                            todosProvider
-                                                .remove(todos[index].id);
-                                          },
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    theme.colorScheme.tertiary,
+                                              ),
+                                            ),
+                                            contentPadding: EdgeInsets.all(0),
+                                          ),
+                                          onSubmitted: (_) => updateTodo(),
+                                        )
+                                      : Text(
+                                          todos[index].content,
+                                          style: theme.textTheme.bodyMedium
+                                              ?.copyWith(
+                                            color: theme.colorScheme.onSurface,
+                                          ),
                                         ),
-                                        IconButton(
-                                          icon: const Icon(Icons.timer),
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary,
-                                          onPressed: () {
-                                            showTimerBottomSheet(
-                                                context, todos[index]);
-                                          },
-                                        ),
-                                      ],
+                                  onTap: () {
+                                    showTimerBottomSheet(context, todos[index]);
+                                  },
+                                  trailing: IconButton(
+                                    icon: Icon(
+                                      Icons.more_vert,
+                                      color: theme.colorScheme.onPrimary,
                                     ),
+                                    onPressed: () {
+                                      showTodoActionBottomSheet(
+                                          context, todos[index]);
+                                    },
                                   ),
                                 );
                               })
                           : Center(
                               child: Text(
                                 'No todos for this day',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary),
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                    color: theme.colorScheme.secondary),
                               ),
                             ),
                     ),
@@ -361,7 +308,6 @@ class _TodosScreenState extends State<TodosScreen> {
                 ),
               ),
             ),
-            // 수정된 버튼 영역
             ReceiptButton(
               onPressed: () {
                 GoRouter.of(context).go('/details', extra: {
