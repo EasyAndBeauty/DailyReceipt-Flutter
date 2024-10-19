@@ -87,7 +87,9 @@ class TodoActionBottomSheet extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16),
       child: Text(
         'TODO: ${todo.content}',
-        style: theme.textTheme.titleMedium,
+        style: theme.textTheme.titleMedium?.copyWith(
+          color: theme.colorScheme.primary,
+        ),
         textAlign: TextAlign.center,
       ),
     );

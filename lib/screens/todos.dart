@@ -239,12 +239,8 @@ class _TodosScreenState extends State<TodosScreen> {
                                           ? Icons.check_circle
                                           : Icons.circle_outlined,
                                       color: todos[index].isDone
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .tertiary
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .onBackground,
+                                          ? theme.colorScheme.tertiary
+                                          : theme.colorScheme.onSurface,
                                     ),
                                     onPressed: () {
                                       todosProvider.toggleDone(todos[index].id);
@@ -253,31 +249,24 @@ class _TodosScreenState extends State<TodosScreen> {
                                   title: editingId == todos[index].id
                                       ? TextField(
                                           controller: editController,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onBackground,
-                                              ),
-                                          cursorColor: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground,
+                                            color: theme.colorScheme.onSurface,
+                                          ),
+                                          cursorColor:
+                                              theme.colorScheme.onSurface,
                                           decoration: InputDecoration(
                                             isDense: true,
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .tertiary,
+                                                color:
+                                                    theme.colorScheme.tertiary,
                                               ),
                                             ),
                                             focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .tertiary,
+                                                color:
+                                                    theme.colorScheme.tertiary,
                                               ),
                                             ),
                                             contentPadding: EdgeInsets.all(0),
@@ -286,14 +275,10 @@ class _TodosScreenState extends State<TodosScreen> {
                                         )
                                       : Text(
                                           todos[index].content,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onBackground,
-                                              ),
+                                            color: theme.colorScheme.onSurface,
+                                          ),
                                         ),
                                   onTap: () {
                                     showTimerBottomSheet(context, todos[index]);
@@ -301,9 +286,7 @@ class _TodosScreenState extends State<TodosScreen> {
                                   trailing: IconButton(
                                     icon: Icon(
                                       Icons.more_vert,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
+                                      color: theme.colorScheme.onPrimary,
                                     ),
                                     onPressed: () {
                                       showTodoActionBottomSheet(
