@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'receipt_text.dart';
 
 class ReceiptItem extends StatelessWidget {
@@ -12,7 +13,9 @@ class ReceiptItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ReceiptText(name),
+        Expanded(
+          child: ReceiptText(name),
+        ),
         ReceiptText(value),
       ],
     );

@@ -12,6 +12,8 @@ class ReceiptText extends StatelessWidget {
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
             color: Theme.of(context).colorScheme.primary,
           ),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
     );
   }
 }
