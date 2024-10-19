@@ -76,6 +76,7 @@ class _TodosScreenState extends State<TodosScreen> {
     void showTimerBottomSheet(BuildContext context, Todo todo) {
       showCupertinoModalBottomSheet(
         context: context,
+        enableDrag: false,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(25.0),
