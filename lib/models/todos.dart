@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Todos extends ChangeNotifier {
-  final Map<int, Todo> _todos = {};
+  final Map<String, Todo> _todos = {};
   late SharedPreferences _localStorage;
   final List<DateTime> _pinStack = [];
 
@@ -74,7 +74,7 @@ class Todos extends ChangeNotifier {
     await _localStorage.setString('todo_${todo.id}', jsonEncode(todo.toJson()));
   }
 
-  Future<void> _removeTodoFromLocalStorage(int id) async {
+  Future<void> _removeTodoFromLocalStorage(String id) async {
     await _localStorage.remove('todo_$id');
   }
 
@@ -84,13 +84,13 @@ class Todos extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> remove(int id) async {
+  Future<void> remove(String id) async {
     _todos.remove(id);
     await _removeTodoFromLocalStorage(id);
     notifyListeners();
   }
 
-  Future<void> toggleDone(int id) async {
+  Future<void> toggleDone(String id) async {
     if (_todos.containsKey(id)) {
       _todos[id]!.toggleDone();
       await _saveTodoToLocalStorage(_todos[id]!);
@@ -98,7 +98,7 @@ class Todos extends ChangeNotifier {
     }
   }
 
-  Future<void> update(int id, String newContent) async {
+  Future<void> update(String id, String newContent) async {
     if (_todos.containsKey(id)) {
       _todos[id]!.updateContent(newContent);
       await _saveTodoToLocalStorage(_todos[id]!);
@@ -106,7 +106,7 @@ class Todos extends ChangeNotifier {
     }
   }
 
-  Future<void> addAccumulatedTime(int id, Duration additionalTime) async {
+  Future<void> addAccumulatedTime(String id, Duration additionalTime) async {
     if (_todos.containsKey(id)) {
       _todos[id]!.addAccumulatedTime(additionalTime);
       await _saveTodoToLocalStorage(_todos[id]!);
@@ -154,13 +154,13 @@ class Todos extends ChangeNotifier {
 }
 
 class Todo {
-  final int id;
-  String content;
-  bool isDone;
+  final String id;
+  final String content;
+  final bool isDone;
   final DateTime createdAt;
-  DateTime? completedAt;
-  DateTime scheduledDate;
-  Duration accumulatedTime;
+  final DateTime? completedAt;
+  final DateTime scheduledDate;
+  final Duration accumulatedTime;
 
   Todo({
     required this.id,
