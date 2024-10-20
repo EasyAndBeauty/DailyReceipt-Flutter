@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -92,24 +93,27 @@ class Todos extends ChangeNotifier {
 
   Future<void> toggleDone(String id) async {
     if (_todos.containsKey(id)) {
-      _todos[id]!.toggleDone();
-      await _saveTodoToLocalStorage(_todos[id]!);
+      final updatedTodo = _todos[id]!.toggleDone();
+      _todos[id] = updatedTodo;
+      await _saveTodoToLocalStorage(updatedTodo);
       notifyListeners();
     }
   }
 
   Future<void> update(String id, String newContent) async {
     if (_todos.containsKey(id)) {
-      _todos[id]!.updateContent(newContent);
-      await _saveTodoToLocalStorage(_todos[id]!);
+      final updatedTodo = _todos[id]!.updateContent(newContent);
+      _todos[id] = updatedTodo;
+      await _saveTodoToLocalStorage(updatedTodo);
       notifyListeners();
     }
   }
 
   Future<void> addAccumulatedTime(String id, Duration additionalTime) async {
     if (_todos.containsKey(id)) {
-      _todos[id]!.addAccumulatedTime(additionalTime);
-      await _saveTodoToLocalStorage(_todos[id]!);
+      final updatedTodo = _todos[id]!.addAccumulatedTime(additionalTime);
+      _todos[id] = updatedTodo;
+      await _saveTodoToLocalStorage(updatedTodo);
       notifyListeners();
     }
   }
@@ -172,21 +176,39 @@ class Todo {
     this.accumulatedTime = Duration.zero,
   });
 
-  void toggleDone() {
-    isDone = !isDone;
-    if (isDone) {
-      completedAt = DateTime.now();
-    } else {
-      completedAt = null;
-    }
+  Todo copyWith({
+    String? id,
+    String? content,
+    bool? isDone,
+    DateTime? createdAt,
+    DateTime? completedAt,
+    DateTime? scheduledDate,
+    Duration? accumulatedTime,
+  }) {
+    return Todo(
+      id: id ?? this.id,
+      content: content ?? this.content,
+      isDone: isDone ?? this.isDone,
+      createdAt: createdAt ?? this.createdAt,
+      completedAt: completedAt ?? this.completedAt,
+      scheduledDate: scheduledDate ?? this.scheduledDate,
+      accumulatedTime: accumulatedTime ?? this.accumulatedTime,
+    );
   }
 
-  void updateContent(String newContent) {
-    content = newContent;
+  Todo toggleDone() {
+    return copyWith(
+      isDone: !isDone,
+      completedAt: !isDone ? DateTime.now() : null,
+    );
   }
 
-  void addAccumulatedTime(Duration additionalTime) {
-    accumulatedTime += additionalTime;
+  Todo updateContent(String newContent) {
+    return copyWith(content: newContent);
+  }
+
+  Todo addAccumulatedTime(Duration additionalTime) {
+    return copyWith(accumulatedTime: accumulatedTime + additionalTime);
   }
 
   Map<String, dynamic> toJson() {
