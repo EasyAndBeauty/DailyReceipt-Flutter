@@ -1,16 +1,17 @@
 import 'package:daily_receipt/models/calendar.dart';
+import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:daily_receipt/widgets/receipt_button.dart';
-import 'package:daily_receipt/models/todo_timer.dart';
-import 'package:daily_receipt/widgets/todo_action_bottom_sheet.dart';
 import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
+import 'package:daily_receipt/widgets/todo_action_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:uuid/uuid.dart';
 
 class TodosScreen extends StatefulWidget {
   const TodosScreen({super.key});
@@ -22,7 +23,8 @@ class TodosScreen extends StatefulWidget {
 class _TodosScreenState extends State<TodosScreen> {
   final TextEditingController addController = TextEditingController();
   final TextEditingController editController = TextEditingController();
-  int? editingId;
+  String? editingId;
+  final Uuid _uuid = Uuid();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class _TodosScreenState extends State<TodosScreen> {
       if (addController.text.isEmpty) return;
 
       final newTodo = Todo(
-        id: todosProvider.todos.length,
+        id: _uuid.v4(),
         content: addController.text,
         createdAt: DateTime.now().toUtc(),
         scheduledDate: calendarProvider.selectedDate,

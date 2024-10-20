@@ -45,6 +45,7 @@ dependencies:
   pasteboard: ^0.2.0
   shared_preferences: ^2.3.2
   modal_bottom_sheet: ^3.0.0-pre
+  uuid: ^4.4.2
 
 dev_dependencies:
   flutter_test:
