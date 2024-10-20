@@ -27,6 +27,7 @@ class Todos extends ChangeNotifier {
 
   Future<void> _loadFromLocalStorage() async {
     final keys = _localStorage.getKeys();
+
     for (final key in keys) {
       if (key.startsWith('todo_')) {
         final todoJson = _localStorage.getString(key);
@@ -144,11 +145,18 @@ class Todos extends ChangeNotifier {
 
   Map<DateTime, List<Todo>> groupTodosByDate(List<Todo> todos) {
     final Map<DateTime, List<Todo>> grouped = {};
+
     for (Todo todo in todos) {
       final DateTime date = todo.scheduledDate;
       grouped.putIfAbsent(date, () => []);
       grouped[date]!.add(todo);
     }
+
+    // 각 그룹의 todo를 createdAt을 기준으로 정렬
+    for (final key in grouped.keys) {
+      grouped[key]!.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    }
+
     return grouped;
   }
 
