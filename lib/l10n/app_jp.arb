@@ -1,0 +1,9 @@
+{
+  "@@locale": "jp",
+  "appTitle": "Print Daily Receipts",
+  "@appTitle": {
+    "description": "The title of the application",
+    "type": "text",
+    "placeholders": {}
+  }
+}
