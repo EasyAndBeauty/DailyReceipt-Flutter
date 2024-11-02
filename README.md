@@ -1,3 +1,5 @@
+Copyright © 2024 EasyAndBeauty. All rights reserved.
+
 # daily_receipt
 
 Print your time.
