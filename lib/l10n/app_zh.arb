@@ -1,151 +1,157 @@
 {
   "@@locale": "zh",
-  "Key1": "每日收据",
-  "@Key1": {
+  "key1": "每日收据",
+  "@key1": {
     "description": "App title",
     "type": "text",
     "placeholders": {}
   },
-  "Key2": "打印每日收据",
-  "@Key2": {
+  "key2": "收集瞬间",
+  "@key2": {
+    "description": "Input placeholder",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "打印每日收据",
+  "@key5": {
     "description": "Main title",
     "type": "text",
     "placeholders": {}
   },
-  "Key3": "复制",
-  "@Key3": {
+  "key6": "复制",
+  "@key6": {
     "description": "Copy action button",
     "type": "text",
     "placeholders": {}
   },
-  "Key4": "复制中...",
-  "@Key4": {
+  "key7": "复制中...",
+  "@key7": {
     "description": "Copy in progress",
     "type": "text",
     "placeholders": {}
   },
-  "Key5": "正在将收据图片复制到剪贴板，请稍候。",
-  "@Key5": {
+  "key8": "正在将收据图片复制到剪贴板，请稍候。",
+  "@key8": {
     "description": "Copy to clipboard message",
     "type": "text",
     "placeholders": {}
   },
-  "Key6": "复制完成",
-  "@Key6": {
+  "key9": "复制完成",
+  "@key9": {
     "description": "Copy complete",
     "type": "text",
     "placeholders": {}
   },
-  "Key7": "收据图片已复制到剪贴板。",
-  "@Key7": {
+  "key10": "收据图片已复制到剪贴板。",
+  "@key10": {
     "description": "Copy success message",
     "type": "text",
     "placeholders": {}
   },
-  "Key8": "错误",
-  "@Key8": {
+  "key11": "错误",
+  "@key11": {
     "description": "Error title",
     "type": "text",
     "placeholders": {}
   },
-  "Key9": "复制收据时发生错误：",
-  "@Key9": {
+  "key12": "复制收据时发生错误：",
+  "@key12": {
     "description": "Copy error message",
     "type": "text",
     "placeholders": {}
   },
-  "Key10": "分享中...",
-  "@Key10": {
+  "key13": "分享中...",
+  "@key13": {
     "description": "Sharing in progress",
     "type": "text",
     "placeholders": {}
   },
-  "Key11": "正在分享收据图片，请稍候。",
-  "@Key11": {
+  "key14": "正在分享收据图片，请稍候。",
+  "@key14": {
     "description": "Share progress message",
     "type": "text",
     "placeholders": {}
   },
-  "Key12": "分享成功",
-  "@Key12": {
+  "key15": "分享成功",
+  "@key15": {
     "description": "Share success title",
     "type": "text",
     "placeholders": {}
   },
-  "Key13": "收据图片已成功分享。",
-  "@Key13": {
+  "key16": "收据图片已成功分享。",
+  "@key16": {
     "description": "Share success message",
     "type": "text",
     "placeholders": {}
   },
-  "Key14": "分享取消",
-  "@Key14": {
+  "key17": "分享取消",
+  "@key17": {
     "description": "Share cancel title",
     "type": "text",
     "placeholders": {}
   },
-  "Key15": "收据分享已取消。是否要重试？",
-  "@Key15": {
+  "key18": "收据分享已取消。是否要重试？",
+  "@key18": {
     "description": "Share cancel message",
     "type": "text",
     "placeholders": {}
   },
-  "Key16": "分享收据时发生错误：",
-  "@Key16": {
+  "key19": "分享收据时发生错误：",
+  "@key19": {
     "description": "Share error message",
     "type": "text",
     "placeholders": {}
   },
-  "Key17": "编辑",
-  "@Key17": {
+  "key20": "编辑",
+  "@key20": {
     "description": "Edit action",
     "type": "text",
     "placeholders": {}
   },
-  "Key18": "删除",
-  "@Key18": {
+  "key21": "删除",
+  "@key21": {
     "description": "Delete action",
     "type": "text",
     "placeholders": {}
   },
-  "Key19": "专注时间",
-  "@Key19": {
+  "key22": "专注时间",
+  "@key22": {
     "description": "Focus time title",
     "type": "text",
     "placeholders": {}
   },
-  "Key20": "秒",
-  "@Key20": {
+  "key23": "秒",
+  "@key23": {
     "description": "Seconds unit",
     "type": "text",
     "placeholders": {}
   },
-  "Key21": "小时",
-  "@Key21": {
+  "key24": "小时",
+  "@key24": {
     "description": "Hours unit",
     "type": "text",
     "placeholders": {}
   },
-  "Key22": "按下播放按钮开始计时。",
-  "@Key22": {
+  "key25": "按下播放按钮开始计时。",
+  "@key25": {
     "description": "Timer start message",
     "type": "text",
     "placeholders": {}
   },
-  "Key23": "多一点专注时间，创造更美好的明天。",
-  "@Key23": {
+  "key26": "多一点专注时间，创造更美好的明天。",
+  "@key26": {
     "description": "Motivation message",
     "type": "text",
     "placeholders": {}
   },
-  "Key24": "是否要停止计时？",
-  "@Key24": {
+  "key27": "是否要停止计时？",
+  "@key27": {
     "description": "Timer stop confirmation",
     "type": "text",
     "placeholders": {}
   },
-  "Key25": "如果想要重新专注，请按下播放按钮。",
-  "@Key25": {
+  "key28": "如果想要重新专注，请按下播放按钮。",
+  "@key28": {
     "description": "Timer restart message",
     "type": "text",
     "placeholders": {}

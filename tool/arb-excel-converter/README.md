@@ -67,6 +67,12 @@ dart run tool/arb-excel-converter/index.dart --to-arb
 dart run tool/arb-excel-converter/index.dart --to-arb -i custom.xlsx -o lib/l10n
 ```
 
+### arb변환 이후에 l10n 파일 생성
+
+```bash
+flutter gen-l10n
+```
+
 ### 사용 가능한 옵션
 
 | 옵션             | 설명                    | 기본값                              |
@@ -99,16 +105,6 @@ dart run tool/arb-excel-converter/index.dart --to-arb -i custom.xlsx -o lib/l10n
 - 새로운 언어 추가는 새 열을 추가하여 수행합니다.
 - Description은 모든 언어에 공통으로 적용됩니다.
 
-## 🤝 기여하기
+```
 
-버그를 발견하셨거나 새로운 기능을 제안하고 싶으시다면 Issue를 생성해주세요.
-Pull Request도 환영합니다!
-
-## 📄 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 제공됩니다.
-
-## 🙏 감사의 글
-
-이 도구는 Flutter 팀과 커뮤니티의 노력으로 만들어진 ARB 형식을 기반으로 합니다.
-더 나은 다국어 지원을 위해 함께 노력해주시는 모든 분들께 감사드립니다.
+```
