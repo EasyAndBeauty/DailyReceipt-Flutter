@@ -1,150 +1,150 @@
 {
-  "@@locale": "en",
-  "Key1": "Daily Receipt",
+  "@@locale": "ja",
+  "Key1": "デイリーレシート",
   "@Key1": {
     "description": "App title",
     "type": "text",
     "placeholders": {}
   },
-  "Key2": "Print Daily Receipts",
+  "Key2": "デイリーレシートを印刷",
   "@Key2": {
     "description": "Main title",
     "type": "text",
     "placeholders": {}
   },
-  "Key3": "Copy",
+  "Key3": "コピー",
   "@Key3": {
     "description": "Copy action button",
     "type": "text",
     "placeholders": {}
   },
-  "Key4": "Copying...",
+  "Key4": "コピー中...",
   "@Key4": {
     "description": "Copy in progress",
     "type": "text",
     "placeholders": {}
   },
-  "Key5": "Copying receipt image to clipboard. Please wait.",
+  "Key5": "レシート画像をクリップボードにコピーしています。お待ちください。",
   "@Key5": {
     "description": "Copy to clipboard message",
     "type": "text",
     "placeholders": {}
   },
-  "Key6": "Copy Complete",
+  "Key6": "コピー完了",
   "@Key6": {
     "description": "Copy complete",
     "type": "text",
     "placeholders": {}
   },
-  "Key7": "Receipt image has been copied to clipboard.",
+  "Key7": "レシート画像がクリップボードにコピーされました。",
   "@Key7": {
     "description": "Copy success message",
     "type": "text",
     "placeholders": {}
   },
-  "Key8": "Error",
+  "Key8": "エラー",
   "@Key8": {
     "description": "Error title",
     "type": "text",
     "placeholders": {}
   },
-  "Key9": "Error occurred while copying receipt:",
+  "Key9": "レシートのコピー中にエラーが発生しました：",
   "@Key9": {
     "description": "Copy error message",
     "type": "text",
     "placeholders": {}
   },
-  "Key10": "Sharing...",
+  "Key10": "共有中...",
   "@Key10": {
     "description": "Sharing in progress",
     "type": "text",
     "placeholders": {}
   },
-  "Key11": "Sharing receipt image. Please wait.",
+  "Key11": "レシート画像を共有しています。お待ちください。",
   "@Key11": {
     "description": "Share progress message",
     "type": "text",
     "placeholders": {}
   },
-  "Key12": "Share Success",
+  "Key12": "共有成功",
   "@Key12": {
     "description": "Share success title",
     "type": "text",
     "placeholders": {}
   },
-  "Key13": "Receipt image has been shared successfully.",
+  "Key13": "レシート画像が正常に共有されました。",
   "@Key13": {
     "description": "Share success message",
     "type": "text",
     "placeholders": {}
   },
-  "Key14": "Share Cancelled",
+  "Key14": "共有キャンセル",
   "@Key14": {
     "description": "Share cancel title",
     "type": "text",
     "placeholders": {}
   },
-  "Key15": "Receipt sharing was cancelled. Would you like to try again?",
+  "Key15": "レシートの共有がキャンセルされました。もう一度試しますか？",
   "@Key15": {
     "description": "Share cancel message",
     "type": "text",
     "placeholders": {}
   },
-  "Key16": "Error occurred while sharing receipt:",
+  "Key16": "レシートの共有中にエラーが発生しました：",
   "@Key16": {
     "description": "Share error message",
     "type": "text",
     "placeholders": {}
   },
-  "Key17": "Edit",
+  "Key17": "編集",
   "@Key17": {
     "description": "Edit action",
     "type": "text",
     "placeholders": {}
   },
-  "Key18": "Delete",
+  "Key18": "削除",
   "@Key18": {
     "description": "Delete action",
     "type": "text",
     "placeholders": {}
   },
-  "Key19": "Focus Time",
+  "Key19": "集中時間",
   "@Key19": {
     "description": "Focus time title",
     "type": "text",
     "placeholders": {}
   },
-  "Key20": "seconds",
+  "Key20": "秒",
   "@Key20": {
     "description": "Seconds unit",
     "type": "text",
     "placeholders": {}
   },
-  "Key21": "hours",
+  "Key21": "時間",
   "@Key21": {
     "description": "Hours unit",
     "type": "text",
     "placeholders": {}
   },
-  "Key22": "Press the Play button to start the timer.",
+  "Key22": "Playボタンを押してタイマーを開始してください。",
   "@Key22": {
     "description": "Timer start message",
     "type": "text",
     "placeholders": {}
   },
-  "Key23": "A little more focus time will make tomorrow brighter.",
+  "Key23": "もう少し集中した時間が、より良い明日を作ります。",
   "@Key23": {
     "description": "Motivation message",
     "type": "text",
     "placeholders": {}
   },
-  "Key24": "Do you want to stop the timer?",
+  "Key24": "タイマーを停止しますか？",
   "@Key24": {
     "description": "Timer stop confirmation",
     "type": "text",
     "placeholders": {}
   },
-  "Key25": "Press the Play button to focus again.",
+  "Key25": "もう一度集中したい場合は、Playボタンを押してください。",
   "@Key25": {
     "description": "Timer restart message",
     "type": "text",

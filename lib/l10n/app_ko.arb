@@ -1,8 +1,152 @@
 {
   "@@locale": "ko",
-  "appTitle": "Print Daily Receipts",
-  "@appTitle": {
-    "description": "The title of the application",
+  "Key1": "Daily Receipt",
+  "@Key1": {
+    "description": "App title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key2": "Print Daily Receipts",
+  "@Key2": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key3": "copy",
+  "@Key3": {
+    "description": "Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key4": "복사중",
+  "@Key4": {
+    "description": "Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key5": "영수증 이미지를 클립보드에 복사 중입니다. 잠시만 기다려주세요.",
+  "@Key5": {
+    "description": "Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key6": "복사완료",
+  "@Key6": {
+    "description": "Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key7": "영수증 이미지가 클립보드에 복사되었습니다.",
+  "@Key7": {
+    "description": "Copy success message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key8": "오류",
+  "@Key8": {
+    "description": "Error title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key9": "영수증 복사 중 오류가 발생했습니다:",
+  "@Key9": {
+    "description": "Copy error message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key10": "공유 중",
+  "@Key10": {
+    "description": "Sharing in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key11": "영수증 이미지를 공유 중입니다. 잠시만 기다려주세요.",
+  "@Key11": {
+    "description": "Share progress message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key12": "공유 성공",
+  "@Key12": {
+    "description": "Share success title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key13": "영수증 이미지가 성공적으로 공유되었습니다.",
+  "@Key13": {
+    "description": "Share success message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key14": "공유 취소",
+  "@Key14": {
+    "description": "Share cancel title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key15": "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
+  "@Key15": {
+    "description": "Share cancel message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key16": "영수증 공유 중 오류가 발생했습니다:",
+  "@Key16": {
+    "description": "Share error message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key17": "edit",
+  "@Key17": {
+    "description": "Edit action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key18": "delete",
+  "@Key18": {
+    "description": "Delete action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key19": "집중한 시간",
+  "@Key19": {
+    "description": "Focus time title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key20": "초",
+  "@Key20": {
+    "description": "Seconds unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key21": "시간",
+  "@Key21": {
+    "description": "Hours unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key22": "Play 버튼을 눌러 타이머를 시작해보세요.",
+  "@Key22": {
+    "description": "Timer start message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key23": "조금 더 집중한 시간이 빛나는 내일을 만들어 줄 거에요.",
+  "@Key23": {
+    "description": "Motivation message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key24": "타이머를 중지할까요?",
+  "@Key24": {
+    "description": "Timer stop confirmation",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Key25": "다시 집중하고 싶다면 Play 버튼을 눌러주세요.",
+  "@Key25": {
+    "description": "Timer restart message",
     "type": "text",
     "placeholders": {}
   }
