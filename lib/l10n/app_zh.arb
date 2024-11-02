@@ -12,6 +12,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "key3": "今天没有任务",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key4": "选择的日期",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
   "key5": "打印每日收据",
   "@key5": {
     "description": "Main title",
@@ -126,33 +138,117 @@
     "type": "text",
     "placeholders": {}
   },
-  "key24": "小时",
+  "key24": "分钟",
   "@key24": {
+    "description": "Minutes unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key25": "小时",
+  "@key25": {
     "description": "Hours unit",
     "type": "text",
     "placeholders": {}
   },
-  "key25": "按下播放按钮开始计时。",
-  "@key25": {
+  "key26": "按下播放按钮开始计时。",
+  "@key26": {
     "description": "Timer start message",
     "type": "text",
     "placeholders": {}
   },
-  "key26": "多一点专注时间，创造更美好的明天。",
-  "@key26": {
+  "key27": "多一点专注时间，创造更美好的明天。",
+  "@key27": {
     "description": "Motivation message",
     "type": "text",
     "placeholders": {}
   },
-  "key27": "是否要停止计时？",
-  "@key27": {
+  "key28": "是否要停止计时？",
+  "@key28": {
     "description": "Timer stop confirmation",
     "type": "text",
     "placeholders": {}
   },
-  "key28": "如果想要重新专注，请按下播放按钮。",
-  "@key28": {
+  "key29": "如果想要重新专注，请按下播放按钮。",
+  "@key29": {
     "description": "Timer restart message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key30": "太好了！\\n今天的专注明天就会有回报。",
+  "@key30": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key31": "Stop",
+  "@key31": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key32": "Play",
+  "@key32": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key33": "COPY",
+  "@key33": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key34": "SAVE",
+  "@key34": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key35": "PIN",
+  "@key35": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key36": "Change My NickName",
+  "@key36": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key37": "Logout",
+  "@key37": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key38": "Delete",
+  "@key38": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key39": "ITEM COUNT",
+  "@key39": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key40": "TOTAL",
+  "@key40": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key41": "Print Your Time",
+  "@key41": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key42": "TODO",
+  "@key42": {
+    "description": "Description not provided",
     "type": "text",
     "placeholders": {}
   }

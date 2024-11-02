@@ -12,6 +12,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "key3": "今日はタスクがありません",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key4": "選択された日付",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
   "key5": "デイリーレシートを印刷",
   "@key5": {
     "description": "Main title",
@@ -126,33 +138,117 @@
     "type": "text",
     "placeholders": {}
   },
-  "key24": "時間",
+  "key24": "分",
   "@key24": {
+    "description": "Minutes unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key25": "時間",
+  "@key25": {
     "description": "Hours unit",
     "type": "text",
     "placeholders": {}
   },
-  "key25": "Playボタンを押してタイマーを開始してください。",
-  "@key25": {
+  "key26": "Playボタンを押してタイマーを開始してください。",
+  "@key26": {
     "description": "Timer start message",
     "type": "text",
     "placeholders": {}
   },
-  "key26": "もう少し集中した時間が、より良い明日を作ります。",
-  "@key26": {
+  "key27": "もう少し集中した時間が、より良い明日を作ります。",
+  "@key27": {
     "description": "Motivation message",
     "type": "text",
     "placeholders": {}
   },
-  "key27": "タイマーを停止しますか？",
-  "@key27": {
+  "key28": "タイマーを停止しますか？",
+  "@key28": {
     "description": "Timer stop confirmation",
     "type": "text",
     "placeholders": {}
   },
-  "key28": "もう一度集中したい場合は、Playボタンを押してください。",
-  "@key28": {
+  "key29": "もう一度集中したい場合は、Playボタンを押してください。",
+  "@key29": {
     "description": "Timer restart message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key30": "素晴らしい！\\n今日の集中力が\\n明日の成果につながりますよ。",
+  "@key30": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key31": "Stop",
+  "@key31": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key32": "Play",
+  "@key32": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key33": "COPY",
+  "@key33": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key34": "SAVE",
+  "@key34": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key35": "PIN",
+  "@key35": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key36": "Change My NickName",
+  "@key36": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key37": "Logout",
+  "@key37": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key38": "Delete",
+  "@key38": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key39": "ITEM COUNT",
+  "@key39": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key40": "TOTAL",
+  "@key40": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key41": "Print Your Time",
+  "@key41": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key42": "TODO",
+  "@key42": {
+    "description": "Description not provided",
     "type": "text",
     "placeholders": {}
   }

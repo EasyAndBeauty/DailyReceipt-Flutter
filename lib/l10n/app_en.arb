@@ -12,6 +12,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "key3": "No tasks for today",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key4": "Selected Date",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
   "key5": "Print Daily Receipts",
   "@key5": {
     "description": "Main title",
@@ -126,33 +138,117 @@
     "type": "text",
     "placeholders": {}
   },
-  "key24": "hours",
+  "key24": "minutes",
   "@key24": {
+    "description": "Minutes unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key25": "hours",
+  "@key25": {
     "description": "Hours unit",
     "type": "text",
     "placeholders": {}
   },
-  "key25": "Press the Play button to start the timer.",
-  "@key25": {
+  "key26": "Press the Play button to start the timer.",
+  "@key26": {
     "description": "Timer start message",
     "type": "text",
     "placeholders": {}
   },
-  "key26": "A little more focus time will make tomorrow brighter.",
-  "@key26": {
+  "key27": "A little more focus time will make tomorrow brighter.",
+  "@key27": {
     "description": "Motivation message",
     "type": "text",
     "placeholders": {}
   },
-  "key27": "Do you want to stop the timer?",
-  "@key27": {
+  "key28": "Do you want to stop the timer?",
+  "@key28": {
     "description": "Timer stop confirmation",
     "type": "text",
     "placeholders": {}
   },
-  "key28": "Press the Play button to focus again.",
-  "@key28": {
+  "key29": "Press the Play button to focus again.",
+  "@key29": {
     "description": "Timer restart message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key30": "Great! \\n Today's focus will pay off tomorrow.",
+  "@key30": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key31": "Stop",
+  "@key31": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key32": "Play",
+  "@key32": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key33": "COPY",
+  "@key33": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key34": "SAVE",
+  "@key34": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key35": "PIN",
+  "@key35": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key36": "Change My NickName",
+  "@key36": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key37": "Logout",
+  "@key37": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key38": "Delete",
+  "@key38": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key39": "ITEM COUNT",
+  "@key39": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key40": "TOTAL",
+  "@key40": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key41": "Print Your Time",
+  "@key41": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key42": "TODO",
+  "@key42": {
+    "description": "Description not provided",
     "type": "text",
     "placeholders": {}
   }
