@@ -5,11 +5,14 @@ import 'package:daily_receipt/screens/splash.dart';
 import 'package:daily_receipt/screens/todos.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import './theme.dart';
 
 void main() {
+  GoogleFonts.config.allowRuntimeFetching = false;
+
   final GoRouter router = GoRouter(
     initialLocation: '/splash',
     routes: <RouteBase>[
