@@ -251,5 +251,35 @@
     "description": "Description not provided",
     "type": "text",
     "placeholders": {}
+  },
+  "key43": "share",
+  "@key43": {
+    "description": "Share action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key44": "Error capturing receipt image",
+  "@key44": {
+    "description": "Capture error mssage",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key45": "Cancel",
+  "@key45": {
+    "description": "Cancel action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key46": "Pause",
+  "@key46": {
+    "description": "Pause action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key47": "Edit",
+  "@key47": {
+    "description": "Edit action button",
+    "type": "text",
+    "placeholders": {}
   }
 }

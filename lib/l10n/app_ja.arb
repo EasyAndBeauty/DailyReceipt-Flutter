@@ -1,12 +1,12 @@
 {
   "@@locale": "ja",
-  "key1": "デイリーレシート",
+  "key1": "Daily Receipt",
   "@key1": {
     "description": "App title",
     "type": "text",
     "placeholders": {}
   },
-  "key2": "瞬間を集める",
+  "key2": "時を集める",
   "@key2": {
     "description": "Input placeholder",
     "type": "text",
@@ -90,7 +90,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "key16": "レシート画像が正常に共有されました。",
+  "key16": "レシート画像が共有されました。",
   "@key16": {
     "description": "Share success message",
     "type": "text",
@@ -168,13 +168,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "key29": "もう一度集中したい場合は、Playボタンを押してください。",
+  "key29": "集中に戻りたい場合は、Playボタンを押してください。",
   "@key29": {
     "description": "Timer restart message",
     "type": "text",
     "placeholders": {}
   },
-  "key30": "素晴らしい！\\n今日の集中力が\\n明日の成果につながりますよ。",
+  "key30": "素晴らしい！\\n今日の集中力が\\n明日の成果につながります。",
   "@key30": {
     "description": "Description not provided",
     "type": "text",
@@ -249,6 +249,36 @@
   "key42": "TODO",
   "@key42": {
     "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key43": "share",
+  "@key43": {
+    "description": "Share action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key44": "Error capturing receipt image",
+  "@key44": {
+    "description": "Capture error mssage",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key45": "Cancel",
+  "@key45": {
+    "description": "Cancel action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key46": "Pause",
+  "@key46": {
+    "description": "Pause action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key47": "Edit",
+  "@key47": {
+    "description": "Edit action button",
     "type": "text",
     "placeholders": {}
   }
