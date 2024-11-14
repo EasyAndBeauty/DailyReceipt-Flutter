@@ -6,6 +6,7 @@ import 'package:daily_receipt/widgets/dashed_line_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 
 class TimerBottomSheet extends StatelessWidget {
   static const double _bottomSheetHeight = 0.95;
@@ -115,13 +116,13 @@ class TimerBottomSheet extends StatelessWidget {
       final List<String> parts = [];
 
       if (hours > 0) {
-        parts.add('$hours시간');
+        parts.add('$hours${tr.key25}');
       }
       if (minutes > 0) {
-        parts.add('$minutes분');
+        parts.add('$minutes${tr.key24}');
       }
       if (seconds > 0 || parts.isEmpty) {
-        parts.add('$seconds초');
+        parts.add('$seconds${tr.key23}');
       }
 
       return parts.join(' ');
@@ -132,13 +133,13 @@ class TimerBottomSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'TODO: ${todo.content}',
+          '${tr.key42}: ${todo.content}',
           style: _getBodyTextStyle(theme, todoTimer.state, false),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: _spaceBetweenElements),
         Text(
-          '집중한 시간: ${formatDuration(todo.accumulatedTime)}',
+          '${tr.key22}: ${formatDuration(todo.accumulatedTime)}',
           style: _getBodyTextStyle(theme, todoTimer.state, false),
           textAlign: TextAlign.center,
         ),
@@ -152,7 +153,10 @@ class TimerBottomSheet extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: Text(
-            _getMessageByTimerState(todoTimer.state),
+            _getMessageByTimerState(
+              context,
+              todoTimer.state,
+            ),
             style: _getBodyTextStyle(theme, todoTimer.state, false),
             textAlign: TextAlign.center,
           ),
@@ -239,17 +243,13 @@ class TimerBottomSheet extends StatelessWidget {
     );
   }
 
-  String _getMessageByTimerState(TimerState state) {
-    switch (state) {
-      case TimerState.idle:
-        return 'Play 버튼을 눌러\n타이머를 시작해보세요.';
-      case TimerState.running:
-        return '조금 더 집중한 이 시간이\n빛나는 내일을 만들어 줄 거예요.';
-      case TimerState.paused:
-        return '다시 집중하고 싶다면\nPlay 버튼을 눌러주세요.';
-      case TimerState.completed:
-        return '훌륭해요! 오늘의 집중이\n내일의 성과로 이어질 거예요.';
-    }
+  String _getMessageByTimerState(BuildContext context, TimerState state) {
+    return switch (state) {
+      TimerState.idle => tr.key26,
+      TimerState.running => tr.key27,
+      TimerState.paused => tr.key29,
+      TimerState.completed => tr.key30,
+    };
   }
 
   Color _getColorByTimerState(
@@ -302,8 +302,8 @@ class TimerBottomSheet extends StatelessWidget {
       context: Navigator.of(context, rootNavigator: true).context,
       builder: (BuildContext context) {
         return ConfirmationDialog(
-          title: 'TODO: ${todo.content}',
-          content: '타이머를 중지할까요?',
+          title: '${tr.key42}: ${todo.content}',
+          content: tr.key28,
           onConfirm: () {
             todoTimer.onEvent(TimerEvent.complete);
             onCompleted(todoTimer.focusedTime);

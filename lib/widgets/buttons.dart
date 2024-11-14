@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 
 enum ButtonType { basic, danger, disabled }
 
@@ -88,7 +89,7 @@ class CancelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'Cancel',
+      text: tr.key45,
       iconPath: null,
       type: ButtonType.basic,
       textColor: color ?? Theme.of(context).colorScheme.secondary, // color 사용
@@ -106,7 +107,7 @@ class StopButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'Stop',
+      text: tr.key31,
       iconPath: null,
       type: ButtonType.danger,
       textColor: Theme.of(context).colorScheme.error,
@@ -124,7 +125,7 @@ class PauseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'Pause',
+      text: tr.key46,
       iconPath: null,
       type: ButtonType.basic,
       textColor: Theme.of(context).colorScheme.secondary,
@@ -142,7 +143,7 @@ class PlayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'Play',
+      text: tr.key32,
       iconPath: null,
       type: ButtonType.basic,
       textColor: Theme.of(context).colorScheme.onPrimary,
@@ -160,7 +161,7 @@ class CopyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'COPY',
+      text: tr.key33,
       iconPath: 'assets/icons/copy.svg',
       type: ButtonType.basic,
       textColor: Theme.of(context).colorScheme.secondary,
@@ -178,7 +179,7 @@ class SaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'SAVE',
+      text: tr.key34,
       iconPath: 'assets/icons/save.svg',
       type: ButtonType.basic,
       textColor: Theme.of(context).colorScheme.secondary,
@@ -196,7 +197,7 @@ class PinButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'PIN',
+      text: tr.key35,
       iconPath: 'assets/icons/pin.svg',
       type: ButtonType.basic,
       textColor: Theme.of(context).colorScheme.secondary,
@@ -219,7 +220,7 @@ class ChangeNickNameButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Change My NickName',
+            tr.key36,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.normal,
@@ -245,7 +246,7 @@ class LogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'Logout',
+      text: tr.key37,
       iconPath: null,
       type: ButtonType.basic,
       textColor: Theme.of(context).colorScheme.secondary,
@@ -268,7 +269,7 @@ class EditButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'Edit',
+      text: tr.key47,
       iconPath: null, // 아이콘 경로 추가
       type: ButtonType.basic,
       textColor: color ?? Theme.of(context).colorScheme.primary,
@@ -288,7 +289,7 @@ class DeleteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButtonCustom(
-      text: 'Delete',
+      text: tr.key38,
       iconPath: null,
       type: ButtonType.danger, // Delete 버튼의 타입을 위험 표시로 변경
       textColor: color ?? Theme.of(context).colorScheme.error, // 기본 색상은 error

@@ -150,13 +150,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "key26": "Play 버튼을 눌러\\n타이머를 시작해보세요.",
+  "key26": "Play 버튼을 눌러\n타이머를 시작해보세요.",
   "@key26": {
     "description": "Timer start message",
     "type": "text",
     "placeholders": {}
   },
-  "key27": "조금 더 집중한 시간이\\n빛나는 내일을 만들어 줄 거에요.",
+  "key27": "조금 더 집중한 시간이\n빛나는 내일을 만들어 줄 거에요.",
   "@key27": {
     "description": "Motivation message",
     "type": "text",
@@ -168,13 +168,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "key29": "다시 집중하고 싶다면\\nPlay 버튼을 눌러주세요.",
+  "key29": "다시 집중하고 싶다면\nPlay 버튼을 눌러주세요.",
   "@key29": {
     "description": "Timer restart message",
     "type": "text",
     "placeholders": {}
   },
-  "key30": "훌륭해요! 오늘의 집중이\\n내일의 성과로 이어질 거예요.",
+  "key30": "훌륭해요! 오늘의 집중이\n내일의 성과로 이어질 거예요.",
   "@key30": {
     "description": "Description not provided",
     "type": "text",

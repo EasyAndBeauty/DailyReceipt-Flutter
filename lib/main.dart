@@ -3,6 +3,7 @@ import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/screens/receipt_detail.dart';
 import 'package:daily_receipt/screens/splash.dart';
 import 'package:daily_receipt/screens/todos.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -78,6 +79,12 @@ class MyApp extends StatelessWidget {
 
       // 시스템 언어 사용 (null = 시스템 설정 따름)
       locale: null,
+
+      // LocalizationService 초기화
+      builder: (context, child) {
+        LocalizationService().initialize(context);
+        return child!;
+      },
     );
   }
 }

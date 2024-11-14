@@ -7,6 +7,8 @@ import 'receipt_edge_clipper.dart';
 import 'receipt_item.dart';
 import 'receipt_text.dart';
 
+import 'package:daily_receipt/services/localization_service.dart';
+
 class ReceiptComponent extends StatelessWidget {
   final List<Todo> todos;
   final DateTime date;
@@ -69,8 +71,8 @@ class ReceiptComponent extends StatelessWidget {
                                     formatDuration(todo.accumulatedTime)))
                                 .toList(),
                           )
-                        : const Center(
-                            child: ReceiptText('No todos for this day'),
+                        : Center(
+                            child: ReceiptText(tr.key3),
                           ),
                   ),
                   DashedDivider(
@@ -81,9 +83,9 @@ class ReceiptComponent extends StatelessWidget {
                         horizontal: 12, vertical: 16),
                     child: Column(
                       children: [
-                        ReceiptItem('ITEM COUNT :', todos.length.toString()),
+                        ReceiptItem('${tr.key39}:', todos.length.toString()),
                         ReceiptItem(
-                          'TOTAL :',
+                          '${tr.key40} :',
                           formatDuration(getTotalAccumulatedTime(todos)),
                         )
                       ],
@@ -92,16 +94,16 @@ class ReceiptComponent extends StatelessWidget {
                   DashedDivider(
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Center(
                       child: Column(
                         children: [
                           ReceiptText(
-                            'Print Your Time',
+                            tr.key41,
                           ),
                           ReceiptText(
-                            'Daily Receipt',
+                            tr.key1,
                           ),
                         ],
                       ),

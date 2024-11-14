@@ -41,6 +41,15 @@ void printUsage(ArgParser parser) {
   print(parser.usage);
 }
 
+String _handleEscapeSequences(String text) {
+  return text
+      .replaceAll('\\n', '\n') // 줄바꿈
+      .replaceAll('\\t', '\t') // 탭
+      .replaceAll('\\"', '"') // 큰따옴표
+      .replaceAll('\\\'', '\'') // 작은따옴표
+      .replaceAll('\\\\', '\\'); // 백슬래시
+}
+
 class ArbExcelConverter {
   void arbToExcel({required String inputPath, required String outputPath}) {
     final dir = Directory(inputPath);
@@ -78,7 +87,8 @@ class ArbExcelConverter {
         } else if (!key.startsWith('@')) {
           allKeys.add(key);
           translations.putIfAbsent(key, () => {});
-          translations[key]![langCode] = value.toString();
+          translations[key]![langCode] =
+              _handleEscapeSequences(value.toString());
         }
       });
     }
@@ -183,7 +193,7 @@ class ArbExcelConverter {
         final translation = row[i]?.value?.toString() ?? '';
 
         if (translation.isNotEmpty) {
-          arbData[langCode]![key] = translation;
+          arbData[langCode]![key] = _handleEscapeSequences(translation);
 
           // 메타데이터 추가
           if (description.isNotEmpty) {

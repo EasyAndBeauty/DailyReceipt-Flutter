@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class SplashScreenState extends State<SplashScreen> {
               height: 100,
             ),
             const SizedBox(height: 4),
-            Text('Daily Receipt',
+            Text(tr.key1,
                 style: theme.textTheme.titleLarge
                     ?.copyWith(color: theme.colorScheme.onSurface)),
             const SizedBox(height: 16),

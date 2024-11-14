@@ -14,6 +14,7 @@ import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 
 class ReceiptDetailScreen extends StatefulWidget {
   final DateTime selectedDate;
@@ -31,11 +32,6 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
   final GlobalKey receiptKey = GlobalKey();
   bool isCopyLoading = false;
   bool isShareLoading = false;
-
-  String _getFormattedShareText() {
-    // 공유할 텍스트를 포맷팅합니다.
-    return '';
-  }
 
   Future<Uint8List> _captureReceiptImage() async {
     try {
@@ -57,22 +53,22 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
     try {
       CustomSnackBar.show(
         context,
-        "복사 중",
-        "영수증 이미지를 클립보드에 복사 중입니다. 잠시만 기다려주세요.",
+        tr.key7,
+        tr.key8,
       );
       Uint8List imageBytes = await _captureReceiptImage();
       await Pasteboard.writeImage(imageBytes);
 
       CustomSnackBar.show(
         context,
-        "복사 완료",
-        "영수증 이미지가 클립보드에 복사되었습니다.",
+        tr.key9,
+        tr.key10,
       );
     } catch (e) {
       CustomSnackBar.show(
         context,
-        "오류",
-        "영수증 복사 중 오류가 발생했습니다: $e",
+        tr.key11,
+        "${tr.key12}: $e",
       );
     } finally {
       setState(() => isCopyLoading = false);
@@ -85,11 +81,10 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
     try {
       CustomSnackBar.show(
         context,
-        "공유 중",
-        "영수증 이미지를 공유 중입니다. 잠시만 기다려주세요.",
+        tr.key13,
+        tr.key14,
       );
       Uint8List imageBytes = await _captureReceiptImage();
-      final String shareText = _getFormattedShareText();
 
       if (kIsWeb) {
         // Web 환경에서의 공유 로직
@@ -100,14 +95,14 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
         if (result.status == ShareResultStatus.dismissed) {
           CustomSnackBar.show(
             context,
-            "공유 취소",
-            "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
+            tr.key17,
+            tr.key18,
           );
         } else {
           CustomSnackBar.show(
             context,
-            "공유 성공",
-            "영수증 이미지가 성공적으로 공유되었습니다.",
+            tr.key15,
+            tr.key16,
           );
         }
       } else {
@@ -123,14 +118,14 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
         if (result.status == ShareResultStatus.dismissed) {
           CustomSnackBar.show(
             context,
-            "공유 취소",
-            "영수증 공유가 취소되었습니다. 다시 시도해보시겠습니까?",
+            tr.key17,
+            tr.key18,
           );
         } else {
           CustomSnackBar.show(
             context,
-            "공유 성공",
-            "영수증 이미지가 성공적으로 공유되었습니다.",
+            tr.key15,
+            tr.key16,
           );
         }
 
@@ -140,8 +135,8 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
     } catch (e) {
       CustomSnackBar.show(
         context,
-        "오류",
-        "영수증 공유 중 오류가 발생했습니다: $e",
+        tr.key11,
+        "${tr.key19}: $e",
       );
     } finally {
       setState(() => isShareLoading = false);
@@ -209,7 +204,7 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButtonCustom(
-                    text: 'Copy',
+                    text: tr.key6,
                     iconPath: 'assets/icons/copy.svg',
                     type: ButtonType.basic,
                     textColor: const Color(0xFF757575),
@@ -218,7 +213,7 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
                         isCopyLoading ? null : _copyReceiptToClipboard(),
                   ),
                   TextButtonCustom(
-                    text: 'Share',
+                    text: tr.key43,
                     iconPath: 'assets/icons/save.svg',
                     type: ButtonType.basic,
                     textColor: const Color(0xFF757575),
