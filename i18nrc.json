@@ -1,0 +1,10 @@
+{
+  "languageIds": ["dart"],
+  "sourceLanguage": "en",
+  "fallbackLanguage": "en",
+  "displayLanguage": "ko",
+  "stringPrefix": {
+    "enabled": true,
+    "style": "icu-message-format"
+  }
+}

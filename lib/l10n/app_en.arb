@@ -1,0 +1,285 @@
+{
+  "@@locale": "en",
+  "key1": "Daily Receipt",
+  "@key1": {
+    "description": "App title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key2": "Collect moments",
+  "@key2": {
+    "description": "Input placeholder",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key3": "No tasks for today",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key4": "Selected Date",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "Print Daily Receipts",
+  "@key5": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key6": "Copy",
+  "@key6": {
+    "description": "Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key7": "Copying...",
+  "@key7": {
+    "description": "Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key8": "Copying receipt image to clipboard. Please wait.",
+  "@key8": {
+    "description": "Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key9": "Copy Complete",
+  "@key9": {
+    "description": "Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key10": "Receipt image has been copied to clipboard.",
+  "@key10": {
+    "description": "Copy success message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key11": "Error",
+  "@key11": {
+    "description": "Error title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key12": "Error occurred while copying receipt:",
+  "@key12": {
+    "description": "Copy error message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key13": "Sharing...",
+  "@key13": {
+    "description": "Sharing in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key14": "Sharing receipt image. Please wait.",
+  "@key14": {
+    "description": "Share progress message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key15": "Share Success",
+  "@key15": {
+    "description": "Share success title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key16": "Receipt image has been shared successfully.",
+  "@key16": {
+    "description": "Share success message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key17": "Share Cancelled",
+  "@key17": {
+    "description": "Share cancel title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key18": "Receipt sharing was cancelled. Would you like to try again?",
+  "@key18": {
+    "description": "Share cancel message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key19": "Error occurred while sharing receipt:",
+  "@key19": {
+    "description": "Share error message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key20": "Edit",
+  "@key20": {
+    "description": "Edit action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key21": "Delete",
+  "@key21": {
+    "description": "Delete action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key22": "Focus Time",
+  "@key22": {
+    "description": "Focus time title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key23": "seconds",
+  "@key23": {
+    "description": "Seconds unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key24": "minutes",
+  "@key24": {
+    "description": "Minutes unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key25": "hours",
+  "@key25": {
+    "description": "Hours unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key26": "Press the Play button to start the timer.",
+  "@key26": {
+    "description": "Timer start message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key27": "A little more focus time will make tomorrow brighter.",
+  "@key27": {
+    "description": "Motivation message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key28": "Do you want to stop the timer?",
+  "@key28": {
+    "description": "Timer stop confirmation",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key29": "Press the Play button to focus again.",
+  "@key29": {
+    "description": "Timer restart message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key30": "Great! \n Today's focus will pay off tomorrow.",
+  "@key30": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key31": "Stop",
+  "@key31": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key32": "Play",
+  "@key32": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key33": "COPY",
+  "@key33": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key34": "SAVE",
+  "@key34": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key35": "PIN",
+  "@key35": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key36": "Change My NickName",
+  "@key36": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key37": "Logout",
+  "@key37": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key38": "Delete",
+  "@key38": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key39": "ITEM COUNT",
+  "@key39": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key40": "TOTAL",
+  "@key40": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key41": "Print Your Time",
+  "@key41": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key42": "TODO",
+  "@key42": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key43": "share",
+  "@key43": {
+    "description": "Share action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key44": "Error capturing receipt image",
+  "@key44": {
+    "description": "Capture error mssage",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key45": "Cancel",
+  "@key45": {
+    "description": "Cancel action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key46": "Pause",
+  "@key46": {
+    "description": "Pause action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key47": "Edit",
+  "@key47": {
+    "description": "Edit action button",
+    "type": "text",
+    "placeholders": {}
+  }
+}

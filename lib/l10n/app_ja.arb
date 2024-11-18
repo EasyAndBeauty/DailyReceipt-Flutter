@@ -1,0 +1,285 @@
+{
+  "@@locale": "ja",
+  "key1": "Daily Receipt",
+  "@key1": {
+    "description": "App title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key2": "時を集める",
+  "@key2": {
+    "description": "Input placeholder",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key3": "今日はタスクがありません",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key4": "選択された日付",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "デイリーレシートを印刷",
+  "@key5": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key6": "コピー",
+  "@key6": {
+    "description": "Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key7": "コピー中...",
+  "@key7": {
+    "description": "Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key8": "レシート画像をクリップボードにコピーしています。お待ちください。",
+  "@key8": {
+    "description": "Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key9": "コピー完了",
+  "@key9": {
+    "description": "Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key10": "レシート画像がクリップボードにコピーされました。",
+  "@key10": {
+    "description": "Copy success message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key11": "エラー",
+  "@key11": {
+    "description": "Error title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key12": "レシートのコピー中にエラーが発生しました：",
+  "@key12": {
+    "description": "Copy error message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key13": "共有中...",
+  "@key13": {
+    "description": "Sharing in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key14": "レシート画像を共有しています。お待ちください。",
+  "@key14": {
+    "description": "Share progress message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key15": "共有成功",
+  "@key15": {
+    "description": "Share success title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key16": "レシート画像が共有されました。",
+  "@key16": {
+    "description": "Share success message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key17": "共有キャンセル",
+  "@key17": {
+    "description": "Share cancel title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key18": "レシートの共有がキャンセルされました。もう一度試しますか？",
+  "@key18": {
+    "description": "Share cancel message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key19": "レシートの共有中にエラーが発生しました：",
+  "@key19": {
+    "description": "Share error message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key20": "編集",
+  "@key20": {
+    "description": "Edit action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key21": "削除",
+  "@key21": {
+    "description": "Delete action",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key22": "集中時間",
+  "@key22": {
+    "description": "Focus time title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key23": "秒",
+  "@key23": {
+    "description": "Seconds unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key24": "分",
+  "@key24": {
+    "description": "Minutes unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key25": "時間",
+  "@key25": {
+    "description": "Hours unit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key26": "Playボタンを押してタイマーを開始してください。",
+  "@key26": {
+    "description": "Timer start message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key27": "もう少し集中した時間が、より良い明日を作ります。",
+  "@key27": {
+    "description": "Motivation message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key28": "タイマーを停止しますか？",
+  "@key28": {
+    "description": "Timer stop confirmation",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key29": "集中に戻りたい場合は、Playボタンを押してください。",
+  "@key29": {
+    "description": "Timer restart message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key30": "素晴らしい！\n今日の集中力が\n明日の成果につながります。",
+  "@key30": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key31": "Stop",
+  "@key31": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key32": "Play",
+  "@key32": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key33": "COPY",
+  "@key33": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key34": "SAVE",
+  "@key34": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key35": "PIN",
+  "@key35": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key36": "Change My NickName",
+  "@key36": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key37": "Logout",
+  "@key37": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key38": "Delete",
+  "@key38": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key39": "ITEM COUNT",
+  "@key39": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key40": "TOTAL",
+  "@key40": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key41": "Print Your Time",
+  "@key41": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key42": "TODO",
+  "@key42": {
+    "description": "Description not provided",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key43": "share",
+  "@key43": {
+    "description": "Share action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key44": "Error capturing receipt image",
+  "@key44": {
+    "description": "Capture error mssage",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key45": "Cancel",
+  "@key45": {
+    "description": "Cancel action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key46": "Pause",
+  "@key46": {
+    "description": "Pause action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key47": "Edit",
+  "@key47": {
+    "description": "Edit action button",
+    "type": "text",
+    "placeholders": {}
+  }
+}

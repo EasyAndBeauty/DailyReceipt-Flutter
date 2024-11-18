@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/widgets/buttons.dart';
 import 'receipt_top_clipper.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 
 class TodoActionBottomSheet extends StatelessWidget {
   final Todo todo;
@@ -86,7 +87,7 @@ class TodoActionBottomSheet extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Text(
-        'TODO: ${todo.content}',
+        '${tr.key42}: ${todo.content}',
         style: theme.textTheme.titleMedium?.copyWith(
           color: theme.colorScheme.primary,
         ),

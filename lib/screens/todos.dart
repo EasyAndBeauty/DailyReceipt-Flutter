@@ -12,6 +12,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:uuid/uuid.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 
 class TodosScreen extends StatefulWidget {
   const TodosScreen({super.key});
@@ -201,7 +202,7 @@ class _TodosScreenState extends State<TodosScreen> {
                       ),
                       cursorColor: theme.colorScheme.onSurface,
                       decoration: InputDecoration(
-                        hintText: 'Collect moments',
+                        hintText: tr.key2,
                         hintStyle: theme.textTheme.titleMedium?.copyWith(
                           color: theme.colorScheme.secondary,
                         ),
@@ -300,7 +301,7 @@ class _TodosScreenState extends State<TodosScreen> {
                               })
                           : Center(
                               child: Text(
-                                'No todos for this day',
+                                tr.key3,
                                 style: theme.textTheme.titleMedium?.copyWith(
                                     color: theme.colorScheme.secondary),
                               ),
@@ -313,10 +314,10 @@ class _TodosScreenState extends State<TodosScreen> {
             ReceiptButton(
               onPressed: () {
                 GoRouter.of(context).go('/details', extra: {
-                  'selectedDate': calendarProvider.selectedDate,
+                  tr.key4: calendarProvider.selectedDate,
                 });
               },
-              text: 'Print the Receipt',
+              text: tr.key5,
             ),
           ],
         ),
