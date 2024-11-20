@@ -20,7 +20,7 @@ class SplashScreenState extends State<SplashScreen> {
   void _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3));
     if (!mounted) return;
-    GoRouter.of(context).go('/');
+    GoRouter.of(context).go('/login');
   }
 
   @override
