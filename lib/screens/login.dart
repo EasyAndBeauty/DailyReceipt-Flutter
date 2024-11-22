@@ -1,33 +1,83 @@
 import 'package:daily_receipt/widgets/dashed_line.dart';
 import 'package:flutter/material.dart';
-import 'package:daily_receipt/services/social_login_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:daily_receipt/services/localization_service.dart';
-import 'package:daily_receipt/widgets/dashed_line_painter.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
-  // final SocialLoginService _socialLoginService = SocialLoginService();
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final List<bool> _visible = List.generate(4, (_) => false);
+
+  @override
+  void initState() {
+    super.initState();
+    _startAnimation();
+  }
+
+  void _startAnimation() async {
+    for (int i = 0; i < _visible.length; i++) {
+      await Future.delayed(const Duration(milliseconds: 200));
+      if (mounted) {
+        setState(() {
+          _visible[i] = true;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 24),
-          child: Column(
-            children: [
-              Spacer(flex: 1),
-              TitleSection(),
-              Spacer(flex: 1),
-              Logo(),
-              Spacer(flex: 1),
-              DashedLine(),
-              SocialButtonsSection(),
-              DashedLine(),
-              LocaleLoginButton(),
-            ],
-          ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 24),
+                child: Column(
+                  children: [
+                    const Spacer(flex: 1),
+                    AnimatedOpacity(
+                      opacity: _visible[0] ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: const TitleSection(),
+                    ),
+                    const Spacer(flex: 1),
+                    AnimatedOpacity(
+                      opacity: _visible[1] ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: const Logo(),
+                    ),
+                    const Spacer(flex: 1),
+                    AnimatedOpacity(
+                      opacity: _visible[2] ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: const Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          DashedLine(),
+                          SocialButtonsSection(),
+                          DashedLine(),
+                        ],
+                      ),
+                    ),
+                    AnimatedOpacity(
+                      opacity: _visible[3] ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: const LocaleLoginButton(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -54,23 +104,24 @@ class TitleSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Expanded(
-      // Column을 Expanded로 감싸기
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, // 세로 중앙 정렬
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'GET STARTED',
-            style: theme.textTheme.headlineLarge?.copyWith(
-              color: theme.colorScheme.secondary,
-            ),
+    // Expanded 제거하고 단순 Column 사용
+    return Column(
+      mainAxisSize: MainAxisSize.min, // Column이 필요한 만큼만 공간 차지
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          'GET STARTED',
+          style: theme.textTheme.headlineLarge?.copyWith(
+            color: theme.colorScheme.secondary,
           ),
-          Text(tr.key1,
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(color: theme.colorScheme.onSurface)),
-        ],
-      ),
+        ),
+        Text(
+          tr.key1,
+          style: theme.textTheme.titleMedium
+              ?.copyWith(color: theme.colorScheme.onSurface),
+        ),
+      ],
     );
   }
 }
@@ -80,8 +131,6 @@ class SocialButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
