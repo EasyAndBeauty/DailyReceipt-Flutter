@@ -2,7 +2,9 @@
     <application
         android:label="daily_receipt"
         android:name="${applicationName}"
-        android:icon="@mipmap/icon">
+        android:icon="@mipmap/icon"
+        android:extractNativeLibs="true"
+            >
         <activity
             android:name=".MainActivity"
             android:exported="true"
