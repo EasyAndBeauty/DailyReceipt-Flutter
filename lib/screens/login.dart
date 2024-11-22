@@ -158,10 +158,20 @@ class SocialLoginButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.surface,
+          foregroundColor: theme.colorScheme.onSurface,
+          backgroundColor: Colors.transparent,
+          disabledForegroundColor: Colors.transparent,
+          disabledBackgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
           elevation: 0,
-          side: BorderSide.none,
           padding: EdgeInsets.zero,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+          enabledMouseCursor: SystemMouseCursors.click,
+          disabledMouseCursor: SystemMouseCursors.basic,
+          overlayColor: Colors.transparent,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // 텍스트와 화살표를 양끝으로
@@ -185,7 +195,7 @@ class SocialLoginButton extends StatelessWidget {
               ],
             ),
             Icon(
-              Icons.arrow_forward, // 오른쪽 화살표 아이콘
+              Icons.chevron_right, // 오른쪽 화살표 아이콘
               color: theme.colorScheme.onSurface,
             ),
           ],
