@@ -18,7 +18,9 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               Spacer(flex: 1),
-              LogoSection(),
+              TitleSection(),
+              Spacer(flex: 1),
+              Logo(),
               Spacer(flex: 1),
               DashedLine(),
               SocialButtonsSection(),
@@ -32,8 +34,21 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class LogoSection extends StatelessWidget {
-  const LogoSection({Key? key}) : super(key: key);
+class Logo extends StatelessWidget {
+  const Logo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset(
+      'assets/icons/icon.svg',
+      width: 100,
+      height: 100,
+    );
+  }
+}
+
+class TitleSection extends StatelessWidget {
+  const TitleSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +66,9 @@ class LogoSection extends StatelessWidget {
               color: theme.colorScheme.secondary,
             ),
           ),
-          const SizedBox(height: 4),
           Text(tr.key1,
               style: theme.textTheme.titleMedium
                   ?.copyWith(color: theme.colorScheme.onSurface)),
-          const SizedBox(height: 4),
-          SvgPicture.asset(
-            'assets/icons/icon.svg',
-            width: 100,
-            height: 100,
-          ),
         ],
       ),
     );
