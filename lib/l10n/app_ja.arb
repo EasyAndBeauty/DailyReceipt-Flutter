@@ -30,33 +30,33 @@
     "type": "text",
     "placeholders": {}
   },
-  "key6": "コピー",
+  "key6": "Save&Copy",
   "@key6": {
-    "description": "Copy action button",
+    "description": "Save&Copy action button",
     "type": "text",
     "placeholders": {}
   },
-  "key7": "コピー中...",
+  "key7": "保存＆コピー中...",
   "@key7": {
-    "description": "Copy in progress",
+    "description": "Save&Copy in progress",
     "type": "text",
     "placeholders": {}
   },
-  "key8": "レシート画像をクリップボードにコピーしています。お待ちください。",
+  "key8": "レシート画像を保存＆コピーしています。お待ちください。",
   "@key8": {
-    "description": "Copy to clipboard message",
+    "description": "Save&Copy to clipboard message",
     "type": "text",
     "placeholders": {}
   },
-  "key9": "コピー完了",
+  "key9": "保存＆コピー完了",
   "@key9": {
-    "description": "Copy complete",
+    "description": "Save&Copy complete",
     "type": "text",
     "placeholders": {}
   },
-  "key10": "レシート画像がクリップボードにコピーされました。",
+  "key10": "レシート画像が保存＆コピーされました。",
   "@key10": {
-    "description": "Copy success message",
+    "description": "Save&Copy success message",
     "type": "text",
     "placeholders": {}
   },
@@ -66,9 +66,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "key12": "レシートのコピー中にエラーが発生しました：",
+  "key12": "レシートの保存＆コピー中にエラーが発生しました：",
   "@key12": {
-    "description": "Copy error message",
+    "description": "Save&Copy error message",
     "type": "text",
     "placeholders": {}
   },
@@ -252,7 +252,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "key43": "share",
+  "key43": "Share",
   "@key43": {
     "description": "Share action button",
     "type": "text",

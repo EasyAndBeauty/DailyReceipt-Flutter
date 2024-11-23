@@ -30,33 +30,33 @@
     "type": "text",
     "placeholders": {}
   },
-  "key6": "Copy",
+  "key6": "Save&Copy",
   "@key6": {
-    "description": "Copy action button",
+    "description": "Save&Copy action button",
     "type": "text",
     "placeholders": {}
   },
-  "key7": "Copying...",
+  "key7": "Saving and copying...",
   "@key7": {
-    "description": "Copy in progress",
+    "description": "Save&Copy in progress",
     "type": "text",
     "placeholders": {}
   },
-  "key8": "Copying receipt image to clipboard. Please wait.",
+  "key8": "Saving and copying receipt image to clipboard. Please wait.",
   "@key8": {
-    "description": "Copy to clipboard message",
+    "description": "Save&Copy to clipboard message",
     "type": "text",
     "placeholders": {}
   },
-  "key9": "Copy Complete",
+  "key9": "Save&Copy complete",
   "@key9": {
-    "description": "Copy complete",
+    "description": "Save&Copy complete",
     "type": "text",
     "placeholders": {}
   },
-  "key10": "Receipt image has been copied to clipboard.",
+  "key10": "Receipt image has been saved and copied to clipboard.",
   "@key10": {
-    "description": "Copy success message",
+    "description": "Save&Copy success message",
     "type": "text",
     "placeholders": {}
   },
@@ -66,9 +66,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "key12": "Error occurred while copying receipt:",
+  "key12": "Error occurred while saving and copying receipt:",
   "@key12": {
-    "description": "Copy error message",
+    "description": "Save&Copy error message",
     "type": "text",
     "placeholders": {}
   },
@@ -252,7 +252,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "key43": "share",
+  "key43": "Share",
   "@key43": {
     "description": "Share action button",
     "type": "text",
