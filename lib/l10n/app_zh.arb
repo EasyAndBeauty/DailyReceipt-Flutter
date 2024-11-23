@@ -6,54 +6,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "key2": "收集瞬间",
-  "@key2": {
-    "description": "Input placeholder",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key3": "今天没有任务",
-  "@key3": {
-    "description": "Message when no tasks are available",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key4": "选择的日期",
-  "@key4": {
-    "description": "Display for the selected date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key5": "打印每日收据",
-  "@key5": {
-    "description": "Main title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key6": "复制",
-  "@key6": {
-    "description": "Copy action button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key7": "复制中...",
-  "@key7": {
-    "description": "Copy in progress",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key8": "正在将收据图片复制到剪贴板，请稍候。",
-  "@key8": {
-    "description": "Copy to clipboard message",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key9": "复制完成",
-  "@key9": {
-    "description": "Copy complete",
-    "type": "text",
-    "placeholders": {}
-  },
   "key10": "收据图片已复制到剪贴板。",
   "@key10": {
     "description": "Copy success message",
@@ -111,6 +63,12 @@
   "key19": "分享收据时发生错误：",
   "@key19": {
     "description": "Share error message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key2": "收集瞬间",
+  "@key2": {
+    "description": "Input placeholder",
     "type": "text",
     "placeholders": {}
   },
@@ -174,7 +132,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "key30": "太好了！\n今天的专注明天就会有回报。",
+  "key3": "今天没有任务",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key30": "太好了！\r\n今天的专注明天就会有回报。",
   "@key30": {
     "description": "Description not provided",
     "type": "text",
@@ -234,6 +198,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "key4": "选择的日期",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
   "key40": "TOTAL",
   "@key40": {
     "description": "Description not provided",
@@ -279,6 +249,54 @@
   "key47": "Edit",
   "@key47": {
     "description": "Edit action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "打印每日收据",
+  "@key5": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key6": "复制",
+  "@key6": {
+    "description": "Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key7": "复制中...",
+  "@key7": {
+    "description": "Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key8": "正在将收据图片复制到剪贴板，请稍候。",
+  "@key8": {
+    "description": "Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key9": "复制完成",
+  "@key9": {
+    "description": "Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key48": "GET STARTED",
+  "@key48": {
+    "description": "GET STARTED",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key49": "Continue with {social}",
+  "@key49": {
+    "description": "Continue with {social}",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key50": "if you don't have an account, \nusing only local features",
+  "@key50": {
+    "description": "if you don't have an account, \\nusing only local features",
     "type": "text",
     "placeholders": {}
   }
