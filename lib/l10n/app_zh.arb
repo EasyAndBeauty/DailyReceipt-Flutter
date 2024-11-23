@@ -6,9 +6,57 @@
     "type": "text",
     "placeholders": {}
   },
-  "key10": "收据图片已复制到剪贴板。",
+  "key2": "收集瞬间",
+  "@key2": {
+    "description": "Input placeholder",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key3": "今天没有任务",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key4": "选择的日期",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "打印每日收据",
+  "@key5": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key6": "Save&Copy",
+  "@key6": {
+    "description": "Save&Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key7": "正在保存和复制中...",
+  "@key7": {
+    "description": "Save&Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key8": "正在保存和复制收据图片到剪贴板，请稍候。",
+  "@key8": {
+    "description": "Save&Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key9": "保存和复制完成",
+  "@key9": {
+    "description": "Save&Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key10": "收据图片已保存并复制到剪贴板。",
   "@key10": {
-    "description": "Copy success message",
+    "description": "Save&Copy success message",
     "type": "text",
     "placeholders": {}
   },
@@ -18,9 +66,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "key12": "复制收据时发生错误：",
+  "key12": "保存和复制收据时发生错误：",
   "@key12": {
-    "description": "Copy error message",
+    "description": "Save&Copy error message",
     "type": "text",
     "placeholders": {}
   },
@@ -222,7 +270,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "key43": "share",
+  "key43": "Share",
   "@key43": {
     "description": "Share action button",
     "type": "text",

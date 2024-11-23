@@ -6,9 +6,57 @@
     "type": "text",
     "placeholders": {}
   },
-  "key10": "Receipt image has been copied to clipboard.",
+  "key2": "Collect moments",
+  "@key2": {
+    "description": "Input placeholder",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key3": "No tasks for today",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key4": "Selected Date",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "Print Daily Receipts",
+  "@key5": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key6": "Save&Copy",
+  "@key6": {
+    "description": "Save&Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key7": "Saving and copying...",
+  "@key7": {
+    "description": "Save&Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key8": "Saving and copying receipt image to clipboard. Please wait.",
+  "@key8": {
+    "description": "Save&Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key9": "Save&Copy complete",
+  "@key9": {
+    "description": "Save&Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key10": "Receipt image has been saved and copied to clipboard.",
   "@key10": {
-    "description": "Copy success message",
+    "description": "Save&Copy success message",
     "type": "text",
     "placeholders": {}
   },
@@ -18,9 +66,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "key12": "Error occurred while copying receipt:",
+  "key12": "Error occurred while saving and copying receipt:",
   "@key12": {
-    "description": "Copy error message",
+    "description": "Save&Copy error message",
     "type": "text",
     "placeholders": {}
   },
@@ -222,7 +270,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "key43": "share",
+  "key43": "Share",
   "@key43": {
     "description": "Share action button",
     "type": "text",

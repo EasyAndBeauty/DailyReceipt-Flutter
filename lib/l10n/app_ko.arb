@@ -6,9 +6,57 @@
     "type": "text",
     "placeholders": {}
   },
-  "key10": "영수증 이미지가 클립보드에 복사되었습니다.",
+  "key2": "Collect moments",
+  "@key2": {
+    "description": "Input placeholder",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key3": "No todos for this day",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key4": "selectedDate",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "Print Daily Receipts",
+  "@key5": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key6": "Save&Copy",
+  "@key6": {
+    "description": "Save&Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key7": "저장 및 복사 진행 중...",
+  "@key7": {
+    "description": "Save&Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key8": "영수증 이미지를 저장하고 클립보드에 복사 중입니다. 잠시만 기다려주세요.",
+  "@key8": {
+    "description": "Save&Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key9": "저장 및 복사 완료",
+  "@key9": {
+    "description": "Save&Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key10": "영수증 이미지를 저장하고 복사했습니다.",
   "@key10": {
-    "description": "Copy success message",
+    "description": "Save&Copy success message",
     "type": "text",
     "placeholders": {}
   },
@@ -18,9 +66,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "key12": "영수증 복사 중 오류가 발생했습니다:",
+  "key12": "영수증을 저장하고 복사하는 중에 오류가 발생했습니다:",
   "@key12": {
-    "description": "Copy error message",
+    "description": "Save&Copy error message",
     "type": "text",
     "placeholders": {}
   },
@@ -222,7 +270,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "key43": "share",
+  "key43": "Share",
   "@key43": {
     "description": "Share action button",
     "type": "text",
