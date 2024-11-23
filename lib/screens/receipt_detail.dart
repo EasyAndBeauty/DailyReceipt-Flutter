@@ -14,7 +14,6 @@ import 'package:go_router/go_router.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -59,11 +58,6 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
         tr.key8,
       );
       Uint8List imageBytes = await _captureReceiptImage();
-
-      final permissionState = await Permission.storage.request();
-      if (permissionState.isDenied) {
-        throw 'Permission denied';
-      }
 
       await ImageGallerySaver.saveImage(imageBytes);
       await Pasteboard.writeImage(imageBytes);
