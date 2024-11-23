@@ -60,7 +60,8 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
       );
       Uint8List imageBytes = await _captureReceiptImage();
 
-      final permissionState = await Permission.storage.request();
+      final permissionState = await Permission.photos.request();
+
       if (permissionState.isDenied) {
         throw 'Permission denied';
       }
