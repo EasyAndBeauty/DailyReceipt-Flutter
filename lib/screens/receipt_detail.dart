@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:daily_receipt/models/todos.dart';
-import 'package:daily_receipt/services/localization_service.dart';
 import 'package:daily_receipt/widgets/buttons.dart';
 import 'package:daily_receipt/widgets/custom_snackbar.dart';
 import 'package:daily_receipt/widgets/receipt.dart';
@@ -11,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 
 class ReceiptDetailScreen extends StatefulWidget {
   final DateTime selectedDate;
@@ -31,7 +30,7 @@ class ReceiptDetailScreen extends StatefulWidget {
 
 class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
   final GlobalKey receiptKey = GlobalKey();
-  bool isSaveAndCopyLoading = false;
+  bool isCopyLoading = false;
   bool isShareLoading = false;
 
   Future<Uint8List> _captureReceiptImage() async {
@@ -48,9 +47,9 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
     }
   }
 
-  Future<void> _saveAndCopyReceiptToClipboard() async {
-    if (isSaveAndCopyLoading) return;
-    setState(() => isSaveAndCopyLoading = true);
+  Future<void> _copyReceiptToClipboard() async {
+    if (isCopyLoading) return;
+    setState(() => isCopyLoading = true);
     try {
       CustomSnackBar.show(
         context,
@@ -58,8 +57,6 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
         tr.key8,
       );
       Uint8List imageBytes = await _captureReceiptImage();
-
-      await ImageGallerySaver.saveImage(imageBytes);
       await Pasteboard.writeImage(imageBytes);
 
       CustomSnackBar.show(
@@ -74,7 +71,7 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
         "${tr.key12}: $e",
       );
     } finally {
-      setState(() => isSaveAndCopyLoading = false);
+      setState(() => isCopyLoading = false);
     }
   }
 
@@ -212,9 +209,8 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
                     type: ButtonType.basic,
                     textColor: const Color(0xFF757575),
                     isBold: false,
-                    onPressed: () => isSaveAndCopyLoading
-                        ? null
-                        : _saveAndCopyReceiptToClipboard(),
+                    onPressed: () =>
+                        isCopyLoading ? null : _copyReceiptToClipboard(),
                   ),
                   TextButtonCustom(
                     text: tr.key43,
