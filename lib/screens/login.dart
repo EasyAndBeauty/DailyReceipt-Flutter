@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:daily_receipt/services/localization_service.dart';
 import 'package:go_router/go_router.dart';
+import 'package:daily_receipt/services/localization_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -111,7 +112,7 @@ class TitleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'GET STARTED',
+          tr.key48,
           style: theme.textTheme.headlineLarge?.copyWith(
             color: theme.colorScheme.secondary,
           ),
@@ -139,7 +140,7 @@ class SocialButtonsSection extends StatelessWidget {
             print('Google 로그인 성공');
             GoRouter.of(context).go('/');
           },
-          text: 'Continue with Google',
+          text: tr.key49('Google'),
         ),
         const SizedBox(height: 4),
         SocialLoginButton(
@@ -147,7 +148,7 @@ class SocialButtonsSection extends StatelessWidget {
             print('Apple 로그인 성공');
             GoRouter.of(context).go('/');
           },
-          text: 'Continue with Apple',
+          text: tr.key49('Apple'),
         ),
       ],
     );
@@ -170,11 +171,11 @@ class LocaleLoginButton extends StatelessWidget {
             print('loacl 로그인 성공');
             GoRouter.of(context).go('/');
           },
-          text: 'Continue with Local',
+          text: tr.key49('Local'),
         ),
         const SizedBox(height: 16),
         Text(
-          'if you don’t have an account,\nusing only local features',
+          tr.key50,
           style: theme.textTheme.titleSmall?.copyWith(
             color: theme.colorScheme.secondary,
           ),
