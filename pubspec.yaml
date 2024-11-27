@@ -48,6 +48,10 @@ dependencies:
   shared_preferences: ^2.3.2
   modal_bottom_sheet: ^3.0.0-pre
   uuid: ^4.4.2
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  google_sign_in: ^6.1.6
+  sign_in_with_apple: ^5.0.0
 
 dev_dependencies:
   args: ^2.4.2
