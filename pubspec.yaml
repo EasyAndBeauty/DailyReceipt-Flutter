@@ -49,6 +49,10 @@ dependencies:
   uuid: ^4.4.2
   image_gallery_saver_plus: ^3.0.5
   permission_handler: ^11.3.1
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  google_sign_in: ^6.1.6
+  sign_in_with_apple: ^5.0.0
 
 dev_dependencies:
   args: ^2.4.2
