@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "266742758932",
+    "project_id": "daily-receipt-app",
+    "storage_bucket": "daily-receipt-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266742758932:android:2ce084fa8b72d801f8b101",
+        "android_client_info": {
+          "package_name": "com.easyandbeauty.daily_receipt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5tibS_Hqw-TE2G1YmPzgqs7MoUaj1zw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
