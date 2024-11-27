@@ -2,6 +2,7 @@ import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/screens/receipt_detail.dart';
 import 'package:daily_receipt/screens/splash.dart';
+import 'package:daily_receipt/screens/login.dart';
 import 'package:daily_receipt/screens/todos.dart';
 import 'package:daily_receipt/services/localization_service.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,12 @@ void main() {
         path: '/splash',
         builder: (BuildContext context, GoRouterState state) {
           return const SplashScreen();
+        },
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (BuildContext context, GoRouterState state) {
+          return LoginScreen();
         },
       ),
       GoRoute(
