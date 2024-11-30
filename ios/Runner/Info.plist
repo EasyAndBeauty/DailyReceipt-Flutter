@@ -9,8 +9,13 @@
           <array>
               <string>com.googleusercontent.apps.266742758932-vbpmekbqd3jojptdna430ranq3simpcj</string>
               <string>signinwithapple</string>
+              <string>com.easyandbeauty.dailyReceiptApp</string>
           </array>
       </dict>
+  </array>
+  <key>com.apple.developer.applesignin</key>
+  <array>
+    <string>Default</string>
   </array>
   <key>NSCameraUsageDescription</key>
   <string>This app requires camera access to scan receipts.</string>

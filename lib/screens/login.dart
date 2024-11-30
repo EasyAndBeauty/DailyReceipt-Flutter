@@ -1,9 +1,9 @@
+import 'package:daily_receipt/services/social_login_service.dart';
 import 'package:daily_receipt/widgets/dashed_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:daily_receipt/services/localization_service.dart';
 import 'package:go_router/go_router.dart';
-import 'package:daily_receipt/services/localization_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -132,21 +132,44 @@ class SocialButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final socialLoginService = SocialLoginService();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SocialLoginButton(
-          onPressed: () {
-            print('Google 로그인 성공');
-            GoRouter.of(context).go('/');
+          onPressed: () async {
+            try {
+              final userCredential =
+                  await socialLoginService.signInWithGoogle();
+              if (userCredential != null && context.mounted) {
+                GoRouter.of(context).go('/');
+              }
+            } catch (e) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Google 로그인 실패: $e')),
+                );
+              }
+            }
           },
           text: tr.key49('Google'),
         ),
         const SizedBox(height: 4),
         SocialLoginButton(
-          onPressed: () {
-            print('Apple 로그인 성공');
-            GoRouter.of(context).go('/');
+          onPressed: () async {
+            try {
+              final userCredential = await socialLoginService.signInWithApple();
+              if (userCredential != null && context.mounted) {
+                GoRouter.of(context).go('/');
+              }
+            } catch (e) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Apple 로그인 실패: $e')),
+                );
+              }
+            }
           },
           text: tr.key49('Apple'),
         ),
