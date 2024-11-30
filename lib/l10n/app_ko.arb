@@ -6,54 +6,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "key2": "Collect moments",
-  "@key2": {
-    "description": "Input placeholder",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key3": "No todos for this day",
-  "@key3": {
-    "description": "Message when no tasks are available",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key4": "selectedDate",
-  "@key4": {
-    "description": "Display for the selected date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key5": "Print Daily Receipts",
-  "@key5": {
-    "description": "Main title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key6": "copy",
-  "@key6": {
-    "description": "Copy action button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key7": "복사중",
-  "@key7": {
-    "description": "Copy in progress",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key8": "영수증 이미지를 클립보드에 복사 중입니다. 잠시만 기다려주세요.",
-  "@key8": {
-    "description": "Copy to clipboard message",
-    "type": "text",
-    "placeholders": {}
-  },
-  "key9": "복사완료",
-  "@key9": {
-    "description": "Copy complete",
-    "type": "text",
-    "placeholders": {}
-  },
   "key10": "영수증 이미지가 클립보드에 복사되었습니다.",
   "@key10": {
     "description": "Copy success message",
@@ -114,6 +66,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "key2": "Collect moments",
+  "@key2": {
+    "description": "Input placeholder",
+    "type": "text",
+    "placeholders": {}
+  },
   "key20": "edit",
   "@key20": {
     "description": "Edit action",
@@ -150,13 +108,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "key26": "Play 버튼을 눌러\n타이머를 시작해보세요.",
+  "key26": "Play 버튼을 눌러\r\n타이머를 시작해보세요.",
   "@key26": {
     "description": "Timer start message",
     "type": "text",
     "placeholders": {}
   },
-  "key27": "조금 더 집중한 시간이\n빛나는 내일을 만들어 줄 거에요.",
+  "key27": "조금 더 집중한 시간이\r\n빛나는 내일을 만들어 줄 거에요.",
   "@key27": {
     "description": "Motivation message",
     "type": "text",
@@ -168,13 +126,19 @@
     "type": "text",
     "placeholders": {}
   },
-  "key29": "다시 집중하고 싶다면\nPlay 버튼을 눌러주세요.",
+  "key29": "다시 집중하고 싶다면\r\nPlay 버튼을 눌러주세요.",
   "@key29": {
     "description": "Timer restart message",
     "type": "text",
     "placeholders": {}
   },
-  "key30": "훌륭해요! 오늘의 집중이\n내일의 성과로 이어질 거예요.",
+  "key3": "No todos for this day",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key30": "훌륭해요! 오늘의 집중이\r\n내일의 성과로 이어질 거예요.",
   "@key30": {
     "description": "Description not provided",
     "type": "text",
@@ -234,6 +198,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "key4": "selectedDate",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
   "key40": "TOTAL",
   "@key40": {
     "description": "Description not provided",
@@ -279,6 +249,54 @@
   "key47": "Edit",
   "@key47": {
     "description": "Edit action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "Print Daily Receipts",
+  "@key5": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key6": "copy",
+  "@key6": {
+    "description": "Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key7": "복사중",
+  "@key7": {
+    "description": "Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key8": "영수증 이미지를 클립보드에 복사 중입니다. 잠시만 기다려주세요.",
+  "@key8": {
+    "description": "Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key9": "복사완료",
+  "@key9": {
+    "description": "Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key48": "GET STARTED",
+  "@key48": {
+    "description": "GET STARTED",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key49": "Continue with {social}",
+  "@key49": {
+    "description": "Continue with {social}",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key50": "if you don't have an account, \nusing only local features",
+  "@key50": {
+    "description": "if you don't have an account, \\nusing only local features",
     "type": "text",
     "placeholders": {}
   }

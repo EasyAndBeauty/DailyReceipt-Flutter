@@ -2,14 +2,15 @@ import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/screens/receipt_detail.dart';
 import 'package:daily_receipt/screens/splash.dart';
+import 'package:daily_receipt/screens/login.dart';
 import 'package:daily_receipt/screens/todos.dart';
 import 'package:daily_receipt/services/localization_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import './theme.dart';
 
@@ -26,6 +27,12 @@ void main() {
         },
       ),
       GoRoute(
+        path: '/login',
+        builder: (BuildContext context, GoRouterState state) {
+          return LoginScreen();
+        },
+      ),
+      GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
           return const TodosScreen();
@@ -36,8 +43,9 @@ void main() {
             builder: (BuildContext context, GoRouterState state) {
               final Map<String, dynamic> extra =
                   state.extra as Map<String, dynamic>;
+
               return ReceiptDetailScreen(
-                selectedDate: extra['selectedDate'],
+                selectedDate: extra[tr.key4],
               );
             },
           ),
