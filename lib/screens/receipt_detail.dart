@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -66,7 +66,7 @@ class _ReceiptDetailScreenState extends State<ReceiptDetailScreen> {
         throw 'Permission denied';
       }
 
-      await ImageGallerySaver.saveImage(imageBytes);
+      await ImageGallerySaverPlus.saveImage(imageBytes);
       await Pasteboard.writeImage(imageBytes);
 
       CustomSnackBar.show(
