@@ -47,7 +47,7 @@ dependencies:
   shared_preferences: ^2.3.2
   modal_bottom_sheet: ^3.0.0-pre
   uuid: ^4.4.2
-  image_gallery_saver: ^2.0.3
+  image_gallery_saver_plus: ^3.0.5
   permission_handler: ^11.3.1
 
 dev_dependencies:
