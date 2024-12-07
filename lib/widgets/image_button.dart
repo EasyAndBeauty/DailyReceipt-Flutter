@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// TODO: flutter_svg 패키지가 필요하므로, pubspec.yaml 파일에 다음을 추가하세요.
 import 'package:flutter_svg/flutter_svg.dart';
 
 class IconTextButton extends StatelessWidget {
