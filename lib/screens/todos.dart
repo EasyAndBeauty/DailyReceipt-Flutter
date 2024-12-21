@@ -2,6 +2,7 @@ import 'package:daily_receipt/models/calendar.dart';
 import 'package:daily_receipt/models/todo_timer.dart';
 import 'package:daily_receipt/models/todos.dart';
 import 'package:daily_receipt/services/localization_service.dart';
+import 'package:daily_receipt/widgets/add_todo_input_field.dart';
 import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:daily_receipt/widgets/receipt_button.dart';
 import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
@@ -12,7 +13,6 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
 class TodosScreen extends StatefulWidget {
   const TodosScreen({super.key});
@@ -25,7 +25,6 @@ class _TodosScreenState extends State<TodosScreen> {
   final TextEditingController addController = TextEditingController();
   final TextEditingController editController = TextEditingController();
   String? editingId;
-  final Uuid _uuid = const Uuid();
 
   @override
   Widget build(BuildContext context) {
@@ -46,20 +45,6 @@ class _TodosScreenState extends State<TodosScreen> {
         editingId = null;
       });
       editController.clear();
-    }
-
-    void addTodo() {
-      if (addController.text.isEmpty) return;
-
-      final newTodo = Todo(
-        id: _uuid.v4(),
-        content: addController.text,
-        createdAt: DateTime.now().toUtc(),
-        scheduledDate: calendarProvider.selectedDate,
-      );
-
-      todosProvider.add(newTodo);
-      addController.clear();
     }
 
     void showTodoActionBottomSheet(BuildContext context, Todo todo) {
@@ -136,41 +121,7 @@ class _TodosScreenState extends State<TodosScreen> {
                       ],
                     ),
                     const WeeklyDateSelector(),
-                    TextField(
-                      controller: addController,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
-                      cursorColor: theme.colorScheme.onSurface,
-                      decoration: InputDecoration(
-                        hintText: tr.key2,
-                        hintStyle: theme.textTheme.titleMedium?.copyWith(
-                          color: theme.colorScheme.secondary,
-                        ),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: theme.colorScheme.onSurface,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: theme.colorScheme.tertiary,
-                            width: 1.5,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 12),
-                        suffixIcon: IconButton(
-                          icon: const Icon(
-                            Icons.add_rounded,
-                            size: 32,
-                          ),
-                          color: theme.colorScheme.onSurface,
-                          onPressed: addTodo,
-                        ),
-                      ),
-                      onSubmitted: (_) => addTodo(),
-                    ),
+                    AddTodoInputField(),
                     Expanded(
                       child: todos.isNotEmpty
                           ? ListView.builder(
