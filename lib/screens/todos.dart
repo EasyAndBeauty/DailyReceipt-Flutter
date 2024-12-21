@@ -25,7 +25,7 @@ class _TodosScreenState extends State<TodosScreen> {
   final TextEditingController addController = TextEditingController();
   final TextEditingController editController = TextEditingController();
   String? editingId;
-  final Uuid _uuid = Uuid();
+  final Uuid _uuid = const Uuid();
 
   @override
   Widget build(BuildContext context) {
