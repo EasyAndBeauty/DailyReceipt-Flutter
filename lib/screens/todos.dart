@@ -30,8 +30,10 @@ class _TodosScreenState extends State<TodosScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     final Todos todosProvider = Provider.of<Todos>(context, listen: true);
     final calendarProvider = Provider.of<Calendar>(context, listen: true);
+
     List<Todo> todos =
         todosProvider.groupedTodosByDate[calendarProvider.selectedDate] ?? [];
 
@@ -39,6 +41,7 @@ class _TodosScreenState extends State<TodosScreen> {
       if (editController.text.isEmpty || editingId == null) return;
 
       todosProvider.update(editingId!, editController.text);
+
       setState(() {
         editingId = null;
       });
