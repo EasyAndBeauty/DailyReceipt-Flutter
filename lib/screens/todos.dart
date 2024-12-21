@@ -9,14 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class TodosScreen extends StatefulWidget {
+class TodosScreen extends StatelessWidget {
   const TodosScreen({super.key});
 
-  @override
-  _TodosScreenState createState() => _TodosScreenState();
-}
-
-class _TodosScreenState extends State<TodosScreen> {
   @override
   Widget build(BuildContext context) {
     final calendarProvider = Provider.of<Calendar>(context, listen: true);
