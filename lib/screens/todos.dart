@@ -6,12 +6,12 @@ import 'package:daily_receipt/widgets/calendar_dialog.dart';
 import 'package:daily_receipt/widgets/receipt_button.dart';
 import 'package:daily_receipt/widgets/timer_bottom_sheet.dart';
 import 'package:daily_receipt/widgets/todo_action_bottom_sheet.dart';
+import 'package:daily_receipt/widgets/weekly_date_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:uuid/uuid.dart';
 
 class TodosScreen extends StatefulWidget {
@@ -135,69 +135,7 @@ class _TodosScreenState extends State<TodosScreen> {
                         ),
                       ],
                     ),
-                    TableCalendar(
-                      firstDay: DateTime.utc(2023, 1, 1),
-                      lastDay: DateTime.utc(2034, 12, 31),
-                      focusedDay: calendarProvider.selectedDate.toLocal(),
-                      calendarFormat: CalendarFormat.week,
-                      onDaySelected: (selectedDay, focusedDay) {
-                        calendarProvider.selectDate(selectedDay);
-                      },
-                      selectedDayPredicate: (day) {
-                        return isSameDay(calendarProvider.selectedDate, day);
-                      },
-                      eventLoader: (day) {
-                        return todosProvider.groupedTodosByDate[day] != null
-                            ? [true]
-                            : [];
-                      },
-                      headerStyle: const HeaderStyle(
-                        titleTextStyle: TextStyle(fontSize: 0),
-                        formatButtonVisible: false,
-                        leftChevronVisible: false,
-                        rightChevronVisible: false,
-                        headerMargin: EdgeInsets.zero,
-                      ),
-                      daysOfWeekStyle: DaysOfWeekStyle(
-                        weekdayStyle: TextStyle(
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                        weekendStyle: TextStyle(
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                      calendarStyle: CalendarStyle(
-                        defaultTextStyle: TextStyle(
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                        weekendTextStyle: TextStyle(
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                        todayTextStyle: TextStyle(
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                        selectedTextStyle: TextStyle(
-                          color: theme.colorScheme.primary,
-                        ),
-                        todayDecoration: BoxDecoration(
-                          color: theme.colorScheme.secondary,
-                          shape: BoxShape.circle,
-                        ),
-                        selectedDecoration: BoxDecoration(
-                          color: theme.colorScheme.onPrimary,
-                          shape: BoxShape.circle,
-                        ),
-                        markersAnchor: 4,
-                        markersAlignment: Alignment.topRight,
-                        markerMargin: const EdgeInsets.only(right: 5),
-                        markerSize: 8,
-                        markerDecoration: BoxDecoration(
-                          color: theme.colorScheme.tertiary,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      rowHeight: 60,
-                    ),
+                    const WeeklyDateSelector(),
                     TextField(
                       controller: addController,
                       style: theme.textTheme.bodyMedium?.copyWith(
