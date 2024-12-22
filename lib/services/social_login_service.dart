@@ -12,7 +12,7 @@ class SocialLoginService {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   // Google 로그인
-  Future<UserCredential?> signInWithGoogle() async {
+  Future<String?> signInWithGoogle() async {
     try {
       // Google 로그인 진행
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -29,7 +29,11 @@ class SocialLoginService {
       );
 
       // Firebase로 로그인
-      return await _auth.signInWithCredential(credential);
+      await _auth.signInWithCredential(credential);
+
+      // 토큰 발급
+      final token = await _auth.currentUser?.getIdToken();
+      return token;
     } catch (e) {
       print('Google Sign In Error: $e');
       rethrow;
@@ -37,7 +41,7 @@ class SocialLoginService {
   }
 
   // Apple 로그인
-  Future<UserCredential?> signInWithApple() async {
+  Future<String?> signInWithApple() async {
     try {
       // nonce 생성
       final rawNonce = _generateNonce();
@@ -60,7 +64,11 @@ class SocialLoginService {
       );
 
       // Firebase로 로그인
-      return await _auth.signInWithCredential(oauthCredential);
+      await _auth.signInWithCredential(oauthCredential);
+
+      // 토큰 발급
+      final token = await _auth.currentUser?.getIdToken();
+      return token;
     } catch (e) {
       print('Apple Sign In Error: $e');
       rethrow;

@@ -1,3 +1,4 @@
+import 'package:daily_receipt/services/auth_service.dart';
 import 'package:daily_receipt/services/social_login_service.dart';
 import 'package:daily_receipt/widgets/dashed_line.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +133,8 @@ class SocialButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final socialLoginService = SocialLoginService();
+   final SocialLoginService _socialLoginService = SocialLoginService();
+    final AuthService _authService = AuthService();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -140,9 +142,18 @@ class SocialButtonsSection extends StatelessWidget {
         SocialLoginButton(
           onPressed: () async {
             try {
-              final userCredential =
-                  await socialLoginService.signInWithGoogle();
-              if (userCredential != null && context.mounted) {
+              // Firebase Google 로그인으로 idToken 받기
+              final idToken = await _socialLoginService.signInWithGoogle();
+              if (idToken == null) {
+                print('Google login failed');
+                return;
+              }
+
+              // 서버에 토큰 검증 및 사용자 정보 요청
+              final userInfo = await _authService.fetchUserInfo(idToken);
+              print('User Info: $userInfo');
+
+              if (context.mounted) {
                 GoRouter.of(context).go('/');
               }
             } catch (e) {
@@ -159,8 +170,18 @@ class SocialButtonsSection extends StatelessWidget {
         SocialLoginButton(
           onPressed: () async {
             try {
-              final userCredential = await socialLoginService.signInWithApple();
-              if (userCredential != null && context.mounted) {
+              // Firebase Apple 로그인으로 idToken 받기
+              final idToken = await _socialLoginService.signInWithApple();
+              if (idToken == null) {
+                print('Apple login failed');
+                return;
+              }
+
+              // 서버에 토큰 검증 및 사용자 정보 요청
+              final userInfo = await _authService.fetchUserInfo(idToken);
+              print('User Info: $userInfo');
+
+              if (context.mounted) {
                 GoRouter.of(context).go('/');
               }
             } catch (e) {
