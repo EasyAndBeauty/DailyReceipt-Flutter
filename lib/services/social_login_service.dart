@@ -47,6 +47,8 @@ class SocialLoginService {
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
 
+      print('Nonce: $nonce');
+
       // Apple 로그인 요청
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
@@ -56,12 +58,17 @@ class SocialLoginService {
         nonce: nonce,
       );
 
+      print('User Identifier: ${appleCredential.userIdentifier}');
+      print('Email: ${appleCredential.email}');
+
       // Firebase credential 생성
       final oauthCredential = OAuthProvider("apple.com").credential(
         idToken: appleCredential.identityToken!,
         rawNonce: rawNonce,
         accessToken: appleCredential.authorizationCode,
       );
+
+      print('OAuth Credential: ${oauthCredential.accessToken}');
 
       // Firebase로 로그인
       await _auth.signInWithCredential(oauthCredential);

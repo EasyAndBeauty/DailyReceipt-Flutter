@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthService {
- // localhost 대신 실제 IP 사용 (테스트 시에는 localhost로 시작)
-  final String baseUrl = 'http://localhost:8000/api/auth';
+  final String baseUrl;
+
+  AuthService({required this.baseUrl});
 
   Future<Map<String, dynamic>> fetchUserInfo(String idToken) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/social-auth/'),
+        Uri.parse('$baseUrl/api/auth/social-auth/'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -33,7 +34,7 @@ class AuthService {
   Future<bool> validateToken(String idToken) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/validate-token/'),
+        Uri.parse('$baseUrl/api/auth/validate-token/'),
         headers: {
           'Content-Type': 'application/json',
         },

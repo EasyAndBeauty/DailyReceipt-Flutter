@@ -1,3 +1,4 @@
+import 'package:daily_receipt/config/di.dart';
 import 'package:daily_receipt/services/auth_service.dart';
 import 'package:daily_receipt/services/social_login_service.dart';
 import 'package:daily_receipt/widgets/dashed_line.dart';
@@ -134,7 +135,7 @@ class SocialButtonsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    final SocialLoginService _socialLoginService = SocialLoginService();
-    final AuthService _authService = AuthService();
+    final AuthService _authService = getIt.get<AuthService>();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
