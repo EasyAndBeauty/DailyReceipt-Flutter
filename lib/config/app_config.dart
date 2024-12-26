@@ -1,27 +1,31 @@
 import 'environment.dart';
+import 'dart:io' show Platform;
 
 class AppConfig {
-  final String baseUrl;
-  final Environment environment;
+ final String baseUrl;
+ final Environment environment;
 
-  AppConfig({required this.baseUrl, required this.environment});
+ const AppConfig._({
+   required this.baseUrl,
+   required this.environment,
+ });
 
-  static late AppConfig instance;
+ static late AppConfig instance;
 
-  static void initialize(Environment env) {
-    switch (env) {
-      case Environment.dev:
-        instance = AppConfig(
-          baseUrl: 'http://127.0.0.1:8000', // Development Server
-          environment: Environment.dev,
-        );
-        break;
-      case Environment.prd:
-        instance = AppConfig(
-          baseUrl: 'https://api.example.com', // Production Server
-          environment: Environment.prd,
-        );
-        break;
-    }
-  }
+
+ static String _getDevBaseUrl() => Platform.isAndroid 
+   ? 'http://10.0.2.2:8000' 
+   : 'http://127.0.0.1:8000';
+
+ static AppConfig _createConfig(Environment env) => AppConfig._(
+   baseUrl: env == Environment.dev 
+     ? _getDevBaseUrl()
+     : 'https://api.example.com',
+   environment: env,
+ );
+
+ static void initialize(Environment env) {
+   print('✅ Platform.isAndroid: ${Platform.isAndroid}'); // 디버그용 로그 추가
+   instance = _createConfig(env);
+ }
 }
