@@ -34,7 +34,7 @@ android {
             dimension "environment"
             resValue "string", "app_name", "DailyReceipt.dev"
         }
-        prod {
+        prd {
             dimension "environment"
             resValue "string", "app_name", "DailyReceipt.prd"
         }
