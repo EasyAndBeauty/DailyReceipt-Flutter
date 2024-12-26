@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:daily_receipt/config/di.dart';
 import 'package:daily_receipt/services/auth_service.dart';
 import 'package:daily_receipt/services/social_login_service.dart';
@@ -168,6 +170,8 @@ class SocialButtonsSection extends StatelessWidget {
           text: tr.key49('Google'),
         ),
         const SizedBox(height: 4),
+        // ios 인경우에만 apple 로그인 버튼 표시
+        if (!Platform.isAndroid) ...[
         SocialLoginButton(
           onPressed: () async {
             try {
@@ -192,9 +196,10 @@ class SocialButtonsSection extends StatelessWidget {
                 );
               }
             }
-          },
-          text: tr.key49('Apple'),
-        ),
+            },
+            text: tr.key49('Apple'),
+          ),
+        ],
       ],
     );
   }

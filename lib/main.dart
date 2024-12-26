@@ -91,7 +91,7 @@ GoRouter createRouter() {
                   state.extra as Map<String, dynamic>;
 
               return ReceiptDetailScreen(
-                selectedDate: extra['key4'],
+                selectedDate: extra[tr.key4],
               );
             },
           ),
