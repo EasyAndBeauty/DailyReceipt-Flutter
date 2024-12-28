@@ -43,7 +43,7 @@ void main() async {
   print('✅ AppConfig: ${AppConfig.instance.environment}');
 
   // 🔑 DI 설정
-  setupDI();
+  await setupDI();
 
   print('✅ DI: ${getIt.get<AuthService>().baseUrl}'); 
 
