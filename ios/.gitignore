@@ -26,6 +26,21 @@ Flutter/flutter_assets/
 Flutter/flutter_export_environment.sh
 ServiceDefinitions.json
 Runner/GeneratedPluginRegistrant.*
+ios/*.mode1v3
+ios/*.mode2v3
+ios/*.moved-aside
+ios/*.pbxuser
+ios/*.perspectivev3
+ios/*/build/*
+ios/.tags*
+ios/.idea/*
+ios/.generated/*
+ios/*.hmap
+ios/*.ipa
+ios/*.xcuserstate
+ios/Pods/
+ios/.symlinks/
+ios/Podfile.lock
 
 # Exceptions to above rules.
 !default.mode1v3

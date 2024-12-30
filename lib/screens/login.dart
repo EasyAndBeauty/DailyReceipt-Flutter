@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:daily_receipt/config/di.dart';
+import 'package:daily_receipt/services/auth_service.dart';
+import 'package:daily_receipt/services/social_login_service.dart';
 import 'package:daily_receipt/widgets/dashed_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:daily_receipt/services/localization_service.dart';
 import 'package:go_router/go_router.dart';
-import 'package:daily_receipt/services/localization_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -132,24 +136,70 @@ class SocialButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   final SocialLoginService _socialLoginService = SocialLoginService();
+    final AuthService _authService = getIt.get<AuthService>();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SocialLoginButton(
-          onPressed: () {
-            print('Google 로그인 성공');
-            GoRouter.of(context).go('/');
+          onPressed: () async {
+            try {
+              // Firebase Google 로그인으로 idToken 받기
+              final idToken = await _socialLoginService.signInWithGoogle();
+              if (idToken == null) {
+                print('Google login failed');
+                return;
+              }
+
+              // 서버에 토큰 검증 및 사용자 정보 요청
+              final userInfo = await _authService.fetchUserInfo(idToken);
+              print('User Info: $userInfo');
+
+              if (context.mounted) {
+                GoRouter.of(context).go('/');
+              }
+            } catch (e) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Google 로그인 실패: $e')),
+                );
+              }
+            }
           },
           text: tr.key49('Google'),
         ),
         const SizedBox(height: 4),
+        // ios 인경우에만 apple 로그인 버튼 표시
+        if (!Platform.isAndroid) ...[
         SocialLoginButton(
-          onPressed: () {
-            print('Apple 로그인 성공');
-            GoRouter.of(context).go('/');
-          },
-          text: tr.key49('Apple'),
-        ),
+          onPressed: () async {
+            try {
+              // Firebase Apple 로그인으로 idToken 받기
+              final idToken = await _socialLoginService.signInWithApple();
+              if (idToken == null) {
+                print('Apple login failed');
+                return;
+              }
+
+              // 서버에 토큰 검증 및 사용자 정보 요청
+              final userInfo = await _authService.fetchUserInfo(idToken);
+              print('User Info: $userInfo');
+
+              if (context.mounted) {
+                GoRouter.of(context).go('/');
+              }
+            } catch (e) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Apple 로그인 실패: $e')),
+                );
+              }
+            }
+            },
+            text: tr.key49('Apple'),
+          ),
+        ],
       ],
     );
   }

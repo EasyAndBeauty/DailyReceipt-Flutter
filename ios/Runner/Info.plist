@@ -2,6 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.266742758932-vbpmekbqd3jojptdna430ranq3simpcj</string>
+				<string>signinwithapple</string>
+				<string>com.easyandbeauty.dailyReceiptApp</string>
+			</array>
+		</dict>
+	</array>
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires camera access to scan receipts.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -29,7 +46,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library for saving receipts.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-    <string>This app requires access to the photo library for saving receipts.</string>
+	<string>This app requires access to the photo library for saving receipts.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

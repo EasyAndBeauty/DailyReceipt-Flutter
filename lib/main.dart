@@ -1,23 +1,69 @@
-import 'package:daily_receipt/models/calendar.dart';
-import 'package:daily_receipt/models/todos.dart';
-import 'package:daily_receipt/screens/receipt_detail.dart';
-import 'package:daily_receipt/screens/splash.dart';
-import 'package:daily_receipt/screens/login.dart';
-import 'package:daily_receipt/screens/todos.dart';
-import 'package:daily_receipt/services/localization_service.dart';
+import 'package:daily_receipt/services/auth_service.dart'; // 주석 처리
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 
-import './theme.dart';
+import 'config/app_config.dart';
+import 'config/environment.dart';
+import 'config/di.dart';
+import 'models/calendar.dart';
+import 'models/todos.dart';
+import 'screens/splash.dart';
+import 'screens/login.dart';
+import 'screens/todos.dart';
+import 'screens/receipt_detail.dart';
+import 'services/localization_service.dart';
+import 'theme.dart';
+import 'firebase_options.dart';
 
-void main() {
+// FLAVOR 환경 변수 설정
+const String flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 🔑 Firebase 초기화 (환경에 따라 옵션 분리)
+  await Firebase.initializeApp(
+    options: flavor == 'prd'
+        ? DefaultFirebaseOptions.currentPlatform // Production
+        : DefaultFirebaseOptions.currentPlatform, // Development
+  );
+
+  print('✅ FLAVOR: $flavor');
+
+  // 🔑 AppConfig 초기화
+  AppConfig.initialize(
+    flavor == 'prd' ? Environment.prd : Environment.dev,
+  );
+
+  print('✅ AppConfig: ${AppConfig.instance.environment}');
+
+  // 🔑 DI 설정
+  setupDI();
+
+  print('✅ DI: ${getIt.get<AuthService>().baseUrl}'); 
+
   GoogleFonts.config.allowRuntimeFetching = false;
 
-  final GoRouter router = GoRouter(
+  // 🔑 GoRouter 설정
+  final GoRouter router = createRouter();
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => Todos()),
+      ChangeNotifierProvider(create: (context) => Calendar()),
+    ],
+    child: MyApp(router: router),
+  ));
+}
+
+/// GoRouter 설정
+GoRouter createRouter() {
+  return GoRouter(
     initialLocation: '/splash',
     routes: <RouteBase>[
       GoRoute(
@@ -29,7 +75,7 @@ void main() {
       GoRoute(
         path: '/login',
         builder: (BuildContext context, GoRouterState state) {
-          return LoginScreen();
+          return const LoginScreen();
         },
       ),
       GoRoute(
@@ -53,16 +99,9 @@ void main() {
       ),
     ],
   );
-
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => Todos()),
-      ChangeNotifierProvider(create: (context) => Calendar()),
-    ],
-    child: MyApp(router: router),
-  ));
 }
 
+/// 메인 앱 위젯
 class MyApp extends StatelessWidget {
   final GoRouter router;
 
@@ -71,7 +110,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Daily Receipt',
+      title: AppConfig.instance.environment == Environment.prd
+          ? 'Daily Receipt (Production)'
+          : 'Daily Receipt (Development)',
       themeMode: ThemeMode.dark,
       darkTheme: AppTheme.darkTheme,
       routerConfig: router,

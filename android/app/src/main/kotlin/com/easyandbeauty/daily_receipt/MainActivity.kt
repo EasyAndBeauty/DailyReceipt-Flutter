@@ -1,4 +1,4 @@
-package com.example.daily_receipt
+package com.easyandbeauty.daily_receipt
 
 import io.flutter.embedding.android.FlutterActivity
 
