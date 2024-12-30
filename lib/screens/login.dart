@@ -136,8 +136,7 @@ class SocialButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final SocialLoginService _socialLoginService = SocialLoginService();
-    final AuthService _authService = getIt.get<AuthService>();
+    final SocialLoginService _socialLoginService = getIt.get<SocialLoginService>();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -146,14 +145,7 @@ class SocialButtonsSection extends StatelessWidget {
           onPressed: () async {
             try {
               // Firebase Google 로그인으로 idToken 받기
-              final idToken = await _socialLoginService.signInWithGoogle();
-              if (idToken == null) {
-                print('Google login failed');
-                return;
-              }
-
-              // 서버에 토큰 검증 및 사용자 정보 요청
-              final userInfo = await _authService.fetchUserInfo(idToken);
+              final userInfo = await _socialLoginService.signInWithGoogle();
               print('User Info: $userInfo');
 
               if (context.mounted) {
@@ -176,15 +168,11 @@ class SocialButtonsSection extends StatelessWidget {
           onPressed: () async {
             try {
               // Firebase Apple 로그인으로 idToken 받기
-              final idToken = await _socialLoginService.signInWithApple();
-              if (idToken == null) {
+              final userInfo = await _socialLoginService.signInWithApple();
+              if (userInfo == null) {
                 print('Apple login failed');
                 return;
               }
-
-              // 서버에 토큰 검증 및 사용자 정보 요청
-              final userInfo = await _authService.fetchUserInfo(idToken);
-              print('User Info: $userInfo');
 
               if (context.mounted) {
                 GoRouter.of(context).go('/');
@@ -193,9 +181,9 @@ class SocialButtonsSection extends StatelessWidget {
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Apple 로그인 실패: $e')),
-                );
+                  );
+                }
               }
-            }
             },
             text: tr.key49('Apple'),
           ),

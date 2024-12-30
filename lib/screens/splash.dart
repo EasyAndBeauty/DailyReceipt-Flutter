@@ -1,3 +1,5 @@
+import 'package:daily_receipt/config/di.dart';
+import 'package:daily_receipt/services/token_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -14,13 +16,24 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToHome();
+    _checkAuthStatus();
   }
 
-  void _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 3));
+  void _checkAuthStatus() async {
+    final tokenService = getIt.get<TokenService>();
+    final token = await tokenService.getToken();
     if (!mounted) return;
-    GoRouter.of(context).go('/login');
+    if (token != null) {
+      // 토큰이 있으면 메인 화면으로
+      await Future.delayed(const Duration(seconds: 3));
+      if (!mounted) return;
+      GoRouter.of(context).go('/');
+    } else {
+      // 토큰이 없으면 로그인 화면으로
+      await Future.delayed(const Duration(seconds: 3));
+        if (!mounted) return;
+        GoRouter.of(context).go('/login');
+      }
   }
 
   @override
