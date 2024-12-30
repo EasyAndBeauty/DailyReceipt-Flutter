@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:daily_receipt/config/di.dart';
-import 'package:daily_receipt/services/auth_service.dart';
 import 'package:daily_receipt/services/social_login_service.dart';
 import 'package:daily_receipt/widgets/dashed_line.dart';
 import 'package:flutter/material.dart';
