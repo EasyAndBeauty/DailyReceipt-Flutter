@@ -56,6 +56,7 @@ dependencies:
   crypto: ^3.0.3
   http: ^1.2.0
   get_it: ^8.0.0
+  flutter_dotenv: ^5.2.0
 
 dev_dependencies:
   args: ^2.4.2
@@ -93,6 +94,10 @@ flutter:
     - assets/barcode.png
     - assets/icons/
     - google_fonts/
+
+    # .env 파일 경로
+    - .env.dev
+    - .env.prd
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
