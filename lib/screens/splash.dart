@@ -21,7 +21,7 @@ class SplashScreenState extends State<SplashScreen> {
 
   void _checkAuthStatus() async {
     final tokenService = getIt.get<TokenService>();
-    final token = await tokenService.getToken();
+    final token = await tokenService.getToken(forceRefresh: true);
     if (!mounted) return;
     if (token != null) {
       // 토큰이 있으면 메인 화면으로
@@ -31,9 +31,9 @@ class SplashScreenState extends State<SplashScreen> {
     } else {
       // 토큰이 없으면 로그인 화면으로
       await Future.delayed(const Duration(seconds: 3));
-        if (!mounted) return;
-        GoRouter.of(context).go('/login');
-      }
+      if (!mounted) return;
+      GoRouter.of(context).go('/login');
+    }
   }
 
   @override
