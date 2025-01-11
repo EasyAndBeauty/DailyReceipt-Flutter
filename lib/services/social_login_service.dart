@@ -15,10 +15,10 @@ class SocialLoginService {
   final AuthService _authService;
   final TokenService _tokenService;
 
-  SocialLoginService({required AuthService authService, required TokenService tokenService})
+  SocialLoginService(
+      {required AuthService authService, required TokenService tokenService})
       : _authService = authService,
         _tokenService = tokenService;
-
 
   // Google 로그인
   Future<Map<String, dynamic>?> signInWithGoogle() async {
@@ -38,18 +38,16 @@ class SocialLoginService {
       );
 
       // Firebase로 로그인
-      final userCredential = await _auth.signInWithCredential(credential);
+      await _auth.signInWithCredential(credential);
 
-      // 토큰 발급
-      final token = await userCredential.user?.getIdToken();
+      // 토큰 발급 + 저장
+      final token = await _tokenService.getToken(forceRefresh: true);
 
       if (token == null) {
         throw Exception('Token is not found');
       }
 
       final userInfo = await _authService.fetchUserInfo(token);
-
-      await _tokenService.saveToken(token);
 
       return userInfo;
     } catch (e) {
@@ -91,14 +89,13 @@ class SocialLoginService {
       // Firebase로 로그인
       await _auth.signInWithCredential(oauthCredential);
 
-      // 토큰 발급
-      final token = await _auth.currentUser?.getIdToken();
+      // 토큰 발급 + 저장
+      final token = await _tokenService.getToken(forceRefresh: true);
       if (token == null) {
         throw Exception('Token is not found');
       }
 
       final userInfo = await _authService.fetchUserInfo(token);
-      await _tokenService.saveToken(token);
 
       return userInfo;
     } catch (e) {
