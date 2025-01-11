@@ -45,8 +45,6 @@ void main() async {
   // 🔑 DI 설정
   await setupDI();
 
-  print('✅ DI: ${getIt.get<AuthService>().baseUrl}'); 
-
   GoogleFonts.config.allowRuntimeFetching = false;
 
   // 🔑 GoRouter 설정
