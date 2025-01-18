@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'config/app_config.dart';
 import 'config/environment.dart';
@@ -25,6 +26,9 @@ const String flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Add this line to load the appropriate .env file based on flavor
+  await dotenv.load(fileName: flavor == 'prd' ? '.env.prd' : '.env.dev');
 
   // 🔑 Firebase 초기화 (환경에 따라 옵션 분리)
   await Firebase.initializeApp(
