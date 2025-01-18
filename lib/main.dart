@@ -43,9 +43,7 @@ void main() async {
   print('✅ AppConfig: ${AppConfig.instance.environment}');
 
   // 🔑 DI 설정
-  setupDI();
-
-  print('✅ DI: ${getIt.get<AuthService>().baseUrl}'); 
+  await setupDI();
 
   GoogleFonts.config.allowRuntimeFetching = false;
 

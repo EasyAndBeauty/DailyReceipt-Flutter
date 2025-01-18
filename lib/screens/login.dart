@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:daily_receipt/config/di.dart';
-import 'package:daily_receipt/services/auth_service.dart';
 import 'package:daily_receipt/services/social_login_service.dart';
 import 'package:daily_receipt/widgets/dashed_line.dart';
 import 'package:flutter/material.dart';
@@ -136,8 +135,8 @@ class SocialButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final SocialLoginService _socialLoginService = SocialLoginService();
-    final AuthService _authService = getIt.get<AuthService>();
+    final SocialLoginService _socialLoginService =
+        getIt.get<SocialLoginService>();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -146,25 +145,18 @@ class SocialButtonsSection extends StatelessWidget {
           onPressed: () async {
             try {
               // Firebase Google 로그인으로 idToken 받기
-              final idToken = await _socialLoginService.signInWithGoogle();
-              if (idToken == null) {
+              final userInfo = await _socialLoginService.signInWithGoogle();
+
+              if (userInfo == null) {
                 print('Google login failed');
                 return;
               }
-
-              // 서버에 토큰 검증 및 사용자 정보 요청
-              final userInfo = await _authService.fetchUserInfo(idToken);
-              print('User Info: $userInfo');
 
               if (context.mounted) {
                 GoRouter.of(context).go('/');
               }
             } catch (e) {
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Google 로그인 실패: $e')),
-                );
-              }
+              print('Google login failed: $e');
             }
           },
           text: tr.key49('Google'),
@@ -172,30 +164,22 @@ class SocialButtonsSection extends StatelessWidget {
         const SizedBox(height: 4),
         // ios 인경우에만 apple 로그인 버튼 표시
         if (!Platform.isAndroid) ...[
-        SocialLoginButton(
-          onPressed: () async {
-            try {
-              // Firebase Apple 로그인으로 idToken 받기
-              final idToken = await _socialLoginService.signInWithApple();
-              if (idToken == null) {
-                print('Apple login failed');
-                return;
-              }
+          SocialLoginButton(
+            onPressed: () async {
+              try {
+                // Firebase Apple 로그인으로 idToken 받기
+                final userInfo = await _socialLoginService.signInWithApple();
+                if (userInfo == null) {
+                  print('Apple login failed');
+                  return;
+                }
 
-              // 서버에 토큰 검증 및 사용자 정보 요청
-              final userInfo = await _authService.fetchUserInfo(idToken);
-              print('User Info: $userInfo');
-
-              if (context.mounted) {
-                GoRouter.of(context).go('/');
+                if (context.mounted) {
+                  GoRouter.of(context).go('/');
+                }
+              } catch (e) {
+                print('Apple login failed: $e');
               }
-            } catch (e) {
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Apple 로그인 실패: $e')),
-                );
-              }
-            }
             },
             text: tr.key49('Apple'),
           ),
