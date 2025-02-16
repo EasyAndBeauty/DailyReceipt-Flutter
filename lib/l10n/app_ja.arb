@@ -30,33 +30,33 @@
     "type": "text",
     "placeholders": {}
   },
-  "key6": "コピー",
+  "key6": "Save&Copy",
   "@key6": {
-    "description": "Copy action button",
+    "description": "Save&Copy action button",
     "type": "text",
     "placeholders": {}
   },
-  "key7": "コピー中...",
+  "key7": "保存＆コピー中...",
   "@key7": {
-    "description": "Copy in progress",
+    "description": "Save&Copy in progress",
     "type": "text",
     "placeholders": {}
   },
-  "key8": "レシート画像をクリップボードにコピーしています。お待ちください。",
+  "key8": "レシート画像を保存＆コピーしています。お待ちください。",
   "@key8": {
-    "description": "Copy to clipboard message",
+    "description": "Save&Copy to clipboard message",
     "type": "text",
     "placeholders": {}
   },
-  "key9": "コピー完了",
+  "key9": "保存＆コピー完了",
   "@key9": {
-    "description": "Copy complete",
+    "description": "Save&Copy complete",
     "type": "text",
     "placeholders": {}
   },
-  "key10": "レシート画像がクリップボードにコピーされました。",
+  "key10": "レシート画像が保存＆コピーされました。",
   "@key10": {
-    "description": "Copy success message",
+    "description": "Save&Copy success message",
     "type": "text",
     "placeholders": {}
   },
@@ -66,9 +66,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "key12": "レシートのコピー中にエラーが発生しました：",
+  "key12": "レシートの保存＆コピー中にエラーが発生しました：",
   "@key12": {
-    "description": "Copy error message",
+    "description": "Save&Copy error message",
     "type": "text",
     "placeholders": {}
   },
@@ -111,6 +111,12 @@
   "key19": "レシートの共有中にエラーが発生しました：",
   "@key19": {
     "description": "Share error message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key2": "時を集める",
+  "@key2": {
+    "description": "Input placeholder",
     "type": "text",
     "placeholders": {}
   },
@@ -174,7 +180,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "key30": "素晴らしい！\n今日の集中力が\n明日の成果につながります。",
+  "key3": "今日はタスクがありません",
+  "@key3": {
+    "description": "Message when no tasks are available",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key30": "素晴らしい！\r\n今日の集中力が\r\n明日の成果につながります。",
   "@key30": {
     "description": "Description not provided",
     "type": "text",
@@ -234,6 +246,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "key4": "選択された日付",
+  "@key4": {
+    "description": "Display for the selected date",
+    "type": "text",
+    "placeholders": {}
+  },
   "key40": "TOTAL",
   "@key40": {
     "description": "Description not provided",
@@ -252,7 +270,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "key43": "share",
+  "key43": "Share",
   "@key43": {
     "description": "Share action button",
     "type": "text",
@@ -279,6 +297,54 @@
   "key47": "Edit",
   "@key47": {
     "description": "Edit action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key5": "デイリーレシートを印刷",
+  "@key5": {
+    "description": "Main title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key6": "コピー",
+  "@key6": {
+    "description": "Copy action button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key7": "コピー中...",
+  "@key7": {
+    "description": "Copy in progress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key8": "レシート画像をクリップボードにコピーしています。お待ちください。",
+  "@key8": {
+    "description": "Copy to clipboard message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key9": "コピー完了",
+  "@key9": {
+    "description": "Copy complete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key48": "GET STARTED",
+  "@key48": {
+    "description": "GET STARTED",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key49": "Continue with {social}",
+  "@key49": {
+    "description": "Continue with {social}",
+    "type": "text",
+    "placeholders": {}
+  },
+  "key50": "if you don't have an account, \nusing only local features",
+  "@key50": {
+    "description": "if you don't have an account, \\nusing only local features",
     "type": "text",
     "placeholders": {}
   }

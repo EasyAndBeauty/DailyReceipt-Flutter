@@ -152,9 +152,9 @@ class Todos extends ChangeNotifier {
       grouped[date]!.add(todo);
     }
 
-    // 각 그룹의 todo를 createdAt을 기준으로 정렬
+    // 각 그룹의 todo를 createdAt을 최신순으로 정렬
     for (final key in grouped.keys) {
-      grouped[key]!.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      grouped[key]!.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     }
 
     return grouped;
